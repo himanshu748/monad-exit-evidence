@@ -1,0 +1,100 @@
+✖ Nansen portfolio data changes budget outcome with transparent contribution (0.672482ms)
+✖ Nansen stale and wrong-account contexts fail closed (0.115343ms)
+✔ Nansen partial pages, mixed chain/account and missing valuation are rejected (0.316397ms)
+✖ Nansen valid user limits produce within-limits status, never trade authorization (0.268965ms)
+✖ no transport means no live request, no automatic payment or fake data (1.004303ms)
+✖ provider errors propagate unavailable; request uses exact official endpoint (0.423187ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 1
+ℹ fail 5
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 117.854727
+
+✖ failing tests:
+
+test at tests/nansen.test.ts:5:1
+✖ Nansen portfolio data changes budget outcome with transparent contribution (0.672482ms)
+  Error: not implemented
+      at normalizeNansenBalances (file:///workspace/scratch/521d0942f783/mandate-workbench/src/data/nansen.ts:1:67)
+      at TestContext.<anonymous> (file:///workspace/scratch/521d0942f783/mandate-workbench/tests/nansen.test.ts:5:96)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17)
+
+test at tests/nansen.test.ts:6:1
+✖ Nansen stale and wrong-account contexts fail closed (0.115343ms)
+  Error: not implemented
+      at normalizeNansenBalances (file:///workspace/scratch/521d0942f783/mandate-workbench/src/data/nansen.ts:1:67)
+      at TestContext.<anonymous> (file:///workspace/scratch/521d0942f783/mandate-workbench/tests/nansen.test.ts:6:73)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3)
+
+test at tests/nansen.test.ts:8:1
+✖ Nansen valid user limits produce within-limits status, never trade authorization (0.268965ms)
+  Error: not implemented
+      at normalizeNansenBalances (file:///workspace/scratch/521d0942f783/mandate-workbench/src/data/nansen.ts:1:67)
+      at TestContext.<anonymous> (file:///workspace/scratch/521d0942f783/mandate-workbench/tests/nansen.test.ts:8:102)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests/nansen.test.ts:9:1
+✖ no transport means no live request, no automatic payment or fake data (1.004303ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'not implemented'
+  - 'access-required'
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/521d0942f783/mandate-workbench/tests/nansen.test.ts:9:95)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'not implemented',
+    expected: 'access-required',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/nansen.test.ts:10:1
+✖ provider errors propagate unavailable; request uses exact official endpoint (0.423187ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /429/. Input:
+  
+  'Error: not implemented'
+  
+      at async TestContext.<anonymous> (file:///workspace/scratch/521d0942f783/mandate-workbench/tests/nansen.test.ts:10:108)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: Error: not implemented
+        at fetchNansenBalances (file:///workspace/scratch/521d0942f783/mandate-workbench/src/data/nansen.ts:1:267)
+        at file:///workspace/scratch/521d0942f783/mandate-workbench/tests/nansen.test.ts:10:133
+        at waitForActual (node:assert:632:21)
+        at strict.rejects (node:assert:769:31)
+        at TestContext.<anonymous> (file:///workspace/scratch/521d0942f783/mandate-workbench/tests/nansen.test.ts:10:121)
+        at Test.runInAsyncScope (node:async_hooks:227:14)
+        at Test.run (node:internal/test_runner/test:1382:25)
+        at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+        at Test.postRun (node:internal/test_runner/test:1522:19)
+        at Test.run (node:internal/test_runner/test:1447:12),
+    expected: /429/,
+    operator: 'rejects',
+    diff: 'simple'
+  }

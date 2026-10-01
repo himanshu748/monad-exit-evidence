@@ -1,0 +1,13 @@
+✔ chain and external API evidence establish only the named reduction observation (1.051964ms)
+✔ wrong chain/exchange/tx and quantity beyond policy contradict result (0.263957ms)
+✔ missing decrease is inconclusive; failed transaction is contradicted (0.16641ms)
+✔ stale API evidence cannot produce verified result (0.13994ms)
+✔ duplicate event is counted once and conflicting duplicate is rejected (0.207733ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 112.769503

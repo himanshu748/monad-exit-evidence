@@ -1,0 +1,11 @@
+{
+  "sourceRepository": "https://github.com/PerplFoundation/dex-sdk",
+  "sourceCommit": "01b9910761755b0a0d9c710c1ede62ab937daa7d",
+  "sourceFile": "crates/sdk/abi/dex/Exchange.json",
+  "extraction": "abi array only; JSON pretty-printed with trailing newline",
+  "sha256": "0a332e5d0b4622126e266151c3d7ca598314131533ea5f9cab1d61c0a0a87705",
+  "envioVersion": "3.12.1",
+  "postgresVersion": "17.9",
+  "nodeVersion": "v24.19.0",
+  "configuration": "public RPC sync, Hasura disabled, loopback PostgreSQL, no HyperSync token"
+}

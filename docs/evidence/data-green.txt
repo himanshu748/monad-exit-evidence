@@ -1,0 +1,14 @@
+✔ context converts live precision and marks source without fixture fallback (9.474374ms)
+✔ context fails on wrong chain, absent precision and unsafe integer (0.347864ms)
+✔ stale market is visible (0.347453ms)
+✔ book bounds validate sorting and unsafe quantities (0.281825ms)
+✔ long exit uses bid depth and correctly identifies finite snapshot shortfall (0.20548ms)
+✔ empty book means unknown quote, not zero price or executable fill (0.117446ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 158.968442

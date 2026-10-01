@@ -1,0 +1,29 @@
+✔ exact decimal amounts never pass through floating point (1.636984ms)
+✔ rejects malformed exact quantity 1e-3 (0.235644ms)
+✔ rejects malformed exact quantity -1 (0.865403ms)
+✔ rejects malformed exact quantity 0.000001 (0.115825ms)
+✔ rejects malformed exact quantity NaN (0.105149ms)
+✔ rejects malformed exact quantity Infinity (0.131237ms)
+✔ rejects malformed exact quantity  1 (0.185419ms)
+✔ rejects malformed exact quantity 1. (0.084787ms)
+✔ rejects malformed exact quantity 01.2 (0.123846ms)
+✔ valid close preserves fixed quantity and zero real provider writes (3.127308ms)
+✔ unauthorized open is rejected before simulated submission (0.82345ms)
+✔ partial IOC ends partial without retry or held remainder (0.43827ms)
+✔ unknown submission retains allowance and does not retry (1.303863ms)
+✔ duplicate observation counts exactly one fill and submission (0.302475ms)
+✔ editing receipt outcome or policy fails integrity (0.884121ms)
+✔ tampered scenario is explicitly detected (0.681316ms)
+✔ close above original position is rejected (0.175013ms)
+✔ invalid chain input and precision is rejected (0.275445ms)
+✔ direct worker call cannot change account, market, chain, operation or policy (1.108399ms)
+✔ reserved, expired, revoked and stopped permissions deny new dispatch (0.563669ms)
+✔ missing required predicates is structural failure even if digest is recomputed (0.433704ms)
+ℹ tests 21
+ℹ suites 0
+ℹ pass 21
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 159.888639

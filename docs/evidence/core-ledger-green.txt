@@ -1,0 +1,114 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> mandate-workbench@0.1.0 test
+> node --test tests/*.test.ts
+
+✔ exact decimal amounts never pass through floating point (1.675182ms)
+✔ rejects malformed exact quantity 1e-3 (0.349917ms)
+✔ rejects malformed exact quantity -1 (0.137628ms)
+✔ rejects malformed exact quantity 0.000001 (0.142534ms)
+✔ rejects malformed exact quantity NaN (1.081148ms)
+✔ rejects malformed exact quantity Infinity (0.190037ms)
+✔ rejects malformed exact quantity  1 (0.163276ms)
+✔ rejects malformed exact quantity 1. (0.141993ms)
+✔ rejects malformed exact quantity 01.2 (0.189015ms)
+✔ valid close preserves fixed quantity and zero real provider writes (12.483897ms)
+✔ unauthorized open is rejected before simulated submission (0.79017ms)
+✔ partial IOC ends partial without retry or held remainder (0.513413ms)
+✔ unknown submission retains allowance and does not retry (1.508572ms)
+✔ duplicate observation counts exactly one fill and submission (0.334173ms)
+✔ editing receipt outcome or policy fails integrity (0.970301ms)
+✔ tampered scenario is explicitly detected (0.74396ms)
+✔ close above original position is rejected (0.180542ms)
+✔ invalid chain input and precision is rejected (0.173642ms)
+✔ direct worker call cannot change account, market, chain, operation or policy (1.628061ms)
+✔ reserved, expired, revoked and stopped permissions deny new dispatch (0.878793ms)
+✖ Envio normalization preserves exact quantities and chain/contract/log provenance (1.072525ms)
+✔ Envio rejects malformed event provenance and lossy numbers (0.360803ms)
+✖ Envio taker fills never invent a market/account absent from their ABI (0.12642ms)
+✖ Envio projection dedupes exact log IDs and sorts deterministically (0.142925ms)
+✖ Envio conflicting duplicate logs, wrong network, and event beyond watermark fail closed (0.117487ms)
+✖ Envio empty verified index is live, but stale or unindexed data is unavailable (2.128224ms)
+✖ Missing Envio service returns explicit unavailable with no fabricated events (0.535616ms)
+✔ idempotency survives close and restart with unknown reservation unchanged (19.934896ms)
+✔ same idempotency key with changed amount is conflict and creates no replacement (1.814502ms)
+ℹ tests 29
+ℹ suites 0
+ℹ pass 23
+ℹ fail 6
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 186.813274
+
+✖ failing tests:
+
+test at tests/envio.test.ts:15:1
+✖ Envio normalization preserves exact quantities and chain/contract/log provenance (1.072525ms)
+  Error: Envio normalization not implemented
+      at normalizeExchangeEvent (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/src/normalize.ts:1:70)
+      at TestContext.<anonymous> (file:///workspace/scratch/521d0942f783/mandate-workbench/tests/envio.test.ts:16:16)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17)
+
+test at tests/envio.test.ts:30:1
+✖ Envio taker fills never invent a market/account absent from their ABI (0.12642ms)
+  Error: Envio normalization not implemented
+      at normalizeExchangeEvent (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/src/normalize.ts:1:70)
+      at TestContext.<anonymous> (file:///workspace/scratch/521d0942f783/mandate-workbench/tests/envio.test.ts:31:16)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests/envio.test.ts:35:1
+✖ Envio projection dedupes exact log IDs and sorts deterministically (0.142925ms)
+  Error: Envio normalization not implemented
+      at normalizeExchangeEvent (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/src/normalize.ts:1:70)
+      at TestContext.<anonymous> (file:///workspace/scratch/521d0942f783/mandate-workbench/tests/envio.test.ts:36:17)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests/envio.test.ts:43:1
+✖ Envio conflicting duplicate logs, wrong network, and event beyond watermark fail closed (0.117487ms)
+  Error: Envio normalization not implemented
+      at normalizeExchangeEvent (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/src/normalize.ts:1:70)
+      at TestContext.<anonymous> (file:///workspace/scratch/521d0942f783/mandate-workbench/tests/envio.test.ts:44:16)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests/envio.test.ts:49:1
+✖ Envio empty verified index is live, but stale or unindexed data is unavailable (2.128224ms)
+  Error: Envio projection not implemented
+      at parseEnvioSnapshot (file:///workspace/scratch/521d0942f783/mandate-workbench/src/data/envio.ts:1:99)
+      at TestContext.<anonymous> (file:///workspace/scratch/521d0942f783/mandate-workbench/tests/envio.test.ts:50:16)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests/envio.test.ts:55:1
+✖ Missing Envio service returns explicit unavailable with no fabricated events (0.535616ms)
+  Error: Envio adapter not implemented
+      at getEnvioActivity (file:///workspace/scratch/521d0942f783/mandate-workbench/src/data/envio.ts:2:113)
+      at TestContext.<anonymous> (file:///workspace/scratch/521d0942f783/mandate-workbench/tests/envio.test.ts:56:24)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)

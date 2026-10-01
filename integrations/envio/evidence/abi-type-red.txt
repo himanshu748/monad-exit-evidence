@@ -1,0 +1,46 @@
+✔ Envio normalization preserves exact quantities and chain/contract/log provenance (7.783779ms)
+✔ Envio rejects malformed event provenance and lossy numbers (0.418199ms)
+✔ Envio taker fills never invent a market/account absent from their ABI (0.164959ms)
+✔ Envio projection dedupes exact log IDs and sorts deterministically (1.293637ms)
+✔ Envio conflicting duplicate logs, wrong network, and event beyond watermark fail closed (0.468725ms)
+✔ Envio empty verified index is live, but stale or unindexed data is unavailable (0.28553ms)
+✔ Missing Envio service returns explicit unavailable with no fabricated events (0.374604ms)
+✔ Envio adapter reads the actual fresh local read model (0.306902ms)
+✔ Envio fill event must have a quantity and maker account/market (0.266241ms)
+✔ Envio position decrease uses exact lot difference and closed quantity stays unknown (0.264769ms)
+✔ Envio projection rejects corrupted normalized quantities and mismatched block provenance (0.2791ms)
+✔ Envio adapter is pinned to network-specific local files and bad data is unavailable (0.486072ms)
+✖ Envio and independent ABI decoders canonicalize safe small integer types identically (1.1956ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 12
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 134.368973
+
+✖ failing tests:
+
+test at tests/envio.test.ts:93:1
+✖ Envio and independent ABI decoders canonicalize safe small integer types identically (1.1956ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '{"accountId":"99","lotLNS":"20","orderType":"4","perpId":"1"}'
+  - '{"accountId":"99","lotLNS":"20","orderType":4,"perpId":"1"}'
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/521d0942f783/mandate-workbench/tests/envio.test.ts:96:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '{"accountId":"99","lotLNS":"20","orderType":"4","perpId":"1"}',
+    expected: '{"accountId":"99","lotLNS":"20","orderType":4,"perpId":"1"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

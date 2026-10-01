@@ -1,0 +1,14 @@
+✔ Nansen portfolio data changes budget outcome with transparent contribution (9.149837ms)
+✔ Nansen stale and wrong-account contexts fail closed (0.302085ms)
+✔ Nansen partial pages, mixed chain/account and missing valuation are rejected (0.319301ms)
+✔ Nansen valid user limits produce within-limits status, never trade authorization (0.284198ms)
+✔ no transport means no live request, no automatic payment or fake data (0.433963ms)
+✔ provider errors propagate unavailable; request uses exact official endpoint (0.174252ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 138.246544

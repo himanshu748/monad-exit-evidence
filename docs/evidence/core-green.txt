@@ -1,0 +1,26 @@
+✔ exact decimal amounts never pass through floating point (1.163972ms)
+✔ rejects malformed exact quantity 1e-3 (0.224749ms)
+✔ rejects malformed exact quantity -1 (0.084167ms)
+✔ rejects malformed exact quantity 0.000001 (0.077106ms)
+✔ rejects malformed exact quantity NaN (0.105179ms)
+✔ rejects malformed exact quantity Infinity (0.850161ms)
+✔ rejects malformed exact quantity  1 (0.144517ms)
+✔ rejects malformed exact quantity 1. (0.108263ms)
+✔ rejects malformed exact quantity 01.2 (0.111578ms)
+✔ valid close preserves fixed quantity and zero real provider writes (9.7618ms)
+✔ unauthorized open is rejected before simulated submission (0.559903ms)
+✔ partial IOC ends partial without retry or held remainder (0.422617ms)
+✔ unknown submission retains allowance and does not retry (1.382101ms)
+✔ duplicate observation counts exactly one fill and submission (0.252099ms)
+✔ editing receipt outcome or policy fails integrity (0.614816ms)
+✔ tampered scenario is explicitly detected (0.572413ms)
+✔ close above original position is rejected (0.190006ms)
+✔ invalid chain input and precision is rejected (0.148934ms)
+ℹ tests 18
+ℹ suites 0
+ℹ pass 18
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 144.254225

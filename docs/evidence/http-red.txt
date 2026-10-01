@@ -1,0 +1,67 @@
+✖ HTTP replay is durable idempotent and changed body conflicts (34.746295ms)
+✖ HTTP cannot forward arbitrary URLs or mutate provider and rejects bad origin (8.683569ms)
+✖ HTTP rejects precision changes and unknown snapshot (6.184588ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 0
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 223.320684
+
+✖ failing tests:
+
+test at tests/http.test.ts:3:1
+✖ HTTP replay is durable idempotent and changed body conflicts (34.746295ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  501 !== 200
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/521d0942f783/mandate-workbench/tests/http.test.ts:3:350)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 501,
+    expected: 200,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/http.test.ts:4:1
+✖ HTTP cannot forward arbitrary URLs or mutate provider and rejects bad origin (8.683569ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  501 !== 404
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/521d0942f783/mandate-workbench/tests/http.test.ts:4:153)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 501,
+    expected: 404,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/http.test.ts:5:1
+✖ HTTP rejects precision changes and unknown snapshot (6.184588ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  501 !== 422
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/521d0942f783/mandate-workbench/tests/http.test.ts:5:376)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 501,
+    expected: 422,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

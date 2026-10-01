@@ -1,0 +1,52 @@
+✔ exact decimal amounts never pass through floating point (1.712648ms)
+✔ rejects malformed exact quantity 1e-3 (0.354244ms)
+✔ rejects malformed exact quantity -1 (0.961067ms)
+✔ rejects malformed exact quantity 0.000001 (0.107281ms)
+✔ rejects malformed exact quantity NaN (0.102905ms)
+✔ rejects malformed exact quantity Infinity (0.101733ms)
+✔ rejects malformed exact quantity  1 (0.077116ms)
+✔ rejects malformed exact quantity 1. (0.074131ms)
+✔ rejects malformed exact quantity 01.2 (0.20603ms)
+✔ valid close preserves fixed quantity and zero real provider writes (2.849501ms)
+✔ unauthorized open is rejected before simulated submission (0.626553ms)
+✔ partial IOC ends partial without retry or held remainder (0.430498ms)
+✔ unknown submission retains allowance and does not retry (1.261279ms)
+✔ duplicate observation counts exactly one fill and submission (0.363597ms)
+✔ editing receipt outcome or policy fails integrity (0.602737ms)
+✔ tampered scenario is explicitly detected (0.448375ms)
+✔ close above original position is rejected (0.199069ms)
+✔ invalid chain input and precision is rejected (0.148123ms)
+✔ direct worker call cannot change account, market, chain, operation or policy (1.169131ms)
+✔ reserved, expired, revoked and stopped permissions deny new dispatch (0.593063ms)
+✖ missing required predicates is structural failure even if digest is recomputed (1.322712ms)
+ℹ tests 21
+ℹ suites 0
+ℹ pass 20
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 160.92134
+
+✖ failing tests:
+
+test at tests/core.test.ts:183:1
+✖ missing required predicates is structural failure even if digest is recomputed (1.322712ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  true !== false
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/521d0942f783/mandate-workbench/tests/core.test.ts:183:171)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

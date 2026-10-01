@@ -1,0 +1,37 @@
+✔ Envio normalization preserves exact quantities and chain/contract/log provenance (8.052506ms)
+✔ Envio rejects malformed event provenance and lossy numbers (0.603459ms)
+✔ Envio taker fills never invent a market/account absent from their ABI (0.345671ms)
+✔ Envio projection dedupes exact log IDs and sorts deterministically (1.217664ms)
+✔ Envio conflicting duplicate logs, wrong network, and event beyond watermark fail closed (0.407284ms)
+✔ Envio empty verified index is live, but stale or unindexed data is unavailable (0.318059ms)
+✔ Missing Envio service returns explicit unavailable with no fabricated events (0.519692ms)
+✖ Envio adapter reads the actual fresh local read model (1.113737ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 7
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 160.472945
+
+✖ failing tests:
+
+test at tests/envio.test.ts:64:1
+✖ Envio adapter reads the actual fresh local read model (1.113737ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'unavailable'
+  - 'live'
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/521d0942f783/mandate-workbench/tests/envio.test.ts:66:10)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'unavailable',
+    expected: 'live',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

@@ -1,0 +1,32 @@
+✔ context converts live precision and marks source without fixture fallback (3.052436ms)
+✔ context fails on wrong chain, absent precision and unsafe integer (0.490839ms)
+✔ stale market is visible (0.570168ms)
+✔ book bounds validate sorting and unsafe quantities (0.422496ms)
+✔ long exit uses bid depth and correctly identifies finite snapshot shortfall (0.336036ms)
+✔ empty book means unknown quote, not zero price or executable fill (0.20576ms)
+✔ collateral scale follows market-instance-token binding (0.381645ms)
+✔ HTTP replay is durable idempotent and changed body conflicts (47.138411ms)
+✔ HTTP cannot forward arbitrary URLs or mutate provider and rejects bad origin (21.533433ms)
+✔ HTTP rejects precision changes and unknown snapshot (8.169671ms)
+✔ health reports actual per-network Envio availability (5.520021ms)
+✔ Nansen portfolio data changes budget outcome with transparent contribution (3.339819ms)
+✔ Nansen stale and wrong-account contexts fail closed (0.482106ms)
+✔ Nansen partial pages, mixed chain/account and missing valuation are rejected (0.485451ms)
+✔ Nansen valid user limits produce within-limits status, never trade authorization (0.423138ms)
+✔ no transport means no live request, no automatic payment or fake data (1.750235ms)
+✔ provider errors propagate unavailable; request uses exact official endpoint (0.282465ms)
+✔ complete portfolio requires the first and only consistently sized page (1.124834ms)
+✔ chain and external API evidence establish only the named reduction observation (1.926811ms)
+✔ wrong chain/exchange/tx and quantity beyond policy contradict result (1.209802ms)
+✔ missing decrease is inconclusive; failed transaction is contradicted (0.414684ms)
+✔ stale API evidence cannot produce verified result (0.334964ms)
+✔ duplicate event is counted once and conflicting duplicate is rejected (0.345801ms)
+✔ policy preimage and exact limits bind the observation (0.210076ms)
+ℹ tests 24
+ℹ suites 0
+ℹ pass 24
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 474.553887

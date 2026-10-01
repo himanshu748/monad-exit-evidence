@@ -1,0 +1,6 @@
+staging-settings:
+  user-workflow:
+    workflow-name: "mandate-read-only-exit-verifier"
+  workflow-artifacts:
+    workflow-path: "./main.ts"
+    config-path: "./config.testnet.json"

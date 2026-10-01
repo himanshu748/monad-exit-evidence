@@ -1,0 +1,36 @@
+✔ exact decimal amounts never pass through floating point (1.533558ms)
+✔ rejects malformed exact quantity 1e-3 (0.236606ms)
+✔ rejects malformed exact quantity -1 (0.083826ms)
+✔ rejects malformed exact quantity 0.000001 (0.352931ms)
+✔ rejects malformed exact quantity NaN (0.110116ms)
+✔ rejects malformed exact quantity Infinity (1.265404ms)
+✔ rejects malformed exact quantity  1 (0.165799ms)
+✔ rejects malformed exact quantity 1. (0.18594ms)
+✔ rejects malformed exact quantity 01.2 (0.184548ms)
+✔ valid close preserves fixed quantity and zero real provider writes (13.646068ms)
+✔ unauthorized open is rejected before simulated submission (0.526182ms)
+✔ partial IOC ends partial without retry or held remainder (0.490919ms)
+✔ unknown submission retains allowance and does not retry (1.272726ms)
+✔ duplicate observation counts exactly one fill and submission (0.254914ms)
+✔ editing receipt outcome or policy fails integrity (0.755286ms)
+✔ tampered scenario is explicitly detected (0.569577ms)
+✔ close above original position is rejected (0.123706ms)
+✔ invalid chain input and precision is rejected (0.118068ms)
+✔ direct worker call cannot change account, market, chain, operation or policy (1.114427ms)
+✔ reserved, expired, revoked and stopped permissions deny new dispatch (0.517129ms)
+✔ context converts live precision and marks source without fixture fallback (11.558948ms)
+✔ context fails on wrong chain, absent precision and unsafe integer (0.419942ms)
+✔ stale market is visible (0.309055ms)
+✔ book bounds validate sorting and unsafe quantities (0.353983ms)
+✔ long exit uses bid depth and correctly identifies finite snapshot shortfall (0.228914ms)
+✔ empty book means unknown quote, not zero price or executable fill (0.159891ms)
+✔ idempotency survives close and restart with unknown reservation unchanged (15.050421ms)
+✔ same idempotency key with changed amount is conflict and creates no replacement (1.348149ms)
+ℹ tests 28
+ℹ suites 0
+ℹ pass 28
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 178.620696

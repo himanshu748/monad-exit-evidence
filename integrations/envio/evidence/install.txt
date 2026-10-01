@@ -1,0 +1,40 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+npm warn EBADENGINE Unsupported engine {
+npm warn EBADENGINE   package: '@fuel-ts/crypto@0.96.1',
+npm warn EBADENGINE   required: { node: '^18.20.3 || ^20.0.0 || ^22.0.0' },
+npm warn EBADENGINE   current: { node: 'v24.19.0', npm: '11.9.0' }
+npm warn EBADENGINE }
+npm warn EBADENGINE Unsupported engine {
+npm warn EBADENGINE   package: '@fuel-ts/errors@0.96.1',
+npm warn EBADENGINE   required: { node: '^18.20.3 || ^20.0.0 || ^22.0.0' },
+npm warn EBADENGINE   current: { node: 'v24.19.0', npm: '11.9.0' }
+npm warn EBADENGINE }
+npm warn EBADENGINE Unsupported engine {
+npm warn EBADENGINE   package: '@fuel-ts/hasher@0.96.1',
+npm warn EBADENGINE   required: { node: '^18.20.3 || ^20.0.0 || ^22.0.0' },
+npm warn EBADENGINE   current: { node: 'v24.19.0', npm: '11.9.0' }
+npm warn EBADENGINE }
+npm warn EBADENGINE Unsupported engine {
+npm warn EBADENGINE   package: '@fuel-ts/math@0.96.1',
+npm warn EBADENGINE   required: { node: '^18.20.3 || ^20.0.0 || ^22.0.0' },
+npm warn EBADENGINE   current: { node: 'v24.19.0', npm: '11.9.0' }
+npm warn EBADENGINE }
+npm warn EBADENGINE Unsupported engine {
+npm warn EBADENGINE   package: '@fuel-ts/utils@0.96.1',
+npm warn EBADENGINE   required: { node: '^18.20.3 || ^20.0.0 || ^22.0.0' },
+npm warn EBADENGINE   current: { node: 'v24.19.0', npm: '11.9.0' }
+npm warn EBADENGINE }
+npm warn EBADENGINE Unsupported engine {
+npm warn EBADENGINE   package: '@fuel-ts/interfaces@0.96.1',
+npm warn EBADENGINE   required: { node: '^18.20.3 || ^20.0.0 || ^22.0.0' },
+npm warn EBADENGINE   current: { node: 'v24.19.0', npm: '11.9.0' }
+npm warn EBADENGINE }
+npm warn EBADENGINE Unsupported engine {
+npm warn EBADENGINE   package: '@fuel-ts/versions@0.96.1',
+npm warn EBADENGINE   required: { node: '^18.20.3 || ^20.0.0 || ^22.0.0' },
+npm warn EBADENGINE   current: { node: 'v24.19.0', npm: '11.9.0' }
+npm warn EBADENGINE }
+npm warn deprecated string-similarity@4.0.4: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
+npm warn deprecated @fuel-ts/interfaces@0.96.1: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
+
+added 258 packages in 24s

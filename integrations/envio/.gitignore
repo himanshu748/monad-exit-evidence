@@ -1,0 +1,4 @@
+node_modules/
+.envio/
+.runtime/
+.env

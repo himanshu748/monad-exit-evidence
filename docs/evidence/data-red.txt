@@ -1,0 +1,62 @@
+✖ context converts live precision and marks source without fixture fallback (0.725422ms)
+✔ context fails on wrong chain, absent precision and unsafe integer (0.344839ms)
+✖ stale market is visible (0.108674ms)
+✔ book bounds validate sorting and unsafe quantities (0.154954ms)
+✖ long exit uses bid depth and correctly identifies finite snapshot shortfall (0.160973ms)
+✖ empty book means unknown quote, not zero price or executable fill (0.0862ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 2
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 125.171968
+
+✖ failing tests:
+
+test at tests/data.test.ts:3:1
+✖ context converts live precision and marks source without fixture fallback (0.725422ms)
+  Error: not implemented
+      at normalizeContext (file:///workspace/scratch/521d0942f783/mandate-workbench/src/data/perpl.ts:1:61)
+      at TestContext.<anonymous> (file:///workspace/scratch/521d0942f783/mandate-workbench/tests/data.test.ts:3:95)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17)
+
+test at tests/data.test.ts:5:1
+✖ stale market is visible (0.108674ms)
+  Error: not implemented
+      at normalizeContext (file:///workspace/scratch/521d0942f783/mandate-workbench/src/data/perpl.ts:1:61)
+      at TestContext.<anonymous> (file:///workspace/scratch/521d0942f783/mandate-workbench/tests/data.test.ts:5:49)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests/data.test.ts:7:1
+✖ long exit uses bid depth and correctly identifies finite snapshot shortfall (0.160973ms)
+  Error: not implemented
+      at estimateDepth (file:///workspace/scratch/521d0942f783/mandate-workbench/src/data/perpl.ts:3:58)
+      at TestContext.<anonymous> (file:///workspace/scratch/521d0942f783/mandate-workbench/tests/data.test.ts:7:97)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests/data.test.ts:8:1
+✖ empty book means unknown quote, not zero price or executable fill (0.0862ms)
+  Error: not implemented
+      at estimateDepth (file:///workspace/scratch/521d0942f783/mandate-workbench/src/data/perpl.ts:3:58)
+      at TestContext.<anonymous> (file:///workspace/scratch/521d0942f783/mandate-workbench/tests/data.test.ts:8:87)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)

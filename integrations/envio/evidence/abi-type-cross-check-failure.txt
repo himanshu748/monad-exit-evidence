@@ -1,0 +1,9 @@
+file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/scripts/verify-evidence.mjs:21
+  for (const [key,value] of Object.entries(observed)) if ((item[key] ?? null) !== value) throw new Error(`Indexed ${key} differs from independent receipt decode`);
+                                                                                               ^
+
+Error: Indexed decoded differs from independent receipt decode
+    at file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/scripts/verify-evidence.mjs:21:96
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+Node.js v24.19.0

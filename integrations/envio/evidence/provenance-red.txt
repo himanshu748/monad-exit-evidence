@@ -1,0 +1,57 @@
+✔ Envio normalization preserves exact quantities and chain/contract/log provenance (8.331235ms)
+✔ Envio rejects malformed event provenance and lossy numbers (0.449196ms)
+✔ Envio taker fills never invent a market/account absent from their ABI (0.164217ms)
+✔ Envio projection dedupes exact log IDs and sorts deterministically (1.046706ms)
+✔ Envio conflicting duplicate logs, wrong network, and event beyond watermark fail closed (0.497769ms)
+✔ Envio empty verified index is live, but stale or unindexed data is unavailable (0.345441ms)
+✔ Missing Envio service returns explicit unavailable with no fabricated events (0.514465ms)
+✔ Envio adapter reads the actual fresh local read model (0.278129ms)
+✖ Envio fill event must have a quantity and maker account/market (1.512768ms)
+✔ Envio position decrease uses exact lot difference and closed quantity stays unknown (0.39182ms)
+✖ Envio projection rejects corrupted normalized quantities and mismatched block provenance (0.329316ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 9
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 138.023858
+
+✖ failing tests:
+
+test at tests/envio.test.ts:69:1
+✖ Envio fill event must have a quantity and maker account/market (1.512768ms)
+  AssertionError [ERR_ASSERTION]: Missing expected exception.
+      at TestContext.<anonymous> (file:///workspace/scratch/521d0942f783/mandate-workbench/tests/envio.test.ts:70:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'throws',
+    diff: 'simple'
+  }
+
+test at tests/envio.test.ts:79:1
+✖ Envio projection rejects corrupted normalized quantities and mismatched block provenance (0.329316ms)
+  AssertionError [ERR_ASSERTION]: Missing expected exception.
+      at TestContext.<anonymous> (file:///workspace/scratch/521d0942f783/mandate-workbench/tests/envio.test.ts:81:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'throws',
+    diff: 'simple'
+  }

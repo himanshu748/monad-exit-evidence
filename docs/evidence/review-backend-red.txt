@@ -1,0 +1,118 @@
+✔ context converts live precision and marks source without fixture fallback (2.521747ms)
+✔ context fails on wrong chain, absent precision and unsafe integer (0.487504ms)
+✔ stale market is visible (0.373823ms)
+✔ book bounds validate sorting and unsafe quantities (0.39827ms)
+✔ long exit uses bid depth and correctly identifies finite snapshot shortfall (0.332561ms)
+✔ empty book means unknown quote, not zero price or executable fill (0.174773ms)
+✖ collateral scale follows market-instance-token binding (1.347149ms)
+✔ HTTP replay is durable idempotent and changed body conflicts (43.11587ms)
+✔ HTTP cannot forward arbitrary URLs or mutate provider and rejects bad origin (15.981303ms)
+✔ HTTP rejects precision changes and unknown snapshot (7.236967ms)
+✖ health reports actual per-network Envio availability (4.6491ms)
+✔ Nansen portfolio data changes budget outcome with transparent contribution (3.096002ms)
+✔ Nansen stale and wrong-account contexts fail closed (0.340002ms)
+✔ Nansen partial pages, mixed chain/account and missing valuation are rejected (0.400513ms)
+✔ Nansen valid user limits produce within-limits status, never trade authorization (0.381184ms)
+✔ no transport means no live request, no automatic payment or fake data (0.64815ms)
+✔ provider errors propagate unavailable; request uses exact official endpoint (0.367914ms)
+✖ complete portfolio requires the first and only consistently sized page (2.285911ms)
+✔ chain and external API evidence establish only the named reduction observation (1.103121ms)
+✔ wrong chain/exchange/tx and quantity beyond policy contradict result (0.364339ms)
+✔ missing decrease is inconclusive; failed transaction is contradicted (0.213211ms)
+✔ stale API evidence cannot produce verified result (0.225089ms)
+✔ duplicate event is counted once and conflicting duplicate is rejected (0.286662ms)
+✖ policy preimage and exact limits bind the observation (0.872834ms)
+ℹ tests 24
+ℹ suites 0
+ℹ pass 20
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 243.137678
+
+✖ failing tests:
+
+test at tests/data.test.ts:117:1
+✖ collateral scale follows market-instance-token binding (1.347149ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '1000000000000'
+  - '1'
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/521d0942f783/mandate-workbench/tests/data.test.ts:117:220)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '1000000000000',
+    expected: '1',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/http.test.ts:134:1
+✖ health reports actual per-network Envio availability (4.6491ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'unavailable'
+  - 'live'
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/521d0942f783/mandate-workbench/tests/http.test.ts:134:539)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'unavailable',
+    expected: 'live',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/nansen.test.ts:120:1
+✖ complete portfolio requires the first and only consistently sized page (2.285911ms)
+  AssertionError [ERR_ASSERTION]: Missing expected exception.
+      at TestContext.<anonymous> (file:///workspace/scratch/521d0942f783/mandate-workbench/tests/nansen.test.ts:120:254)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'throws',
+    diff: 'simple'
+  }
+
+test at tests/verification.test.ts:95:1
+✖ policy preimage and exact limits bind the observation (0.872834ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'VERIFIED_OBSERVATION'
+  - 'CONTRADICTED'
+  
+      at TestContext.<anonymous> (file:///workspace/scratch/521d0942f783/mandate-workbench/tests/verification.test.ts:95:74)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'VERIFIED_OBSERVATION',
+    expected: 'CONTRADICTED',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

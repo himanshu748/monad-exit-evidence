@@ -1,0 +1,2462 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> exit-evidence-web@0.1.0 test
+> vitest run
+
+
+ RUN  v3.2.7 /workspace/scratch/521d0942f783/mandate-workbench/web
+
+ ✓ tests/form.test.ts (11 tests) 7ms
+ ❯ tests/App.test.tsx (15 tests | 3 failed) 2625ms
+   ✓ exit-evidence workflow > separates live reads from hypothetical state with accessible labels 183ms
+   ✓ exit-evidence workflow > shows errors for malformed quantities before review 176ms
+   ✓ exit-evidence workflow > reviews exact integers then disables pending execution and duplicate clicks 124ms
+   ✓ exit-evidence workflow > preserves partial and reserved quantities as unresolved 91ms
+   ✓ exit-evidence workflow > does not silently retry an interrupted outcome 86ms
+   ✓ exit-evidence workflow > invalidates reviewed limits on network and scenario change 144ms
+   ✓ exit-evidence workflow > retains one idempotency key after an unavailable response 102ms
+   ✓ exit-evidence workflow > restores an attempted request after remount and reuses its original key 147ms
+   ✓ exit-evidence workflow > does not regenerate a reviewed request on repeated review clicks 129ms
+   ✓ exit-evidence workflow > shows provider failures and never substitutes public fixtures 23ms
+   ✓ exit-evidence workflow > does not invent indexed activity or completed integrations 49ms
+   ✓ exit-evidence workflow > verifies edited receipt JSON without treating integrity as execution 105ms
+   × review fixes > refresh preserves lost-response identity and requires explicit separate rehearsal 130ms
+     → expect(element).toBeDisabled()
+
+Received element is not disabled:
+  <button
+  class="primary full"
+/>
+   × review fixes > source freshness expires on clock updates without deleting a recovery record 1037ms
+     → Unable to find an element with the text: Stale snapshot. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"app-shell"[39m
+    [36m>[39m
+      [36m<a[39m
+        [33mclass[39m=[32m"skip-link"[39m
+        [33mhref[39m=[32m"#workbench"[39m
+      [36m>[39m
+        [0mSkip to workbench[0m
+      [36m</a>[39m
+      [36m<aside[39m
+        [33mclass[39m=[32m"rail"[39m
+      [36m>[39m
+        [36m<a[39m
+          [33mclass[39m=[32m"wordmark"[39m
+          [33mhref[39m=[32m"#workbench"[39m
+        [36m>[39m
+          [0mEXIT /[0m
+          [36m<br />[39m
+          [0mEVIDENCE[0m
+        [36m</a>[39m
+        [36m<nav[39m
+          [33maria-label[39m=[32m"Workbench navigation"[39m
+        [36m>[39m
+          [36m<a[39m
+            [33mclass[39m=[32m"selected"[39m
+            [33mhref[39m=[32m"#workbench"[39m
+          [36m>[39m
+            [36m<svg[39m
+              [33maria-hidden[39m=[32m"true"[39m
+              [33mfill[39m=[32m"none"[39m
+              [33mheight[39m=[32m"20"[39m
+              [33mstroke[39m=[32m"currentColor"[39m
+              [33mstroke-linecap[39m=[32m"round"[39m
+              [33mstroke-linejoin[39m=[32m"round"[39m
+              [33mstroke-width[39m=[32m"1.7"[39m
+              [33mviewBox[39m=[32m"0 0 24 24"[39m
+              [33mwidth[39m=[32m"20"[39m
+            [36m>[39m
+              [36m<rect[39m
+                [33mheight[39m=[32m"6"[39m
+                [33mrx[39m=[32m"1"[39m
+                [33mwidth[39m=[32m"6"[39m
+                [33mx[39m=[32m"3"[39m
+                [33my[39m=[32m"3"[39m
+              [36m/>[39m
+              [36m<rect[39m
+                [33mheight[39m=[32m"6"[39m
+                [33mrx[39m=[32m"1"[39m
+                [33mwidth[39m=[32m"6"[39m
+                [33mx[39m=[32m"15"[39m
+                [33my[39m=[32m"3"[39m
+              [36m/>[39m
+              [36m<rect[39m
+                [33mheight[39m=[32m"6"[39m
+                [33mrx[39m=[32m"1"[39m
+                [33mwidth[39m=[32m"6"[39m
+                [33mx[39m=[32m"3"[39m
+                [33my[39m=[32m"15"[39m
+              [36m/>[39m
+              [36m<rect[39m
+                [33mheight[39m=[32m"6"[39m
+                [33mrx[39m=[32m"1"[39m
+                [33mwidth[39m=[32m"6"[39m
+                [33mx[39m=[32m"15"[39m
+                [33my[39m=[32m"15"[39m
+              [36m/>[39m
+            [36m</svg>[39m
+            [0mWorkbench[0m
+          [36m</a>[39m
+          [36m<a[39m
+            [33mhref[39m=[32m"#evidence"[39m
+          [36m>[39m
+            [36m<svg[39m
+              [33maria-hidden[39m=[32m"true"[39m
+              [33mfill[39m=[32m"none"[39m
+              [33mheight[39m=[32m"20"[39m
+              [33mstroke[39m=[32m"currentColor"[39m
+              [33mstroke-linecap[39m=[32m"round"[39m
+              [33mstroke-linejoin[39m=[32m"round"[39m
+              [33mstroke-width[39m=[32m"1.7"[39m
+              [33mviewBox[39m=[32m"0 0 24 24"[39m
+              [33mwidth[39m=[32m"20"[39m
+            [36m>[39m
+              [36m<path[39m
+                [33md[39m=[32m"M7 3h7l4 4v14H7zM14 3v5h4M10 12h5M10 16h5"[39m
+              [36m/>[39m
+            [36m</svg>[39m
+            [0mEvidence[0m
+          [36m</a>[39m
+          [36m<a[39m
+            [33mhref[39m=[32m"#activity"[39m
+          [36m>[39m
+            [36m<svg[39m
+              [33maria-hidden[39m=[32m"true"[39m
+              [33mfill[39m=[32m"none"[39m
+              [33mheight[39m=[32m"20"[39m
+              [33mstroke[39m=[32m"currentColor"[39m
+              [33mstroke-linecap[39m=[32m"round"[39m
+              [33mstroke-linejoin[39m=[32m"round"[39m
+              [33mstroke-width[39m=[32m"1.7"[39m
+              [33mviewBox[39m=[32m"0 0 24 24"[39m
+              [33mwidth[39m=[32m"20"[39m
+            [36m>[39m
+              [36m<path[39m
+                [33md[39m=[32m"M8 6h13M8 12h13M8 18h13"[39m
+              [36m/>[39m
+              [36m<circle[39m
+                [33mcx[39m=[32m"3"[39m
+                [33mcy[39m=[32m"6"[39m
+                [33mr[39m=[32m".5"[39m
+              [36m/>[39m
+              [36m<circle[39m
+                [33mcx[39m=[32m"3"[39m
+                [33mcy[39m=[32m"12"[39m
+                [33mr[39m=[32m".5"[39m
+              [36m/>[39m
+              [36m<circle[39m
+                [33mcx[39m=[32m"3"[39m
+                [33mcy[39m=[32m"18"[39m
+                [33mr[39m=[32m".5"[39m
+              [36m/>[39m
+            [36m</svg>[39m
+            [0mActivity[0m
+          [36m</a>[39m
+        [36m</nav>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"rail-footnote"[39m
+        [36m>[39m
+          [0mRead-only · No transactions[0m
+        [36m</p>[39m
+      [36m</aside>[39m
+      [36m<main[39m
+        [33mid[39m=[32m"workbench"[39m
+      [36m>[39m
+        [36m<header[39m
+          [33mclass[39m=[32m"page-header"[39m
+        [36m>[39m
+          [36m<div>[39m
+            [36m<h1>[39m
+              [0mExit evidence[0m
+            [36m</h1>[39m
+            [36m<p>[39m
+              [0mReview a reduction. Know what the evidence proves.[0m
+            [36m</p>[39m
+          [36m</div>[39m
+          [36m<label[39m
+            [33mclass[39m=[32m"network-control"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"sr-only"[39m
+            [36m>[39m
+              [0mNetwork[0m
+            [36m</span>[39m
+            [36m<select>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"mainnet"[39m
+              [36m>[39m
+                [0mMonad mainnet[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"testnet"[39m
+              [36m>[39m
+                [0mMonad testnet[0m
+              [36m</option>[39m
+            [36m</select>[39m
+          [36m</label>[39m
+        [36m</header>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"workspace-grid"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"left-column"[39m
+          [36m>[39m
+            [36m<section[39m
+              [33maria-labelledby[39m=[32m"liquidity-heading"[39m
+              [33mclass[39m=[32m"panel"[39m
+            [36m>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"section-heading"[39m
+              [36m>[39m
+                [36m<h2[39m
+                  [33mid[39m=[32m"liquidity-heading"[39m
+                [36m>[39m
+                  [0mLive liquidity[0m
+                [36m</h2>[39m
+                [36m<button[39m
+                  [33mclass[39m=[32m"text-button"[39m
+                [36m>[39m
+                  [0mRefresh reads[0m
+                [36m</button>[39m
+              [36m</div>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"market-heading"[39m
+              [36m>[39m
+                [36m<label[39m
+                  [33mclass[39m=[32m"market-select"[39m
+                [36m>[39m
+                  [0mMarket[0m
+                  [36m<select[39m
+                    [33maria-label[39m=[32m"Market"[39m
+                  [36m>[39m
+                    [36m<option[39m
+                      [33mvalue[39m=[32m"1"[39m
+                    [36m>[39m
+                      [0mBTC[0m
+                    [36m</option>[39m
+                  [36m</select>[39m
+                [36m</label>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"source-status"[39m
+                [36m>[39m
+                  [36m<span[39m
+                    [33mclass[39m=[32m"status-dot green"[39m
+                  [36m/>[39m
+                  [0mPublic read[0m
+                  [36m<small>[39m
+                    [0m00:00:00 UTC[0m
+                  [36m</small>[39m
+                [36m</div>[39m
+              [36m</div>[39m
+              [36m<p[39m
+                [33mclass[39m=[32m"muted source-line"[39m
+              [36m>[39m
+                [0mPublic Perpl snapshot · Chain [0m
+                [0m143[0m
+              [36m</p>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"order-books"[39m
+              [36m>[39m
+                [36m<table[39m
+                  [33mclass[39m=[32m"order-book bids"[39m
+                [36m>[39m
+                  [36m<caption>[39m
+                    [0mBids[0m
+                    [0m [0m
+                    [36m<span>[39m
+                      [0m(USD)[0m
+                    [36m</span>[39m
+                  [36m</caption>[39m
+                  [36m<thead>[39m
+                    [36m<tr>[39m
+                      [36m<th>[39m
+                        [0mPrice[0m
+                      [36m</th>[39m
+                      [36m<th>[39m
+                        [0mSize ([0m
+                        [0mBTC[0m
+                        [0m)[0m
+                      [36m</th>[39m
+                    [36m</tr>[39m
+                  [36m</thead>[39m
+                  [36m<tbody>[39m
+                    [36m<tr>[39m
+                      [36m<td>[39m
+                        [0m59990[0m
+                      [36m</td>[39m
+                      [36m<td>[39m
+                        [0m1.2[0m
+                      [36m</td>[39m
+                    [36m</tr>[39m
+                  [36m</tbody>[39m
+                [36m</table>[39m
+                [36m<table[39m
+                  [33mclass[39m=[32m"order-book asks"[39m
+                [36m>[39m
+                  [36m<caption>[39m
+                    [0mAsks[0m
+                    [0m [0m
+                    [36m<span>[39m
+                      [0m(USD)[0m
+                    [36m</span>[39m
+                  [36m</caption>[39m
+                  [36m<thead>[39m
+                    [36m<tr>[39m
+                      [36m<th>[39m
+                        [0mPrice[0m
+                      [36m</th>[39m
+                      [36m<th>[39m
+                        [0mSize ([0m
+                        [0mBTC[0m
+                        [0m)[0m
+                      [36m</th>[39m
+                    [36m</tr>[39m
+                  [36m</thead>[39m
+                  [36m<tbody>[39m
+                    [36m<tr>[39m
+                      [36m<td>[39m
+                        [0m60010[0m
+                      [36m</td>[39m
+                      [36m<td>[39m
+                        [0m1.1[0m
+                      [36m</td>[39m
+                    [36m</tr>[39m
+                  [36m</tbody>[39m
+                [36m</table>[39m
+              [36m</div>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"book-note"[39m
+              [36m>[39m
+                [36m<span>[39m
+                  [0mSnapshot estimate[0m
+                [36m</span>[39m
+                [36m<strong>[39m
+                  [0m0.02[0m
+                  [0m [0m
+                  [0mBTC[0m
+                [36m</strong>[39m
+                [36m<span>[39m
+                  [0mavailable for this close[0m
+                [36m</span>[39m
+              [36m</div>[39m
+              [36m<p[39m
+                [33mclass[39m=[32m"caption"[39m
+              [36m>[39m
+                [0mSnapshot estimate only[0m
+              [36m</p>[39m
+              [36m<a[39m
+                [33mclass[39m=[32m"source-link"[39m
+                [33mhref[39m=[32m"https://perpl.xyz"[39m
+                [33mrel[39m=[32m"noreferrer"[39m
+                [33mtarget[39m=[32m"_blank"[39m
+              [36m>[39m
+                [0mView public source ↗[0m
+              [36m</a>[39m
+            [36m</section>[39m
+            [36m<section[39m
+              [33maria-labelledby[39m=[32m"limits-heading"[39m
+              [33mclass[39m=[32m"panel"[39m
+            [36m>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"section-heading"[39m
+              [36m>[39m
+                [36m<h2[39m
+                  [33mid[39m=[32m"limits-heading"[39m
+                [36m>[39m
+                  [0mHypothetical limits[0m
+                [36m</h2>[39m
+                [36m<span[39m
+                  [33mclass[39m=[32m"caption"[39m
+                [36m>[39m
+                  [0mClose-only[0m
+                [36m</span>[39m
+              [36m</div>[39m
+              [36m<p[39m
+                [33mclass[39m=[32m"muted compact"[39m
+              [36m>[39m
+                [0mHypothetical position[0m
+              [36m</p>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"form-grid"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"field"[39m
+                [36m>[39m
+                  [36m<label[39m
+                    [33mfor[39m=[32m"positionQuantity"[39m
+                  [36m>[39m
+                    [0mExisting position[0m
+                  [36m</label>[39m
+                  [36m<div[39m
+                    [33mclass[39m=[32m"input-with-unit "[39m
+                  [36m>[39m
+                    [36m<input[39m
+                      [33maria-invalid[39m=[32m"false"[39m
+                      [33mid[39m=[32m"positionQuantity"[39m
+                      [33minputmode[39m=[32m"decimal"[39m
+                      [33mvalue[39m=[32m"0.04"[39m
+                    [36m/>[39m
+                    [36m<span>[39m
+                      [0mBTC[0m
+                    [36m</span>[39m
+                  [36m</div>[39m
+                [36m</div>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"field"[39m
+                [36m>[39m
+                  [36m<label[39m
+                    [33mfor[39m=[32m"closeQuantity"[39m
+                  [36m>[39m
+                    [0mClose quantity[0m
+                  [36m</label>[39m
+                  [36m<div[39m
+                    [33mclass[39m=[32m"input-with-unit "[39m
+                  [36m>[39m
+                    [36m<input[39m
+                      [33maria-invalid[39m=[32m"false"[39m
+                      [33mid[39m=[32m"closeQuantity"[39m
+                      [33minputmode[39m=[32m"decimal"[39m
+                      [33mvalue[39m=[32m"0.02"[39m
+                    [36m/>[39m
+                    [36m<span>[39m
+                      [0mBTC[0m
+                    [36m</span>[39m
+                  [36m</div>[39m
+                [36m</div>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"field"[39m
+                [36m>[39m
+                  [36m<label[39m
+                    [33mfor[39m=[32m"priceLimit"[39m
+                  [36m>[39m
+                    [0mMinimum price[0m
+                  [36m</label>[39m
+                  [36m<div[39m
+                    [33mclass[39m=[32m"input-with-unit "[39m
+                  [36m>[39m
+                    [36m<input[39m
+                      [33maria-invalid[39m=[32m"false"[39m
+                      [33mid[39m=[32m"priceLimit"[39m
+                      [33minputmode[39m=[32m"decimal"[39m
+                      [33mvalue[39m=[32m"59990"[39m
+                    [36m/>[39m
+                    [36m<span>[39m
+                      [0mUSD[0m
+                    [36m</span>[39m
+                  [36m</div>[39m
+                [36m</div>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"field"[39m
+                [36m>[39m
+                  [36m<label[39m
+                    [33mfor[39m=[32m"direction"[39m
+                  [36m>[39m
+                    [0mPosition side[0m
+                  [36m</label>[39m
+                  [36m<select[39m
+                    [33mid[39m=[32m"direction"[39m
+                  [36m>[39m
+                    [36m<option[39m
+                      [33mvalue[39m=[32m"long"[39m
+                    [36m>[39m
+                      [0mLong[0m
+                    [36m</option>[39m
+                    [36m<option[39m
+                      [33mvalue[39m=[32m"short"[39m
+                    [36m>[39m
+                      [0mShort[0m
+                    [36m</option>[39m
+                  [36m</select>[39m
+                [36m</div>[39m
+              [36m</div>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"primary full"[39m
+              [36m>[39m
+                [0mReview limits[0m
+              [36m</button>[39m
+              [36m<p[39m
+                [33mclass[39m=[32m"caption footnote"[39m
+              [36m>[39m
+                [0mNo holdings are connected. No signature or trade is requested.[0m
+              [36m</p>[39m
+            [36m</section>[39m
+          [36m</div>[39m
+          [36m<section[39m
+            [33maria-labelledby[39m=[32m"outcome-heading"[39m
+            [33mclass[39m=[32m"panel outcome-panel"[39m
+            [33mid[39m=[32m"evidence"[39m
+          [36m>[39m
+            [36m<h2[39m
+              [33mid[39m=[32m"outcome-heading"[39m
+            [36m>[39m
+              [0mRehearsal outcome[0m
+            [36m</h2>[39m
+            [36m<p[39m
+              [33mclass[39m=[32m"muted compact"[39m
+            [36m>[39m
+              [0mSimulated approval and execution[0m
+            [36m</p>[39m
+            [36m<label[39m
+              [33mclass[39m=[32m"field scenario-field"[39m
+            [36m>[39m
+              [0mRehearsal scenario[0m
+              [36m<select>[39m
+                [36m<option[39m
+                  [33mvalue[39m=[32m"valid"[39m
+                [36m>[39m
+                  [0mPermitted close[0m
+                [36m</option>[39m
+                [36m<option[39m
+                  [33mvalue[39m=[32m"unauthorized"[39m
+                [36m>[39m
+                  [0mUnauthorized open[0m
+                [36m</option>[39m
+                [36m<option[39m
+                  [33mvalue[39m=[32m"partial"[39m
+                [36m>[39m
+                  [0mPartial fill[0m
+                [36m</option>[39m
+                [36m<option[39m
+                  [33mvalue[39m=[32m"interrupted"[39m
+                [36m>[39m
+                  [0mInterrupted delivery[0m
+                [36m</option>[39m
+                [36m<option[39m
+                  [33mvalue[39m=[32m"duplicate"[39m
+                [36m>[39m
+                  [0mDuplicate request[0m
+                [36m</option>[39m
+                [36m<option[39m
+                  [33mvalue[39m=[32m"tampered"[39m
+                [36m>[39m
+                  [0mTampered receipt[0m
+                [36m</option>[39m
+              [36m</select>[39m
+            [36m</label>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"primary full run-button"[39m
+              [33mdisabled[39m=[32m""[39m
+            [36m>[39m
+              [0mRun rehearsal[0m
+            [36m</button>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"outcome-empty"[39m
+            [36m>[39m
+              [36m<div[39m
+                [33maria-hidden[39m=[32m"true"[39m
+                [33mclass[39m=[32m"empty-mark"[39m
+              [36m>[39m
+                [0m↳[0m
+              [36m</div>[39m
+              [36m<h3>[39m
+                [0mEvidence starts with limits[0m
+              [36m</h3>[39m
+              [36m<p>[39m
+                [0mReview a hypothetical close, then run a labeled rehearsal to compare its outcome.[0m
+              [36m</p>[39m
+            [36m</div>[39m
+            [36m<p[39m
+              [33mclass[39m=[32m"caption integrity-note"[39m
+            [36m>[39m
+              [0mReceipt integrity does not prove real-world execution.[0m
+            [36m</p>[39m
+          [36m</section>[39m
+          [36m<section[39m
+            [33maria-labelledby[39m=[32m"activity-heading"[39m
+            [33mclass[39m=[32m"panel activity-panel"[39m
+            [33mid[39m=[32m"activity"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"section-heading"[39m
+            [36m>[39m
+              [36m<h2[39m
+                [33mid[39m=[32m"activity-heading"[39m
+              [36m>[39m
+                [0mIndexed activity[0m
+              [36m</h2>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"caption"[39m
+              [36m>[39m
+                [0mEnvio · [0m
+                [0mmainnet[0m
+              [36m</span>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"empty-state"[39m
+            [36m>[39m
+              [36m<p>[39m
+                [0mEnvio pipeline not configured[0m
+              [36m</p>[39m
+              [36m<p[39m
+                [33mclass[39m=[32m"caption"[39m
+              [36m>[39m
+                [0mNo indexed activity has been inferred.[0m
+              [36m</p>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"integration-gates"[39m
+            [36m>[39m
+              [36m<span>[39m
+                [0mCRE verification [0m
+                [36m<strong>[39m
+                  [0mLogin required[0m
+                [36m</strong>[39m
+              [36m</span>[39m
+              [36m<span>[39m
+                [0mNansen context [0m
+                [36m<strong>[39m
+                  [0mAccess required[0m
+                [36m</strong>[39m
+              [36m</span>[39m
+            [36m</div>[39m
+          [36m</section>[39m
+        [36m</div>[39m
+        [36m<footer[39m
+          [33mclass[39m=[32m"page-footer"[39m
+        [36m>[39m
+          [0mPublic observations and replay evidence are separate. This workbench cannot submit transactions.[0m
+        [36m</footer>[39m
+      [36m</main>[39m
+    [36m</div>[39m
+  [36m</div>[39m
+[36m</body>[39m
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"app-shell"[39m
+    [36m>[39m
+      [36m<a[39m
+        [33mclass[39m=[32m"skip-link"[39m
+        [33mhref[39m=[32m"#workbench"[39m
+      [36m>[39m
+        [0mSkip to workbench[0m
+      [36m</a>[39m
+      [36m<aside[39m
+        [33mclass[39m=[32m"rail"[39m
+      [36m>[39m
+        [36m<a[39m
+          [33mclass[39m=[32m"wordmark"[39m
+          [33mhref[39m=[32m"#workbench"[39m
+        [36m>[39m
+          [0mEXIT /[0m
+          [36m<br />[39m
+          [0mEVIDENCE[0m
+        [36m</a>[39m
+        [36m<nav[39m
+          [33maria-label[39m=[32m"Workbench navigation"[39m
+        [36m>[39m
+          [36m<a[39m
+            [33mclass[39m=[32m"selected"[39m
+            [33mhref[39m=[32m"#workbench"[39m
+          [36m>[39m
+            [36m<svg[39m
+              [33maria-hidden[39m=[32m"true"[39m
+              [33mfill[39m=[32m"none"[39m
+              [33mheight[39m=[32m"20"[39m
+              [33mstroke[39m=[32m"currentColor"[39m
+              [33mstroke-linecap[39m=[32m"round"[39m
+              [33mstroke-linejoin[39m=[32m"round"[39m
+              [33mstroke-width[39m=[32m"1.7"[39m
+              [33mviewBox[39m=[32m"0 0 24 24"[39m
+              [33mwidth[39m=[32m"20"[39m
+            [36m>[39m
+              [36m<rect[39m
+                [33mheight[39m=[32m"6"[39m
+                [33mrx[39m=[32m"1"[39m
+                [33mwidth[39m=[32m"6"[39m
+                [33mx[39m=[32m"3"[39m
+                [33my[39m=[32m"3"[39m
+              [36m/>[39m
+              [36m<rect[39m
+                [33mheight[39m=[32m"6"[39m
+                [33mrx[39m=[32m"1"[39m
+                [33mwidth[39m=[32m"6"[39m
+                [33mx[39m=[32m"15"[39m
+                [33my[39m=[32m"3"[39m
+              [36m/>[39m
+              [36m<rect[39m
+                [33mheight[39m=[32m"6"[39m
+                [33mrx[39m=[32m"1"[39m
+                [33mwidth[39m=[32m"6"[39m
+                [33mx[39m=[32m"3"[39m
+                [33my[39m=[32m"15"[39m
+              [36m/>[39m
+              [36m<rect[39m
+                [33mheight[39m=[32m"6"[39m
+                [33mrx[39m=[32m"1"[39m
+                [33mwidth[39m=[32m"6"[39m
+                [33mx[39m=[32m"15"[39m
+                [33my[39m=[32m"15"[39m
+              [36m/>[39m
+            [36m</svg>[39m
+            [0mWorkbench[0m
+          [36m</a>[39m
+          [36m<a[39m
+            [33mhref[39m=[32m"#evidence"[39m
+          [36m>[39m
+            [36m<svg[39m
+              [33maria-hidden[39m=[32m"true"[39m
+              [33mfill[39m=[32m"none"[39m
+              [33mheight[39m=[32m"20"[39m
+              [33mstroke[39m=[32m"currentColor"[39m
+              [33mstroke-linecap[39m=[32m"round"[39m
+              [33mstroke-linejoin[39m=[32m"round"[39m
+              [33mstroke-width[39m=[32m"1.7"[39m
+              [33mviewBox[39m=[32m"0 0 24 24"[39m
+              [33mwidth[39m=[32m"20"[39m
+            [36m>[39m
+              [36m<path[39m
+                [33md[39m=[32m"M7 3h7l4 4v14H7zM14 3v5h4M10 12h5M10 16h5"[39m
+              [36m/>[39m
+            [36m</svg>[39m
+            [0mEvidence[0m
+          [36m</a>[39m
+          [36m<a[39m
+            [33mhref[39m=[32m"#activity"[39m
+          [36m>[39m
+            [36m<svg[39m
+              [33maria-hidden[39m=[32m"true"[39m
+              [33mfill[39m=[32m"none"[39m
+              [33mheight[39m=[32m"20"[39m
+              [33mstroke[39m=[32m"currentColor"[39m
+              [33mstroke-linecap[39m=[32m"round"[39m
+              [33mstroke-linejoin[39m=[32m"round"[39m
+              [33mstroke-width[39m=[32m"1.7"[39m
+              [33mviewBox[39m=[32m"0 0 24 24"[39m
+              [33mwidth[39m=[32m"20"[39m
+            [36m>[39m
+              [36m<path[39m
+                [33md[39m=[32m"M8 6h13M8 12h13M8 18h13"[39m
+              [36m/>[39m
+              [36m<circle[39m
+                [33mcx[39m=[32m"3"[39m
+                [33mcy[39m=[32m"6"[39m
+                [33mr[39m=[32m".5"[39m
+              [36m/>[39m
+              [36m<circle[39m
+                [33mcx[39m=[32m"3"[39m
+                [33mcy[39m=[32m"12"[39m
+                [33mr[39m=[32m".5"[39m
+              [36m/>[39m
+              [36m<circle[39m
+                [33mcx[39m=[32m"3"[39m
+                [33mcy[39m=[32m"18"[39m
+                [33mr[39m=[32m".5"[39m
+              [36m/>[39m
+            [36m</svg>[39m
+            [0mActivity[0m
+          [36m</a>[39m
+        [36m</nav>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"rail-footnote"[39m
+        [36m>[39m
+          [0mRead-only · No transactions[0m
+        [36m</p>[39m
+      [36m</aside>[39m
+      [36m<main[39m
+        [33mid[39m=[32m"workbench"[39m
+      [36m>[39m
+        [36m<header[39m
+          [33mclass[39m=[32m"page-header"[39m
+        [36m>[39m
+          [36m<div>[39m
+            [36m<h1>[39m
+              [0mExit evidence[0m
+            [36m</h1>[39m
+            [36m<p>[39m
+              [0mReview a reduction. Know what the evidence proves.[0m
+            [36m</p>[39m
+          [36m</div>[39m
+          [36m<label[39m
+            [33mclass[39m=[32m"network-control"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"sr-only"[39m
+            [36m>[39m
+              [0mNetwork[0m
+            [36m</span>[39m
+            [36m<select>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"mainnet"[39m
+              [36m>[39m
+                [0mMonad mainnet[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"testnet"[39m
+              [36m>[39m
+                [0mMonad testnet[0m
+              [36m</option>[39m
+            [36m</select>[39m
+          [36m</label>[39m
+        [36m</header>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"workspace-grid"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"left-column"[39m
+          [36m>[39m
+            [36m<section[39m
+              [33maria-labelledby[39m=[32m"liquidity-heading"[39m
+              [33mclass[39m=[32m"panel"[39m
+            [36m>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"section-heading"[39m
+              [36m>[39m
+                [36m<h2[39m
+                  [33mid[39m=[32m"liquidity-heading"[39m
+                [36m>[39m
+                  [0mLive liquidity[0m
+                [36m</h2>[39m
+                [36m<button[39m
+                  [33mclass[39m=[32m"text-button"[39m
+                [36m>[39m
+                  [0mRefresh reads[0m
+                [36m</button>[39m
+              [36m</div>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"market-heading"[39m
+              [36m>[39m
+                [36m<label[39m
+                  [33mclass[39m=[32m"market-select"[39m
+                [36m>[39m
+                  [0mMarket[0m
+                  [36m<select[39m
+                    [33maria-label[39m=[32m"Market"[39m
+                  [36m>[39m
+                    [36m<option[39m
+                      [33mvalue[39m=[32m"1"[39m
+                    [36m>[39m
+                      [0mBTC[0m
+                    [36m</option>[39m
+                  [36m</select>[39m
+                [36m</label>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"source-status"[39m
+                [36m>[39m
+                  [36m<span[39m
+                    [33mclass[39m=[32m"status-dot green"[39m
+                  [36m/>[39m
+                  [0mPublic read[0m
+                  [36m<small>[39m
+                    [0m00:00:00 UTC[0m
+                  [36m</small>[39m
+                [36m</div>[39m
+              [36m</div>[39m
+              [36m<p[39m
+                [33mclass[39m=[32m"muted source-line"[39m
+              [36m>[39m
+                [0mPublic Perpl snapshot · Chain [0m
+                [0m143[0m
+              [36m</p>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"order-books"[39m
+              [36m>[39m
+                [36m<table[39m
+                  [33mclass[39m=[32m"order-book bids"[39m
+                [36m>[39m
+                  [36m<caption>[39m
+                    [0mBids[0m
+                    [0m [0m
+                    [36m<span>[39m
+                      [0m(USD)[0m
+                    [36m</span>[39m
+                  [36m</caption>[39m
+                  [36m<thead>[39m
+                    [36m<tr>[39m
+                      [36m<th>[39m
+                        [0mPrice[0m
+                      [36m</th>[39m
+                      [36m<th>[39m
+                        [0mSize ([0m
+                        [0mBTC[0m
+                        [0m)[0m
+                      [36m</th>[39m
+                    [36m</tr>[39m
+                  [36m</thead>[39m
+                  [36m<tbody>[39m
+                    [36m<tr>[39m
+                      [36m<td>[39m
+                        [0m59990[0m
+                      [36m</td>[39m
+                      [36m<td>[39m
+                        [0m1.2[0m
+                      [36m</td>[39m
+                    [36m</tr>[39m
+                  [36m</tbody>[39m
+                [36m</table>[39m
+                [36m<table[39m
+                  [33mclass[39m=[32m"order-book asks"[39m
+                [36m>[39m
+                  [36m<caption>[39m
+                    [0mAsks[0m
+                    [0m [0m
+                    [36m<span>[39m
+                      [0m(USD)[0m
+                    [36m</span>[39m
+                  [36m</caption>[39m
+                  [36m<thead>[39m
+                    [36m<tr>[39m
+                      [36m<th>[39m
+                        [0mPrice[0m
+                      [36m</th>[39m
+                      [36m<th>[39m
+                        [0mSize ([0m
+                        [0mBTC[0m
+                        [0m)[0m
+                      [36m</th>[39m
+                    [36m</tr>[39m
+                  [36m</thead>[39m
+                  [36m<tbody>[39m
+                    [36m<tr>[39m
+                      [36m<td>[39m
+                        [0m60010[0m
+                      [36m</td>[39m
+                      [36m<td>[39m
+                        [0m1.1[0m
+                      [36m</td>[39m
+                    [36m</tr>[39m
+                  [36m</tbody>[39m
+                [36m</table>[39m
+              [36m</div>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"book-note"[39m
+              [36m>[39m
+                [36m<span>[39m
+                  [0mSnapshot estimate[0m
+                [36m</span>[39m
+                [36m<strong>[39m
+                  [0m0.02[0m
+                  [0m [0m
+                  [0mBTC[0m
+                [36m</strong>[39m
+                [36m<span>[39m
+                  [0mavailable for this close[0m
+                [36m</span>[39m
+              [36m</div>[39m
+              [36m<p[39m
+                [33mclass[39m=[32m"caption"[39m
+              [36m>[39m
+                [0mSnapshot estimate only[0m
+              [36m</p>[39m
+              [36m<a[39m
+                [33mclass[39m=[32m"source-link"[39m
+                [33mhref[39m=[32m"https://perpl.xyz"[39m
+                [33mrel[39m=[32m"noreferrer"[39m
+                [33mtarget[39m=[32m"_blank"[39m
+              [36m>[39m
+                [0mView public source ↗[0m
+              [36m</a>[39m
+            [36m</section>[39m
+            [36m<section[39m
+              [33maria-labelledby[39m=[32m"limits-heading"[39m
+              [33mclass[39m=[32m"panel"[39m
+            [36m>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"section-heading"[39m
+              [36m>[39m
+                [36m<h2[39m
+                  [33mid[39m=[32m"limits-heading"[39m
+                [36m>[39m
+                  [0mHypothetical limits[0m
+                [36m</h2>[39m
+                [36m<span[39m
+                  [33mclass[39m=[32m"caption"[39m
+                [36m>[39m
+                  [0mClose-only[0m
+                [36m</span>[39m
+              [36m</div>[39m
+              [36m<p[39m
+                [33mclass[39m=[32m"muted compact"[39m
+              [36m>[39m
+                [0mHypothetical position[0m
+              [36m</p>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"form-grid"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"field"[39m
+                [36m>[39m
+                  [36m<label[39m
+                    [33mfor[39m=[32m"positionQuantity"[39m
+                  [36m>[39m
+                    [0mExisting position[0m
+                  [36m</label>[39m
+                  [36m<div[39m
+                    [33mclass[39m=[32m"input-with-unit "[39m
+                  [36m>[39m
+                    [36m<input[39m
+                      [33maria-invalid[39m=[32m"false"[39m
+                      [33mid[39m=[32m"positionQuantity"[39m
+                      [33minputmode[39m=[32m"decimal"[39m
+                      [33mvalue[39m=[32m"0.04"[39m
+                    [36m/>[39m
+                    [36m<span>[39m
+                      [0mBTC[0m
+                    [36m</span>[39m
+                  [36m</div>[39m
+                [36m</div>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"field"[39m
+                [36m>[39m
+                  [36m<label[39m
+                    [33mfor[39m=[32m"closeQuantity"[39m
+                  [36m>[39m
+                    [0mClose quantity[0m
+                  [36m</label>[39m
+                  [36m<div[39m
+                    [33mclass[39m=[32m"input-with-unit "[39m
+                  [36m>[39m
+                    [36m<input[39m
+                      [33maria-invalid[39m=[32m"false"[39m
+                      [33mid[39m=[32m"closeQuantity"[39m
+                      [33minputmode[39m=[32m"decimal"[39m
+                      [33mvalue[39m=[32m"0.02"[39m
+                    [36m/>[39m
+                    [36m<span>[39m
+                      [0mBTC[0m
+                    [36m</span>[39m
+                  [36m</div>[39m
+                [36m</div>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"field"[39m
+                [36m>[39m
+                  [36m<label[39m
+                    [33mfor[39m=[32m"priceLimit"[39m
+                  [36m>[39m
+                    [0mMinimum price[0m
+                  [36m</label>[39m
+                  [36m<div[39m
+                    [33mclass[39m=[32m"input-with-unit "[39m
+                  [36m>[39m
+                    [36m<input[39m
+                      [33maria-invalid[39m=[32m"false"[39m
+                      [33mid[39m=[32m"priceLimit"[39m
+                      [33minputmode[39m=[32m"decimal"[39m
+                      [33mvalue[39m=[32m"59990"[39m
+                    [36m/>[39m
+                    [36m<span>[39m
+                      [0mUSD[0m
+                    [36m</span>[39m
+                  [36m</div>[39m
+                [36m</div>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"field"[39m
+                [36m>[39m
+                  [36m<label[39m
+                    [33mfor[39m=[32m"direction"[39m
+                  [36m>[39m
+                    [0mPosition side[0m
+                  [36m</label>[39m
+                  [36m<select[39m
+                    [33mid[39m=[32m"direction"[39m
+                  [36m>[39m
+                    [36m<option[39m
+                      [33mvalue[39m=[32m"long"[39m
+                    [36m>[39m
+                      [0mLong[0m
+                    [36m</option>[39m
+                    [36m<option[39m
+                      [33mvalue[39m=[32m"short"[39m
+                    [36m>[39m
+                      [0mShort[0m
+                    [36m</option>[39m
+                  [36m</select>[39m
+                [36m</div>[39m
+              [36m</div>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"primary full"[39m
+              [36m>[39m
+                [0mReview limits[0m
+              [36m</button>[39m
+              [36m<p[39m
+                [33mclass[39m=[32m"caption footnote"[39m
+              [36m>[39m
+                [0mNo holdings are connected. No signature or trade is requested.[0m
+              [36m</p>[39m
+            [36m</section>[39m
+          [36m</div>[39m
+          [36m<section[39m
+            [33maria-labelledby[39m=[32m"outcome-heading"[39m
+            [33mclass[39m=[32m"panel outcome-panel"[39m
+            [33mid[39m=[32m"evidence"[39m
+          [36m>[39m
+            [36m<h2[39m
+              [33mid[39m=[32m"outcome-heading"[39m
+            [36m>[39m
+              [0mRehearsal outcome[0m
+            [36m</h2>[39m
+            [36m<p[39m
+              [33mclass[39m=[32m"muted compact"[39m
+            [36m>[39m
+              [0mSimulated approval and execution[0m
+            [36m</p>[39m
+            [36m<label[39m
+              [33mclass[39m=[32m"field scenario-field"[39m
+            [36m>[39m
+              [0mRehearsal scenario[0m
+              [36m<select>[39m
+                [36m<option[39m
+                  [33mvalue[39m=[32m"valid"[39m
+                [36m>[39m
+                  [0mPermitted close[0m
+                [36m</option>[39m
+                [36m<option[39m
+                  [33mvalue[39m=[32m"unauthorized"[39m
+                [36m>[39m
+                  [0mUnauthorized open[0m
+                [36m</option>[39m
+                [36m<option[39m
+                  [33mvalue[39m=[32m"partial"[39m
+                [36m>[39m
+                  [0mPartial fill[0m
+                [36m</option>[39m
+                [36m<option[39m
+                  [33mvalue[39m=[32m"interrupted"[39m
+                [36m>[39m
+                  [0mInterrupted delivery[0m
+                [36m</option>[39m
+                [36m<option[39m
+                  [33mvalue[39m=[32m"duplicate"[39m
+                [36m>[39m
+                  [0mDuplicate request[0m
+                [36m</option>[39m
+                [36m<option[39m
+                  [33mvalue[39m=[32m"tampered"[39m
+                [36m>[39m
+                  [0mTampered receipt[0m
+                [36m</option>[39m
+              [36m</select>[39m
+            [36m</label>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"primary full run-button"[39m
+              [33mdisabled[39m=[32m""[39m
+            [36m>[39m
+              [0mRun rehearsal[0m
+            [36m</button>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"outcome-empty"[39m
+            [36m>[39m
+              [36m<div[39m
+                [33maria-hidden[39m=[32m"true"[39m
+                [33mclass[39m=[32m"empty-mark"[39m
+              [36m>[39m
+                [0m↳[0m
+              [36m</div>[39m
+              [36m<h3>[39m
+                [0mEvidence starts with limits[0m
+              [36m</h3>[39m
+              [36m<p>[39m
+                [0mReview a hypothetical close, then run a labeled rehearsal to compare its outcome.[0m
+              [36m</p>[39m
+            [36m</div>[39m
+            [36m<p[39m
+              [33mclass[39m=[32m"caption integrity-note"[39m
+            [36m>[39m
+              [0mReceipt integrity does not prove real-world execution.[0m
+            [36m</p>[39m
+          [36m</section>[39m
+          [36m<section[39m
+            [33maria-labelledby[39m=[32m"activity-heading"[39m
+            [33mclass[39m=[32m"panel activity-panel"[39m
+            [33mid[39m=[32m"activity"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"section-heading"[39m
+            [36m>[39m
+              [36m<h2[39m
+                [33mid[39m=[32m"activity-heading"[39m
+              [36m>[39m
+                [0mIndexed activity[0m
+              [36m</h2>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"caption"[39m
+              [36m>[39m
+                [0mEnvio · [0m
+                [0mmainnet[0m
+              [36m</span>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"empty-state"[39m
+            [36m>[39m
+              [36m<p>[39m
+                [0mEnvio pipeline not configured[0m
+              [36m</p>[39m
+              [36m<p[39m
+                [33mclass[39m=[32m"caption"[39m
+              [36m>[39m
+                [0mNo indexed activity has been inferred.[0m
+              [36m</p>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"integration-gates"[39m
+            [36m>[39m
+              [36m<span>[39m
+                [0mCRE verification [0m
+                [36m<strong>[39m
+                  [0mLogin required[0m
+                [36m</strong>[39m
+              [36m</span>[39m
+              [36m<span>[39m
+                [0mNansen context [0m
+                [36m<strong>[39m
+                  [0mAccess required[0m
+                [36m</strong>[39m
+              [36m</span>[39m
+            [36m</div>[39m
+          [36m</section>[39m
+        [36m</div>[39m
+        [36m<footer[39m
+          [33mclass[39m=[32m"page-footer"[39m
+        [36m>[39m
+          [0mPublic observations and replay evidence are separate. This workbench cannot submit transactions.[0m
+        [36m</footer>[39m
+      [36m</main>[39m
+    [36m</div>[39m
+  [36m</div>[39m
+[36m</body>[39m
+   × review fixes > old verification cannot certify newly edited JSON 96ms
+     → expect(element).not.toBeInTheDocument()
+
+expected document not to contain element, found <strong>
+  Receipt integrity verified
+</strong> instead
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/App.test.tsx > review fixes > refresh preserves lost-response identity and requires explicit separate rehearsal
+Error: expect(element).toBeDisabled()
+
+Received element is not disabled:
+  <button
+  class="primary full"
+/>
+ ❯ tests/App.test.tsx:210:596
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  tests/App.test.tsx > review fixes > source freshness expires on clock updates without deleting a recovery record
+TestingLibraryElementError: Unable to find an element with the text: Stale snapshot. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"app-shell"[39m
+    [36m>[39m
+      [36m<a[39m
+        [33mclass[39m=[32m"skip-link"[39m
+        [33mhref[39m=[32m"#workbench"[39m
+      [36m>[39m
+        [0mSkip to workbench[0m
+      [36m</a>[39m
+      [36m<aside[39m
+        [33mclass[39m=[32m"rail"[39m
+      [36m>[39m
+        [36m<a[39m
+          [33mclass[39m=[32m"wordmark"[39m
+          [33mhref[39m=[32m"#workbench"[39m
+        [36m>[39m
+          [0mEXIT /[0m
+          [36m<br />[39m
+          [0mEVIDENCE[0m
+        [36m</a>[39m
+        [36m<nav[39m
+          [33maria-label[39m=[32m"Workbench navigation"[39m
+        [36m>[39m
+          [36m<a[39m
+            [33mclass[39m=[32m"selected"[39m
+            [33mhref[39m=[32m"#workbench"[39m
+          [36m>[39m
+            [36m<svg[39m
+              [33maria-hidden[39m=[32m"true"[39m
+              [33mfill[39m=[32m"none"[39m
+              [33mheight[39m=[32m"20"[39m
+              [33mstroke[39m=[32m"currentColor"[39m
+              [33mstroke-linecap[39m=[32m"round"[39m
+              [33mstroke-linejoin[39m=[32m"round"[39m
+              [33mstroke-width[39m=[32m"1.7"[39m
+              [33mviewBox[39m=[32m"0 0 24 24"[39m
+              [33mwidth[39m=[32m"20"[39m
+            [36m>[39m
+              [36m<rect[39m
+                [33mheight[39m=[32m"6"[39m
+                [33mrx[39m=[32m"1"[39m
+                [33mwidth[39m=[32m"6"[39m
+                [33mx[39m=[32m"3"[39m
+                [33my[39m=[32m"3"[39m
+              [36m/>[39m
+              [36m<rect[39m
+                [33mheight[39m=[32m"6"[39m
+                [33mrx[39m=[32m"1"[39m
+                [33mwidth[39m=[32m"6"[39m
+                [33mx[39m=[32m"15"[39m
+                [33my[39m=[32m"3"[39m
+              [36m/>[39m
+              [36m<rect[39m
+                [33mheight[39m=[32m"6"[39m
+                [33mrx[39m=[32m"1"[39m
+                [33mwidth[39m=[32m"6"[39m
+                [33mx[39m=[32m"3"[39m
+                [33my[39m=[32m"15"[39m
+              [36m/>[39m
+              [36m<rect[39m
+                [33mheight[39m=[32m"6"[39m
+                [33mrx[39m=[32m"1"[39m
+                [33mwidth[39m=[32m"6"[39m
+                [33mx[39m=[32m"15"[39m
+                [33my[39m=[32m"15"[39m
+              [36m/>[39m
+            [36m</svg>[39m
+            [0mWorkbench[0m
+          [36m</a>[39m
+          [36m<a[39m
+            [33mhref[39m=[32m"#evidence"[39m
+          [36m>[39m
+            [36m<svg[39m
+              [33maria-hidden[39m=[32m"true"[39m
+              [33mfill[39m=[32m"none"[39m
+              [33mheight[39m=[32m"20"[39m
+              [33mstroke[39m=[32m"currentColor"[39m
+              [33mstroke-linecap[39m=[32m"round"[39m
+              [33mstroke-linejoin[39m=[32m"round"[39m
+              [33mstroke-width[39m=[32m"1.7"[39m
+              [33mviewBox[39m=[32m"0 0 24 24"[39m
+              [33mwidth[39m=[32m"20"[39m
+            [36m>[39m
+              [36m<path[39m
+                [33md[39m=[32m"M7 3h7l4 4v14H7zM14 3v5h4M10 12h5M10 16h5"[39m
+              [36m/>[39m
+            [36m</svg>[39m
+            [0mEvidence[0m
+          [36m</a>[39m
+          [36m<a[39m
+            [33mhref[39m=[32m"#activity"[39m
+          [36m>[39m
+            [36m<svg[39m
+              [33maria-hidden[39m=[32m"true"[39m
+              [33mfill[39m=[32m"none"[39m
+              [33mheight[39m=[32m"20"[39m
+              [33mstroke[39m=[32m"currentColor"[39m
+              [33mstroke-linecap[39m=[32m"round"[39m
+              [33mstroke-linejoin[39m=[32m"round"[39m
+              [33mstroke-width[39m=[32m"1.7"[39m
+              [33mviewBox[39m=[32m"0 0 24 24"[39m
+              [33mwidth[39m=[32m"20"[39m
+            [36m>[39m
+              [36m<path[39m
+                [33md[39m=[32m"M8 6h13M8 12h13M8 18h13"[39m
+              [36m/>[39m
+              [36m<circle[39m
+                [33mcx[39m=[32m"3"[39m
+                [33mcy[39m=[32m"6"[39m
+                [33mr[39m=[32m".5"[39m
+              [36m/>[39m
+              [36m<circle[39m
+                [33mcx[39m=[32m"3"[39m
+                [33mcy[39m=[32m"12"[39m
+                [33mr[39m=[32m".5"[39m
+              [36m/>[39m
+              [36m<circle[39m
+                [33mcx[39m=[32m"3"[39m
+                [33mcy[39m=[32m"18"[39m
+                [33mr[39m=[32m".5"[39m
+              [36m/>[39m
+            [36m</svg>[39m
+            [0mActivity[0m
+          [36m</a>[39m
+        [36m</nav>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"rail-footnote"[39m
+        [36m>[39m
+          [0mRead-only · No transactions[0m
+        [36m</p>[39m
+      [36m</aside>[39m
+      [36m<main[39m
+        [33mid[39m=[32m"workbench"[39m
+      [36m>[39m
+        [36m<header[39m
+          [33mclass[39m=[32m"page-header"[39m
+        [36m>[39m
+          [36m<div>[39m
+            [36m<h1>[39m
+              [0mExit evidence[0m
+            [36m</h1>[39m
+            [36m<p>[39m
+              [0mReview a reduction. Know what the evidence proves.[0m
+            [36m</p>[39m
+          [36m</div>[39m
+          [36m<label[39m
+            [33mclass[39m=[32m"network-control"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"sr-only"[39m
+            [36m>[39m
+              [0mNetwork[0m
+            [36m</span>[39m
+            [36m<select>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"mainnet"[39m
+              [36m>[39m
+                [0mMonad mainnet[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"testnet"[39m
+              [36m>[39m
+                [0mMonad testnet[0m
+              [36m</option>[39m
+            [36m</select>[39m
+          [36m</label>[39m
+        [36m</header>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"workspace-grid"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"left-column"[39m
+          [36m>[39m
+            [36m<section[39m
+              [33maria-labelledby[39m=[32m"liquidity-heading"[39m
+              [33mclass[39m=[32m"panel"[39m
+            [36m>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"section-heading"[39m
+              [36m>[39m
+                [36m<h2[39m
+                  [33mid[39m=[32m"liquidity-heading"[39m
+                [36m>[39m
+                  [0mLive liquidity[0m
+                [36m</h2>[39m
+                [36m<button[39m
+                  [33mclass[39m=[32m"text-button"[39m
+                [36m>[39m
+                  [0mRefresh reads[0m
+                [36m</button>[39m
+              [36m</div>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"market-heading"[39m
+              [36m>[39m
+                [36m<label[39m
+                  [33mclass[39m=[32m"market-select"[39m
+                [36m>[39m
+                  [0mMarket[0m
+                  [36m<select[39m
+                    [33maria-label[39m=[32m"Market"[39m
+                  [36m>[39m
+                    [36m<option[39m
+                      [33mvalue[39m=[32m"1"[39m
+                    [36m>[39m
+                      [0mBTC[0m
+                    [36m</option>[39m
+                  [36m</select>[39m
+                [36m</label>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"source-status"[39m
+                [36m>[39m
+                  [36m<span[39m
+                    [33mclass[39m=[32m"status-dot green"[39m
+                  [36m/>[39m
+                  [0mPublic read[0m
+                  [36m<small>[39m
+                    [0m00:00:00 UTC[0m
+                  [36m</small>[39m
+                [36m</div>[39m
+              [36m</div>[39m
+              [36m<p[39m
+                [33mclass[39m=[32m"muted source-line"[39m
+              [36m>[39m
+                [0mPublic Perpl snapshot · Chain [0m
+                [0m143[0m
+              [36m</p>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"order-books"[39m
+              [36m>[39m
+                [36m<table[39m
+                  [33mclass[39m=[32m"order-book bids"[39m
+                [36m>[39m
+                  [36m<caption>[39m
+                    [0mBids[0m
+                    [0m [0m
+                    [36m<span>[39m
+                      [0m(USD)[0m
+                    [36m</span>[39m
+                  [36m</caption>[39m
+                  [36m<thead>[39m
+                    [36m<tr>[39m
+                      [36m<th>[39m
+                        [0mPrice[0m
+                      [36m</th>[39m
+                      [36m<th>[39m
+                        [0mSize ([0m
+                        [0mBTC[0m
+                        [0m)[0m
+                      [36m</th>[39m
+                    [36m</tr>[39m
+                  [36m</thead>[39m
+                  [36m<tbody>[39m
+                    [36m<tr>[39m
+                      [36m<td>[39m
+                        [0m59990[0m
+                      [36m</td>[39m
+                      [36m<td>[39m
+                        [0m1.2[0m
+                      [36m</td>[39m
+                    [36m</tr>[39m
+                  [36m</tbody>[39m
+                [36m</table>[39m
+                [36m<table[39m
+                  [33mclass[39m=[32m"order-book asks"[39m
+                [36m>[39m
+                  [36m<caption>[39m
+                    [0mAsks[0m
+                    [0m [0m
+                    [36m<span>[39m
+                      [0m(USD)[0m
+                    [36m</span>[39m
+                  [36m</caption>[39m
+                  [36m<thead>[39m
+                    [36m<tr>[39m
+                      [36m<th>[39m
+                        [0mPrice[0m
+                      [36m</th>[39m
+                      [36m<th>[39m
+                        [0mSize ([0m
+                        [0mBTC[0m
+                        [0m)[0m
+                      [36m</th>[39m
+                    [36m</tr>[39m
+                  [36m</thead>[39m
+                  [36m<tbody>[39m
+                    [36m<tr>[39m
+                      [36m<td>[39m
+                        [0m60010[0m
+                      [36m</td>[39m
+                      [36m<td>[39m
+                        [0m1.1[0m
+                      [36m</td>[39m
+                    [36m</tr>[39m
+                  [36m</tbody>[39m
+                [36m</table>[39m
+              [36m</div>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"book-note"[39m
+              [36m>[39m
+                [36m<span>[39m
+                  [0mSnapshot estimate[0m
+                [36m</span>[39m
+                [36m<strong>[39m
+                  [0m0.02[0m
+                  [0m [0m
+                  [0mBTC[0m
+                [36m</strong>[39m
+                [36m<span>[39m
+                  [0mavailable for this close[0m
+                [36m</span>[39m
+              [36m</div>[39m
+              [36m<p[39m
+                [33mclass[39m=[32m"caption"[39m
+              [36m>[39m
+                [0mSnapshot estimate only[0m
+              [36m</p>[39m
+              [36m<a[39m
+                [33mclass[39m=[32m"source-link"[39m
+                [33mhref[39m=[32m"https://perpl.xyz"[39m
+                [33mrel[39m=[32m"noreferrer"[39m
+                [33mtarget[39m=[32m"_blank"[39m
+              [36m>[39m
+                [0mView public source ↗[0m
+              [36m</a>[39m
+            [36m</section>[39m
+            [36m<section[39m
+              [33maria-labelledby[39m=[32m"limits-heading"[39m
+              [33mclass[39m=[32m"panel"[39m
+            [36m>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"section-heading"[39m
+              [36m>[39m
+                [36m<h2[39m
+                  [33mid[39m=[32m"limits-heading"[39m
+                [36m>[39m
+                  [0mHypothetical limits[0m
+                [36m</h2>[39m
+                [36m<span[39m
+                  [33mclass[39m=[32m"caption"[39m
+                [36m>[39m
+                  [0mClose-only[0m
+                [36m</span>[39m
+              [36m</div>[39m
+              [36m<p[39m
+                [33mclass[39m=[32m"muted compact"[39m
+              [36m>[39m
+                [0mHypothetical position[0m
+              [36m</p>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"form-grid"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"field"[39m
+                [36m>[39m
+                  [36m<label[39m
+                    [33mfor[39m=[32m"positionQuantity"[39m
+                  [36m>[39m
+                    [0mExisting position[0m
+                  [36m</label>[39m
+                  [36m<div[39m
+                    [33mclass[39m=[32m"input-with-unit "[39m
+                  [36m>[39m
+                    [36m<input[39m
+                      [33maria-invalid[39m=[32m"false"[39m
+                      [33mid[39m=[32m"positionQuantity"[39m
+                      [33minputmode[39m=[32m"decimal"[39m
+                      [33mvalue[39m=[32m"0.04"[39m
+                    [36m/>[39m
+                    [36m<span>[39m
+                      [0mBTC[0m
+                    [36m</span>[39m
+                  [36m</div>[39m
+                [36m</div>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"field"[39m
+                [36m>[39m
+                  [36m<label[39m
+                    [33mfor[39m=[32m"closeQuantity"[39m
+                  [36m>[39m
+                    [0mClose quantity[0m
+                  [36m</label>[39m
+                  [36m<div[39m
+                    [33mclass[39m=[32m"input-with-unit "[39m
+                  [36m>[39m
+                    [36m<input[39m
+                      [33maria-invalid[39m=[32m"false"[39m
+                      [33mid[39m=[32m"closeQuantity"[39m
+                      [33minputmode[39m=[32m"decimal"[39m
+                      [33mvalue[39m=[32m"0.02"[39m
+                    [36m/>[39m
+                    [36m<span>[39m
+                      [0mBTC[0m
+                    [36m</span>[39m
+                  [36m</div>[39m
+                [36m</div>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"field"[39m
+                [36m>[39m
+                  [36m<label[39m
+                    [33mfor[39m=[32m"priceLimit"[39m
+                  [36m>[39m
+                    [0mMinimum price[0m
+                  [36m</label>[39m
+                  [36m<div[39m
+                    [33mclass[39m=[32m"input-with-unit "[39m
+                  [36m>[39m
+                    [36m<input[39m
+                      [33maria-invalid[39m=[32m"false"[39m
+                      [33mid[39m=[32m"priceLimit"[39m
+                      [33minputmode[39m=[32m"decimal"[39m
+                      [33mvalue[39m=[32m"59990"[39m
+                    [36m/>[39m
+                    [36m<span>[39m
+                      [0mUSD[0m
+                    [36m</span>[39m
+                  [36m</div>[39m
+                [36m</div>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"field"[39m
+                [36m>[39m
+                  [36m<label[39m
+                    [33mfor[39m=[32m"direction"[39m
+                  [36m>[39m
+                    [0mPosition side[0m
+                  [36m</label>[39m
+                  [36m<select[39m
+                    [33mid[39m=[32m"direction"[39m
+                  [36m>[39m
+                    [36m<option[39m
+                      [33mvalue[39m=[32m"long"[39m
+                    [36m>[39m
+                      [0mLong[0m
+                    [36m</option>[39m
+                    [36m<option[39m
+                      [33mvalue[39m=[32m"short"[39m
+                    [36m>[39m
+                      [0mShort[0m
+                    [36m</option>[39m
+                  [36m</select>[39m
+                [36m</div>[39m
+              [36m</div>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"primary full"[39m
+              [36m>[39m
+                [0mReview limits[0m
+              [36m</button>[39m
+              [36m<p[39m
+                [33mclass[39m=[32m"caption footnote"[39m
+              [36m>[39m
+                [0mNo holdings are connected. No signature or trade is requested.[0m
+              [36m</p>[39m
+            [36m</section>[39m
+          [36m</div>[39m
+          [36m<section[39m
+            [33maria-labelledby[39m=[32m"outcome-heading"[39m
+            [33mclass[39m=[32m"panel outcome-panel"[39m
+            [33mid[39m=[32m"evidence"[39m
+          [36m>[39m
+            [36m<h2[39m
+              [33mid[39m=[32m"outcome-heading"[39m
+            [36m>[39m
+              [0mRehearsal outcome[0m
+            [36m</h2>[39m
+            [36m<p[39m
+              [33mclass[39m=[32m"muted compact"[39m
+            [36m>[39m
+              [0mSimulated approval and execution[0m
+            [36m</p>[39m
+            [36m<label[39m
+              [33mclass[39m=[32m"field scenario-field"[39m
+            [36m>[39m
+              [0mRehearsal scenario[0m
+              [36m<select>[39m
+                [36m<option[39m
+                  [33mvalue[39m=[32m"valid"[39m
+                [36m>[39m
+                  [0mPermitted close[0m
+                [36m</option>[39m
+                [36m<option[39m
+                  [33mvalue[39m=[32m"unauthorized"[39m
+                [36m>[39m
+                  [0mUnauthorized open[0m
+                [36m</option>[39m
+                [36m<option[39m
+                  [33mvalue[39m=[32m"partial"[39m
+                [36m>[39m
+                  [0mPartial fill[0m
+                [36m</option>[39m
+                [36m<option[39m
+                  [33mvalue[39m=[32m"interrupted"[39m
+                [36m>[39m
+                  [0mInterrupted delivery[0m
+                [36m</option>[39m
+                [36m<option[39m
+                  [33mvalue[39m=[32m"duplicate"[39m
+                [36m>[39m
+                  [0mDuplicate request[0m
+                [36m</option>[39m
+                [36m<option[39m
+                  [33mvalue[39m=[32m"tampered"[39m
+                [36m>[39m
+                  [0mTampered receipt[0m
+                [36m</option>[39m
+              [36m</select>[39m
+            [36m</label>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"primary full run-button"[39m
+              [33mdisabled[39m=[32m""[39m
+            [36m>[39m
+              [0mRun rehearsal[0m
+            [36m</button>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"outcome-empty"[39m
+            [36m>[39m
+              [36m<div[39m
+                [33maria-hidden[39m=[32m"true"[39m
+                [33mclass[39m=[32m"empty-mark"[39m
+              [36m>[39m
+                [0m↳[0m
+              [36m</div>[39m
+              [36m<h3>[39m
+                [0mEvidence starts with limits[0m
+              [36m</h3>[39m
+              [36m<p>[39m
+                [0mReview a hypothetical close, then run a labeled rehearsal to compare its outcome.[0m
+              [36m</p>[39m
+            [36m</div>[39m
+            [36m<p[39m
+              [33mclass[39m=[32m"caption integrity-note"[39m
+            [36m>[39m
+              [0mReceipt integrity does not prove real-world execution.[0m
+            [36m</p>[39m
+          [36m</section>[39m
+          [36m<section[39m
+            [33maria-labelledby[39m=[32m"activity-heading"[39m
+            [33mclass[39m=[32m"panel activity-panel"[39m
+            [33mid[39m=[32m"activity"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"section-heading"[39m
+            [36m>[39m
+              [36m<h2[39m
+                [33mid[39m=[32m"activity-heading"[39m
+              [36m>[39m
+                [0mIndexed activity[0m
+              [36m</h2>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"caption"[39m
+              [36m>[39m
+                [0mEnvio · [0m
+                [0mmainnet[0m
+              [36m</span>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"empty-state"[39m
+            [36m>[39m
+              [36m<p>[39m
+                [0mEnvio pipeline not configured[0m
+              [36m</p>[39m
+              [36m<p[39m
+                [33mclass[39m=[32m"caption"[39m
+              [36m>[39m
+                [0mNo indexed activity has been inferred.[0m
+              [36m</p>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"integration-gates"[39m
+            [36m>[39m
+              [36m<span>[39m
+                [0mCRE verification [0m
+                [36m<strong>[39m
+                  [0mLogin required[0m
+                [36m</strong>[39m
+              [36m</span>[39m
+              [36m<span>[39m
+                [0mNansen context [0m
+                [36m<strong>[39m
+                  [0mAccess required[0m
+                [36m</strong>[39m
+              [36m</span>[39m
+            [36m</div>[39m
+          [36m</section>[39m
+        [36m</div>[39m
+        [36m<footer[39m
+          [33mclass[39m=[32m"page-footer"[39m
+        [36m>[39m
+          [0mPublic observations and replay evidence are separate. This workbench cannot submit transactions.[0m
+        [36m</footer>[39m
+      [36m</main>[39m
+    [36m</div>[39m
+  [36m</div>[39m
+[36m</body>[39m
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"app-shell"[39m
+    [36m>[39m
+      [36m<a[39m
+        [33mclass[39m=[32m"skip-link"[39m
+        [33mhref[39m=[32m"#workbench"[39m
+      [36m>[39m
+        [0mSkip to workbench[0m
+      [36m</a>[39m
+      [36m<aside[39m
+        [33mclass[39m=[32m"rail"[39m
+      [36m>[39m
+        [36m<a[39m
+          [33mclass[39m=[32m"wordmark"[39m
+          [33mhref[39m=[32m"#workbench"[39m
+        [36m>[39m
+          [0mEXIT /[0m
+          [36m<br />[39m
+          [0mEVIDENCE[0m
+        [36m</a>[39m
+        [36m<nav[39m
+          [33maria-label[39m=[32m"Workbench navigation"[39m
+        [36m>[39m
+          [36m<a[39m
+            [33mclass[39m=[32m"selected"[39m
+            [33mhref[39m=[32m"#workbench"[39m
+          [36m>[39m
+            [36m<svg[39m
+              [33maria-hidden[39m=[32m"true"[39m
+              [33mfill[39m=[32m"none"[39m
+              [33mheight[39m=[32m"20"[39m
+              [33mstroke[39m=[32m"currentColor"[39m
+              [33mstroke-linecap[39m=[32m"round"[39m
+              [33mstroke-linejoin[39m=[32m"round"[39m
+              [33mstroke-width[39m=[32m"1.7"[39m
+              [33mviewBox[39m=[32m"0 0 24 24"[39m
+              [33mwidth[39m=[32m"20"[39m
+            [36m>[39m
+              [36m<rect[39m
+                [33mheight[39m=[32m"6"[39m
+                [33mrx[39m=[32m"1"[39m
+                [33mwidth[39m=[32m"6"[39m
+                [33mx[39m=[32m"3"[39m
+                [33my[39m=[32m"3"[39m
+              [36m/>[39m
+              [36m<rect[39m
+                [33mheight[39m=[32m"6"[39m
+                [33mrx[39m=[32m"1"[39m
+                [33mwidth[39m=[32m"6"[39m
+                [33mx[39m=[32m"15"[39m
+                [33my[39m=[32m"3"[39m
+              [36m/>[39m
+              [36m<rect[39m
+                [33mheight[39m=[32m"6"[39m
+                [33mrx[39m=[32m"1"[39m
+                [33mwidth[39m=[32m"6"[39m
+                [33mx[39m=[32m"3"[39m
+                [33my[39m=[32m"15"[39m
+              [36m/>[39m
+              [36m<rect[39m
+                [33mheight[39m=[32m"6"[39m
+                [33mrx[39m=[32m"1"[39m
+                [33mwidth[39m=[32m"6"[39m
+                [33mx[39m=[32m"15"[39m
+                [33my[39m=[32m"15"[39m
+              [36m/>[39m
+            [36m</svg>[39m
+            [0mWorkbench[0m
+          [36m</a>[39m
+          [36m<a[39m
+            [33mhref[39m=[32m"#evidence"[39m
+          [36m>[39m
+            [36m<svg[39m
+              [33maria-hidden[39m=[32m"true"[39m
+              [33mfill[39m=[32m"none"[39m
+              [33mheight[39m=[32m"20"[39m
+              [33mstroke[39m=[32m"currentColor"[39m
+              [33mstroke-linecap[39m=[32m"round"[39m
+              [33mstroke-linejoin[39m=[32m"round"[39m
+              [33mstroke-width[39m=[32m"1.7"[39m
+              [33mviewBox[39m=[32m"0 0 24 24"[39m
+              [33mwidth[39m=[32m"20"[39m
+            [36m>[39m
+              [36m<path[39m
+                [33md[39m=[32m"M7 3h7l4 4v14H7zM14 3v5h4M10 12h5M10 16h5"[39m
+              [36m/>[39m
+            [36m</svg>[39m
+            [0mEvidence[0m
+          [36m</a>[39m
+          [36m<a[39m
+            [33mhref[39m=[32m"#activity"[39m
+          [36m>[39m
+            [36m<svg[39m
+              [33maria-hidden[39m=[32m"true"[39m
+              [33mfill[39m=[32m"none"[39m
+              [33mheight[39m=[32m"20"[39m
+              [33mstroke[39m=[32m"currentColor"[39m
+              [33mstroke-linecap[39m=[32m"round"[39m
+              [33mstroke-linejoin[39m=[32m"round"[39m
+              [33mstroke-width[39m=[32m"1.7"[39m
+              [33mviewBox[39m=[32m"0 0 24 24"[39m
+              [33mwidth[39m=[32m"20"[39m
+            [36m>[39m
+              [36m<path[39m
+                [33md[39m=[32m"M8 6h13M8 12h13M8 18h13"[39m
+              [36m/>[39m
+              [36m<circle[39m
+                [33mcx[39m=[32m"3"[39m
+                [33mcy[39m=[32m"6"[39m
+                [33mr[39m=[32m".5"[39m
+              [36m/>[39m
+              [36m<circle[39m
+                [33mcx[39m=[32m"3"[39m
+                [33mcy[39m=[32m"12"[39m
+                [33mr[39m=[32m".5"[39m
+              [36m/>[39m
+              [36m<circle[39m
+                [33mcx[39m=[32m"3"[39m
+                [33mcy[39m=[32m"18"[39m
+                [33mr[39m=[32m".5"[39m
+              [36m/>[39m
+            [36m</svg>[39m
+            [0mActivity[0m
+          [36m</a>[39m
+        [36m</nav>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"rail-footnote"[39m
+        [36m>[39m
+          [0mRead-only · No transactions[0m
+        [36m</p>[39m
+      [36m</aside>[39m
+      [36m<main[39m
+        [33mid[39m=[32m"workbench"[39m
+      [36m>[39m
+        [36m<header[39m
+          [33mclass[39m=[32m"page-header"[39m
+        [36m>[39m
+          [36m<div>[39m
+            [36m<h1>[39m
+              [0mExit evidence[0m
+            [36m</h1>[39m
+            [36m<p>[39m
+              [0mReview a reduction. Know what the evidence proves.[0m
+            [36m</p>[39m
+          [36m</div>[39m
+          [36m<label[39m
+            [33mclass[39m=[32m"network-control"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"sr-only"[39m
+            [36m>[39m
+              [0mNetwork[0m
+            [36m</span>[39m
+            [36m<select>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"mainnet"[39m
+              [36m>[39m
+                [0mMonad mainnet[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"testnet"[39m
+              [36m>[39m
+                [0mMonad testnet[0m
+              [36m</option>[39m
+            [36m</select>[39m
+          [36m</label>[39m
+        [36m</header>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"workspace-grid"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"left-column"[39m
+          [36m>[39m
+            [36m<section[39m
+              [33maria-labelledby[39m=[32m"liquidity-heading"[39m
+              [33mclass[39m=[32m"panel"[39m
+            [36m>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"section-heading"[39m
+              [36m>[39m
+                [36m<h2[39m
+                  [33mid[39m=[32m"liquidity-heading"[39m
+                [36m>[39m
+                  [0mLive liquidity[0m
+                [36m</h2>[39m
+                [36m<button[39m
+                  [33mclass[39m=[32m"text-button"[39m
+                [36m>[39m
+                  [0mRefresh reads[0m
+                [36m</button>[39m
+              [36m</div>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"market-heading"[39m
+              [36m>[39m
+                [36m<label[39m
+                  [33mclass[39m=[32m"market-select"[39m
+                [36m>[39m
+                  [0mMarket[0m
+                  [36m<select[39m
+                    [33maria-label[39m=[32m"Market"[39m
+                  [36m>[39m
+                    [36m<option[39m
+                      [33mvalue[39m=[32m"1"[39m
+                    [36m>[39m
+                      [0mBTC[0m
+                    [36m</option>[39m
+                  [36m</select>[39m
+                [36m</label>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"source-status"[39m
+                [36m>[39m
+                  [36m<span[39m
+                    [33mclass[39m=[32m"status-dot green"[39m
+                  [36m/>[39m
+                  [0mPublic read[0m
+                  [36m<small>[39m
+                    [0m00:00:00 UTC[0m
+                  [36m</small>[39m
+                [36m</div>[39m
+              [36m</div>[39m
+              [36m<p[39m
+                [33mclass[39m=[32m"muted source-line"[39m
+              [36m>[39m
+                [0mPublic Perpl snapshot · Chain [0m
+                [0m143[0m
+              [36m</p>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"order-books"[39m
+              [36m>[39m
+                [36m<table[39m
+                  [33mclass[39m=[32m"order-book bids"[39m
+                [36m>[39m
+                  [36m<caption>[39m
+                    [0mBids[0m
+                    [0m [0m
+                    [36m<span>[39m
+                      [0m(USD)[0m
+                    [36m</span>[39m
+                  [36m</caption>[39m
+                  [36m<thead>[39m
+                    [36m<tr>[39m
+                      [36m<th>[39m
+                        [0mPrice[0m
+                      [36m</th>[39m
+                      [36m<th>[39m
+                        [0mSize ([0m
+                        [0mBTC[0m
+                        [0m)[0m
+                      [36m</th>[39m
+                    [36m</tr>[39m
+                  [36m</thead>[39m
+                  [36m<tbody>[39m
+                    [36m<tr>[39m
+                      [36m<td>[39m
+                        [0m59990[0m
+                      [36m</td>[39m
+                      [36m<td>[39m
+                        [0m1.2[0m
+                      [36m</td>[39m
+                    [36m</tr>[39m
+                  [36m</tbody>[39m
+                [36m</table>[39m
+                [36m<table[39m
+                  [33mclass[39m=[32m"order-book asks"[39m
+                [36m>[39m
+                  [36m<caption>[39m
+                    [0mAsks[0m
+                    [0m [0m
+                    [36m<span>[39m
+                      [0m(USD)[0m
+                    [36m</span>[39m
+                  [36m</caption>[39m
+                  [36m<thead>[39m
+                    [36m<tr>[39m
+                      [36m<th>[39m
+                        [0mPrice[0m
+                      [36m</th>[39m
+                      [36m<th>[39m
+                        [0mSize ([0m
+                        [0mBTC[0m
+                        [0m)[0m
+                      [36m</th>[39m
+                    [36m</tr>[39m
+                  [36m</thead>[39m
+                  [36m<tbody>[39m
+                    [36m<tr>[39m
+                      [36m<td>[39m
+                        [0m60010[0m
+                      [36m</td>[39m
+                      [36m<td>[39m
+                        [0m1.1[0m
+                      [36m</td>[39m
+                    [36m</tr>[39m
+                  [36m</tbody>[39m
+                [36m</table>[39m
+              [36m</div>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"book-note"[39m
+              [36m>[39m
+                [36m<span>[39m
+                  [0mSnapshot estimate[0m
+                [36m</span>[39m
+                [36m<strong>[39m
+                  [0m0.02[0m
+                  [0m [0m
+                  [0mBTC[0m
+                [36m</strong>[39m
+                [36m<span>[39m
+                  [0mavailable for this close[0m
+                [36m</span>[39m
+              [36m</div>[39m
+              [36m<p[39m
+                [33mclass[39m=[32m"caption"[39m
+              [36m>[39m
+                [0mSnapshot estimate only[0m
+              [36m</p>[39m
+              [36m<a[39m
+                [33mclass[39m=[32m"source-link"[39m
+                [33mhref[39m=[32m"https://perpl.xyz"[39m
+                [33mrel[39m=[32m"noreferrer"[39m
+                [33mtarget[39m=[32m"_blank"[39m
+              [36m>[39m
+                [0mView public source ↗[0m
+              [36m</a>[39m
+            [36m</section>[39m
+            [36m<section[39m
+              [33maria-labelledby[39m=[32m"limits-heading"[39m
+              [33mclass[39m=[32m"panel"[39m
+            [36m>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"section-heading"[39m
+              [36m>[39m
+                [36m<h2[39m
+                  [33mid[39m=[32m"limits-heading"[39m
+                [36m>[39m
+                  [0mHypothetical limits[0m
+                [36m</h2>[39m
+                [36m<span[39m
+                  [33mclass[39m=[32m"caption"[39m
+                [36m>[39m
+                  [0mClose-only[0m
+                [36m</span>[39m
+              [36m</div>[39m
+              [36m<p[39m
+                [33mclass[39m=[32m"muted compact"[39m
+              [36m>[39m
+                [0mHypothetical position[0m
+              [36m</p>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"form-grid"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"field"[39m
+                [36m>[39m
+                  [36m<label[39m
+                    [33mfor[39m=[32m"positionQuantity"[39m
+                  [36m>[39m
+                    [0mExisting position[0m
+                  [36m</label>[39m
+                  [36m<div[39m
+                    [33mclass[39m=[32m"input-with-unit "[39m
+                  [36m>[39m
+                    [36m<input[39m
+                      [33maria-invalid[39m=[32m"false"[39m
+                      [33mid[39m=[32m"positionQuantity"[39m
+                      [33minputmode[39m=[32m"decimal"[39m
+                      [33mvalue[39m=[32m"0.04"[39m
+                    [36m/>[39m
+                    [36m<span>[39m
+                      [0mBTC[0m
+                    [36m</span>[39m
+                  [36m</div>[39m
+                [36m</div>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"field"[39m
+                [36m>[39m
+                  [36m<label[39m
+                    [33mfor[39m=[32m"closeQuantity"[39m
+                  [36m>[39m
+                    [0mClose quantity[0m
+                  [36m</label>[39m
+                  [36m<div[39m
+                    [33mclass[39m=[32m"input-with-unit "[39m
+                  [36m>[39m
+                    [36m<input[39m
+                      [33maria-invalid[39m=[32m"false"[39m
+                      [33mid[39m=[32m"closeQuantity"[39m
+                      [33minputmode[39m=[32m"decimal"[39m
+                      [33mvalue[39m=[32m"0.02"[39m
+                    [36m/>[39m
+                    [36m<span>[39m
+                      [0mBTC[0m
+                    [36m</span>[39m
+                  [36m</div>[39m
+                [36m</div>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"field"[39m
+                [36m>[39m
+                  [36m<label[39m
+                    [33mfor[39m=[32m"priceLimit"[39m
+                  [36m>[39m
+                    [0mMinimum price[0m
+                  [36m</label>[39m
+                  [36m<div[39m
+                    [33mclass[39m=[32m"input-with-unit "[39m
+                  [36m>[39m
+                    [36m<input[39m
+                      [33maria-invalid[39m=[32m"false"[39m
+                      [33mid[39m=[32m"priceLimit"[39m
+                      [33minputmode[39m=[32m"decimal"[39m
+                      [33mvalue[39m=[32m"59990"[39m
+                    [36m/>[39m
+                    [36m<span>[39m
+                      [0mUSD[0m
+                    [36m</span>[39m
+                  [36m</div>[39m
+                [36m</div>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"field"[39m
+                [36m>[39m
+                  [36m<label[39m
+                    [33mfor[39m=[32m"direction"[39m
+                  [36m>[39m
+                    [0mPosition side[0m
+                  [36m</label>[39m
+                  [36m<select[39m
+                    [33mid[39m=[32m"direction"[39m
+                  [36m>[39m
+                    [36m<option[39m
+                      [33mvalue[39m=[32m"long"[39m
+                    [36m>[39m
+                      [0mLong[0m
+                    [36m</option>[39m
+                    [36m<option[39m
+                      [33mvalue[39m=[32m"short"[39m
+                    [36m>[39m
+                      [0mShort[0m
+                    [36m</option>[39m
+                  [36m</select>[39m
+                [36m</div>[39m
+              [36m</div>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"primary full"[39m
+              [36m>[39m
+                [0mReview limits[0m
+              [36m</button>[39m
+              [36m<p[39m
+                [33mclass[39m=[32m"caption footnote"[39m
+              [36m>[39m
+                [0mNo holdings are connected. No signature or trade is requested.[0m
+              [36m</p>[39m
+            [36m</section>[39m
+          [36m</div>[39m
+          [36m<section[39m
+            [33maria-labelledby[39m=[32m"outcome-heading"[39m
+            [33mclass[39m=[32m"panel outcome-panel"[39m
+            [33mid[39m=[32m"evidence"[39m
+          [36m>[39m
+            [36m<h2[39m
+              [33mid[39m=[32m"outcome-heading"[39m
+            [36m>[39m
+              [0mRehearsal outcome[0m
+            [36m</h2>[39m
+            [36m<p[39m
+              [33mclass[39m=[32m"muted compact"[39m
+            [36m>[39m
+              [0mSimulated approval and execution[0m
+            [36m</p>[39m
+            [36m<label[39m
+              [33mclass[39m=[32m"field scenario-field"[39m
+            [36m>[39m
+              [0mRehearsal scenario[0m
+              [36m<select>[39m
+                [36m<option[39m
+                  [33mvalue[39m=[32m"valid"[39m
+                [36m>[39m
+                  [0mPermitted close[0m
+                [36m</option>[39m
+                [36m<option[39m
+                  [33mvalue[39m=[32m"unauthorized"[39m
+                [36m>[39m
+                  [0mUnauthorized open[0m
+                [36m</option>[39m
+                [36m<option[39m
+                  [33mvalue[39m=[32m"partial"[39m
+                [36m>[39m
+                  [0mPartial fill[0m
+                [36m</option>[39m
+                [36m<option[39m
+                  [33mvalue[39m=[32m"interrupted"[39m
+                [36m>[39m
+                  [0mInterrupted delivery[0m
+                [36m</option>[39m
+                [36m<option[39m
+                  [33mvalue[39m=[32m"duplicate"[39m
+                [36m>[39m
+                  [0mDuplicate request[0m
+                [36m</option>[39m
+                [36m<option[39m
+                  [33mvalue[39m=[32m"tampered"[39m
+                [36m>[39m
+                  [0mTampered receipt[0m
+                [36m</option>[39m
+              [36m</select>[39m
+            [36m</label>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"primary full run-button"[39m
+              [33mdisabled[39m=[32m""[39m
+            [36m>[39m
+              [0mRun rehearsal[0m
+            [36m</button>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"outcome-empty"[39m
+            [36m>[39m
+              [36m<div[39m
+                [33maria-hidden[39m=[32m"true"[39m
+                [33mclass[39m=[32m"empty-mark"[39m
+              [36m>[39m
+                [0m↳[0m
+              [36m</div>[39m
+              [36m<h3>[39m
+                [0mEvidence starts with limits[0m
+              [36m</h3>[39m
+              [36m<p>[39m
+                [0mReview a hypothetical close, then run a labeled rehearsal to compare its outcome.[0m
+              [36m</p>[39m
+            [36m</div>[39m
+            [36m<p[39m
+              [33mclass[39m=[32m"caption integrity-note"[39m
+            [36m>[39m
+              [0mReceipt integrity does not prove real-world execution.[0m
+            [36m</p>[39m
+          [36m</section>[39m
+          [36m<section[39m
+            [33maria-labelledby[39m=[32m"activity-heading"[39m
+            [33mclass[39m=[32m"panel activity-panel"[39m
+            [33mid[39m=[32m"activity"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"section-heading"[39m
+            [36m>[39m
+              [36m<h2[39m
+                [33mid[39m=[32m"activity-heading"[39m
+              [36m>[39m
+                [0mIndexed activity[0m
+              [36m</h2>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"caption"[39m
+              [36m>[39m
+                [0mEnvio · [0m
+                [0mmainnet[0m
+              [36m</span>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"empty-state"[39m
+            [36m>[39m
+              [36m<p>[39m
+                [0mEnvio pipeline not configured[0m
+              [36m</p>[39m
+              [36m<p[39m
+                [33mclass[39m=[32m"caption"[39m
+              [36m>[39m
+                [0mNo indexed activity has been inferred.[0m
+              [36m</p>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"integration-gates"[39m
+            [36m>[39m
+              [36m<span>[39m
+                [0mCRE verification [0m
+                [36m<strong>[39m
+                  [0mLogin required[0m
+                [36m</strong>[39m
+              [36m</span>[39m
+              [36m<span>[39m
+                [0mNansen context [0m
+                [36m<strong>[39m
+                  [0mAccess required[0m
+                [36m</strong>[39m
+              [36m</span>[39m
+            [36m</div>[39m
+          [36m</section>[39m
+        [36m</div>[39m
+        [36m<footer[39m
+          [33mclass[39m=[32m"page-footer"[39m
+        [36m>[39m
+          [0mPublic observations and replay evidence are separate. This workbench cannot submit transactions.[0m
+        [36m</footer>[39m
+      [36m</main>[39m
+    [36m</div>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ waitForWrapper node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:86:33
+ ❯ tests/App.test.tsx:212:230
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  tests/App.test.tsx > review fixes > old verification cannot certify newly edited JSON
+Error: expect(element).not.toBeInTheDocument()
+
+expected document not to contain element, found <strong>
+  Receipt integrity verified
+</strong> instead
+ ❯ tests/App.test.tsx:213:700
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  3 failed | 23 passed (26)
+   Start at  14:52:00
+   Duration  3.48s (transform 138ms, setup 189ms, collect 195ms, tests 2.63s, environment 680ms, prepare 119ms)
+

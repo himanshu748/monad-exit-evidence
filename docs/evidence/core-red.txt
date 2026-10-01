@@ -1,0 +1,122 @@
+✖ exact decimal amounts never pass through floating point (0.959445ms)
+✔ rejects malformed exact quantity 1e-3 (0.268204ms)
+✔ rejects malformed exact quantity -1 (0.13281ms)
+✔ rejects malformed exact quantity 0.000001 (0.413113ms)
+✔ rejects malformed exact quantity NaN (0.083045ms)
+✔ rejects malformed exact quantity Infinity (0.07314ms)
+✔ rejects malformed exact quantity  1 (0.094663ms)
+✔ rejects malformed exact quantity 1. (0.101563ms)
+✔ rejects malformed exact quantity 01.2 (0.087532ms)
+✖ valid close preserves fixed quantity and zero real provider writes (0.256987ms)
+✖ unauthorized open is rejected before simulated submission (0.108173ms)
+✖ partial IOC ends partial without retry or held remainder (0.095384ms)
+✖ unknown submission retains allowance and does not retry (0.182265ms)
+✖ duplicate observation counts exactly one fill and submission (1.345727ms)
+✖ editing receipt outcome or policy fails integrity (0.095174ms)
+✖ tampered scenario is explicitly detected (0.069535ms)
+✔ close above original position is rejected (0.276726ms)
+✔ invalid chain input and precision is rejected (0.141022ms)
+ℹ tests 18
+ℹ suites 0
+ℹ pass 10
+ℹ fail 8
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 153.340969
+
+✖ failing tests:
+
+test at tests/core.test.ts:9:1
+✖ exact decimal amounts never pass through floating point (0.959445ms)
+  Error: not implemented
+      at parseUnits (file:///workspace/scratch/521d0942f783/mandate-workbench/src/core/quantity.ts:1:75)
+      at TestContext.<anonymous> (file:///workspace/scratch/521d0942f783/mandate-workbench/tests/core.test.ts:9:82)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17)
+
+test at tests/core.test.ts:11:1
+✖ valid close preserves fixed quantity and zero real provider writes (0.256987ms)
+  Error: not implemented
+      at runRehearsal (file:///workspace/scratch/521d0942f783/mandate-workbench/src/core/rehearsal.ts:2:81)
+      at TestContext.<anonymous> (file:///workspace/scratch/521d0942f783/mandate-workbench/tests/core.test.ts:11:88)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests/core.test.ts:12:1
+✖ unauthorized open is rejected before simulated submission (0.108173ms)
+  Error: not implemented
+      at runRehearsal (file:///workspace/scratch/521d0942f783/mandate-workbench/src/core/rehearsal.ts:2:81)
+      at TestContext.<anonymous> (file:///workspace/scratch/521d0942f783/mandate-workbench/tests/core.test.ts:12:79)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests/core.test.ts:13:1
+✖ partial IOC ends partial without retry or held remainder (0.095384ms)
+  Error: not implemented
+      at runRehearsal (file:///workspace/scratch/521d0942f783/mandate-workbench/src/core/rehearsal.ts:2:81)
+      at TestContext.<anonymous> (file:///workspace/scratch/521d0942f783/mandate-workbench/tests/core.test.ts:13:78)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests/core.test.ts:14:1
+✖ unknown submission retains allowance and does not retry (0.182265ms)
+  Error: not implemented
+      at runRehearsal (file:///workspace/scratch/521d0942f783/mandate-workbench/src/core/rehearsal.ts:2:81)
+      at TestContext.<anonymous> (file:///workspace/scratch/521d0942f783/mandate-workbench/tests/core.test.ts:14:77)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests/core.test.ts:15:1
+✖ duplicate observation counts exactly one fill and submission (1.345727ms)
+  Error: not implemented
+      at runRehearsal (file:///workspace/scratch/521d0942f783/mandate-workbench/src/core/rehearsal.ts:2:81)
+      at TestContext.<anonymous> (file:///workspace/scratch/521d0942f783/mandate-workbench/tests/core.test.ts:15:82)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests/core.test.ts:16:1
+✖ editing receipt outcome or policy fails integrity (0.095174ms)
+  Error: not implemented
+      at runRehearsal (file:///workspace/scratch/521d0942f783/mandate-workbench/src/core/rehearsal.ts:2:81)
+      at TestContext.<anonymous> (file:///workspace/scratch/521d0942f783/mandate-workbench/tests/core.test.ts:16:71)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests/core.test.ts:17:1
+✖ tampered scenario is explicitly detected (0.069535ms)
+  Error: not implemented
+      at runRehearsal (file:///workspace/scratch/521d0942f783/mandate-workbench/src/core/rehearsal.ts:2:81)
+      at TestContext.<anonymous> (file:///workspace/scratch/521d0942f783/mandate-workbench/tests/core.test.ts:17:80)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)

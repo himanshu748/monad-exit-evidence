@@ -1,0 +1,73 @@
+✖ chain and external API evidence establish only the named reduction observation (0.721175ms)
+✖ wrong chain/exchange/tx and quantity beyond policy contradict result (0.149295ms)
+✖ missing decrease is inconclusive; failed transaction is contradicted (0.129104ms)
+✖ stale API evidence cannot produce verified result (0.114512ms)
+✖ duplicate event is counted once and conflicting duplicate is rejected (0.1067ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 0
+ℹ fail 5
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 118.095122
+
+✖ failing tests:
+
+test at tests/verification.test.ts:3:1
+✖ chain and external API evidence establish only the named reduction observation (0.721175ms)
+  Error: not implemented
+      at verifyExitObservation (file:///workspace/scratch/521d0942f783/mandate-workbench/src/core/verification.ts:1:66)
+      at TestContext.<anonymous> (file:///workspace/scratch/521d0942f783/mandate-workbench/tests/verification.test.ts:3:100)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17)
+
+test at tests/verification.test.ts:4:1
+✖ wrong chain/exchange/tx and quantity beyond policy contradict result (0.149295ms)
+  Error: not implemented
+      at verifyExitObservation (file:///workspace/scratch/521d0942f783/mandate-workbench/src/core/verification.ts:1:66)
+      at TestContext.<anonymous> (file:///workspace/scratch/521d0942f783/mandate-workbench/tests/verification.test.ts:4:257)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3)
+
+test at tests/verification.test.ts:5:1
+✖ missing decrease is inconclusive; failed transaction is contradicted (0.129104ms)
+  Error: not implemented
+      at verifyExitObservation (file:///workspace/scratch/521d0942f783/mandate-workbench/src/core/verification.ts:1:66)
+      at TestContext.<anonymous> (file:///workspace/scratch/521d0942f783/mandate-workbench/tests/verification.test.ts:5:95)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests/verification.test.ts:6:1
+✖ stale API evidence cannot produce verified result (0.114512ms)
+  Error: not implemented
+      at verifyExitObservation (file:///workspace/scratch/521d0942f783/mandate-workbench/src/core/verification.ts:1:66)
+      at TestContext.<anonymous> (file:///workspace/scratch/521d0942f783/mandate-workbench/tests/verification.test.ts:6:75)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at tests/verification.test.ts:7:1
+✖ duplicate event is counted once and conflicting duplicate is rejected (0.1067ms)
+  Error: not implemented
+      at verifyExitObservation (file:///workspace/scratch/521d0942f783/mandate-workbench/src/core/verification.ts:1:66)
+      at TestContext.<anonymous> (file:///workspace/scratch/521d0942f783/mandate-workbench/tests/verification.test.ts:7:96)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)

@@ -1,0 +1,11 @@
+✔ HTTP replay is durable idempotent and changed body conflicts (56.258603ms)
+✔ HTTP cannot forward arbitrary URLs or mutate provider and rejects bad origin (17.52628ms)
+✔ HTTP rejects precision changes and unknown snapshot (14.506451ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 221.32762

@@ -1,0 +1,1 @@
+{"name":"mandate-cre-verifier","version":"0.1.0","private":true,"type":"module","scripts":{"typecheck":"tsc --noEmit"},"dependencies":{"@chainlink/cre-sdk":"1.23.0","viem":"2.38.5","zod":"3.25.76"},"devDependencies":{"typescript":"5.9.3","@types/node":"24.7.0"}}

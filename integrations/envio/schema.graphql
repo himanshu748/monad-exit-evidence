@@ -1,0 +1,17 @@
+type ExchangeEvent {
+  id: ID!
+  chainId: Int! @index
+  contract: String!
+  transactionHash: String!
+  blockHash: String!
+  blockNumber: Int! @index
+  logIndex: Int!
+  kind: String!
+  marketId: String
+  accountId: String
+  quantity: String
+  source: String!
+  observedAt: String!
+  outcome: String!
+  decoded: String!
+}

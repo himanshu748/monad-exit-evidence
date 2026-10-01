@@ -1,0 +1,72 @@
+[
+  {
+    "network": "mainnet",
+    "verifiedAt": "2026-10-01T09:09:47.981Z",
+    "chainId": 143,
+    "rpc": "https://rpc.monad.xyz",
+    "source": "ENVIO",
+    "watermark": 109568469,
+    "transactionHash": "0x388eec5ce86e8e7b911347a2087be5f5f88213fac103b0c9071f6415cc58b27a",
+    "blockNumber": 109568467,
+    "logIndex": 102,
+    "kind": "TakerOrderFilledV2",
+    "checks": {
+      "contractMatches": true,
+      "blockHashMatches": true,
+      "decodedValuesMatch": true,
+      "chainProvenanceMatches": true
+    },
+    "indexedEvent": {
+      "id": "143:0x388eec5ce86e8e7b911347a2087be5f5f88213fac103b0c9071f6415cc58b27a:102",
+      "chainId": 143,
+      "contract": "0x34b6552d57a35a1d042ccae1951bd1c370112a6f",
+      "transactionHash": "0x388eec5ce86e8e7b911347a2087be5f5f88213fac103b0c9071f6415cc58b27a",
+      "blockHash": "0xf3004caf07e3ebaf33627d98aa3664ed165335bb5b9ae76a4ac0c694032f42e5",
+      "blockNumber": 109568467,
+      "logIndex": 102,
+      "kind": "TakerOrderFilledV2",
+      "marketId": null,
+      "accountId": null,
+      "quantity": "4",
+      "source": "ENVIO",
+      "observedAt": "2026-10-01T09:09:10.000Z",
+      "outcome": "OBSERVED_EVENT",
+      "decoded": "{\"amountCNS\":\"667892\",\"balanceCNS\":\"169532518\",\"builderFeeCNS\":\"0\",\"builderId\":\"0\",\"collatPricePNS\":\"835768\",\"entryPricePNS\":\"835768\",\"feeCNS\":\"1154\",\"lotLNS\":\"4\",\"pnlPricePNS\":\"835768\"}"
+    }
+  },
+  {
+    "network": "testnet",
+    "verifiedAt": "2026-10-01T09:09:55.442Z",
+    "chainId": 10143,
+    "rpc": "https://testnet-rpc.monad.xyz",
+    "source": "ENVIO",
+    "watermark": 67217727,
+    "transactionHash": "0x4a2b2e66e44f56f22c52076b7d54af0cc133c5190780aa21253be722d9cba80a",
+    "blockNumber": 67217726,
+    "logIndex": 44,
+    "kind": "TakerOrderFilledV2",
+    "checks": {
+      "contractMatches": true,
+      "blockHashMatches": true,
+      "decodedValuesMatch": true,
+      "chainProvenanceMatches": true
+    },
+    "indexedEvent": {
+      "id": "10143:0x4a2b2e66e44f56f22c52076b7d54af0cc133c5190780aa21253be722d9cba80a:44",
+      "chainId": 10143,
+      "contract": "0x1964c32f0be608e7d29302aff5e61268e72080cc",
+      "transactionHash": "0x4a2b2e66e44f56f22c52076b7d54af0cc133c5190780aa21253be722d9cba80a",
+      "blockHash": "0xfcbe3e56a1bf8bf5149138735ec0b6072f9b3d1f54f5099c43945d61b3fd91fb",
+      "blockNumber": 67217726,
+      "logIndex": 44,
+      "kind": "TakerOrderFilledV2",
+      "marketId": null,
+      "accountId": null,
+      "quantity": "76706",
+      "source": "ENVIO",
+      "observedAt": "2026-10-01T09:09:16.000Z",
+      "outcome": "OBSERVED_EVENT",
+      "decoded": "{\"amountCNS\":\"106598928\",\"balanceCNS\":\"8916658670720\",\"builderFeeCNS\":\"0\",\"builderId\":\"0\",\"collatPricePNS\":\"5524\",\"entryPricePNS\":\"5524\",\"feeCNS\":\"74152\",\"lotLNS\":\"76706\",\"pnlPricePNS\":\"5524\"}"
+    }
+  }
+]

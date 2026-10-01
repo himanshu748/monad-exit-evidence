@@ -1,0 +1,40 @@
+# yaml-language-server: $schema=./node_modules/envio/evm.schema.json
+name: mandate-exchange-activity
+description: Read-only Perpl exchange events on Monad, ingested by Envio from public RPC
+address_format: lowercase
+contracts:
+  - name: Exchange
+    abi_file_path: ./abis/Exchange.json
+    handler: ./src/EventHandlers.ts
+    events:
+      - event: OrderRequest
+      - event: OrderRequestV2
+      - event: MakerOrderFilled
+      - event: MakerOrderFilledV2
+      - event: TakerOrderFilled
+      - event: TakerOrderFilledV2
+      - event: PositionClosed
+      - event: PositionDecreased
+chains:
+  - id: 143
+    start_block: 109565000
+    rpc:
+      url: https://rpc.monad.xyz
+      for: sync
+      initial_block_interval: 100
+      interval_ceiling: 100
+      acceleration_additive: 0
+    contracts:
+      - name: Exchange
+        address: '0x34b6552d57a35a1d042ccae1951bd1c370112a6f'
+  - id: 10143
+    start_block: 67214000
+    rpc:
+      url: https://testnet-rpc.monad.xyz
+      for: sync
+      initial_block_interval: 100
+      interval_ceiling: 100
+      acceleration_additive: 0
+    contracts:
+      - name: Exchange
+        address: '0x1964c32f0be608e7d29302aff5e61268e72080cc'

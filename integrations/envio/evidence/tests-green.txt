@@ -1,0 +1,21 @@
+✔ Envio normalization preserves exact quantities and chain/contract/log provenance (8.099305ms)
+✔ Envio rejects malformed event provenance and lossy numbers (0.530269ms)
+✔ Envio taker fills never invent a market/account absent from their ABI (0.172059ms)
+✔ Envio projection dedupes exact log IDs and sorts deterministically (1.498255ms)
+✔ Envio conflicting duplicate logs, wrong network, and event beyond watermark fail closed (0.452291ms)
+✔ Envio empty verified index is live, but stale or unindexed data is unavailable (0.259731ms)
+✔ Missing Envio service returns explicit unavailable with no fabricated events (1.303242ms)
+✔ Envio adapter reads the actual fresh local read model (0.385981ms)
+✔ Envio fill event must have a quantity and maker account/market (0.309166ms)
+✔ Envio position decrease uses exact lot difference and closed quantity stays unknown (0.311749ms)
+✔ Envio projection rejects corrupted normalized quantities and mismatched block provenance (0.293251ms)
+✔ Envio adapter is pinned to network-specific local files and bad data is unavailable (0.516197ms)
+✔ Envio and independent ABI decoders canonicalize safe small integer types identically (0.209055ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 13
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 148.840311

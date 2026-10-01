@@ -1,0 +1,1609 @@
+[14:32:55.308] [32mINFO[39m: [36mInitializing the indexer storage...[39m
+
+[14:32:55.327] [32mINFO[39m: [36mNo cache found to upload.[39m
+
+[14:32:55.337] [32mINFO[39m: [36mThe indexer storage is ready. Starting indexing![39m
+
+[14:33:29.207] [33mWARN[39m: [36mFailed getting data for the block range. Will try smaller block range for the next attempt.[39m
+    [35mchainId[39m: 10143
+    [35mlogType[39m: "Block Range Query"
+    [35mpartitionId[39m: "0"
+    [35msource[39m: "RPC (testnet-rpc.monad.xyz)"
+    [35mfromBlock[39m: 67214100
+    [35mtoBlock[39m: 67214344
+    [35maddresses[39m: 1
+    [35mretry[39m: 4
+    [35mbackOffMilliseconds[39m: 2000
+    err: {
+      "type": "Error",
+      "message": "{\"kind\":\"Retry\",\"attemptedToBlock\":67214344,\"errorMessage\":\"eth_getLogs is limited to a 100 range\",\"requestStats\":[{\"method\":\"eth_getLogs\",\"seconds\":0.237947635}],\"retry\":{\"tag\":\"WithBackoff\",\"message\":\"Failed getting data for the block range. Will try smaller block range for the next attempt.\",\"backoffMillis\":2000}}",
+      "stack":
+          Error: {"kind":"Retry","attemptedToBlock":67214344,"errorMessage":"eth_getLogs is limited to a 100 range","requestStats":[{"method":"eth_getLogs","seconds":0.237947635}],"retry":{"tag":"WithBackoff","message":"Failed getting data for the block range. Will try smaller block range for the next attempt.","backoffMillis":2000}}
+      "code": "GenericFailure"
+    }
+
+[14:33:32.084] [33mWARN[39m: [36mFailed getting data for the block range. Will try smaller block range for the next attempt.[39m
+    [35mchainId[39m: 10143
+    [35mlogType[39m: "Block Range Query"
+    [35mpartitionId[39m: "0"
+    [35msource[39m: "RPC (testnet-rpc.monad.xyz)"
+    [35mfromBlock[39m: 67214100
+    [35mtoBlock[39m: 67214295
+    [35maddresses[39m: 1
+    [35mretry[39m: 5
+    [35mbackOffMilliseconds[39m: 2000
+    err: {
+      "type": "Error",
+      "message": "{\"kind\":\"Retry\",\"attemptedToBlock\":67214295,\"errorMessage\":\"eth_getLogs is limited to a 100 range\",\"requestStats\":[{\"method\":\"eth_getLogs\",\"seconds\":0.874120025}],\"retry\":{\"tag\":\"WithBackoff\",\"message\":\"Failed getting data for the block range. Will try smaller block range for the next attempt.\",\"backoffMillis\":2000}}",
+      "stack":
+          Error: {"kind":"Retry","attemptedToBlock":67214295,"errorMessage":"eth_getLogs is limited to a 100 range","requestStats":[{"method":"eth_getLogs","seconds":0.874120025}],"retry":{"tag":"WithBackoff","message":"Failed getting data for the block range. Will try smaller block range for the next attempt.","backoffMillis":2000}}
+      "code": "GenericFailure"
+    }
+
+[14:33:34.336] [33mWARN[39m: [36mFailed getting data for the block range. Will try smaller block range for the next attempt.[39m
+    [35mchainId[39m: 10143
+    [35mlogType[39m: "Block Range Query"
+    [35mpartitionId[39m: "0"
+    [35msource[39m: "RPC (testnet-rpc.monad.xyz)"
+    [35mfromBlock[39m: 67214100
+    [35mtoBlock[39m: 67214255
+    [35maddresses[39m: 1
+    [35mretry[39m: 6
+    [35mbackOffMilliseconds[39m: 2000
+    err: {
+      "type": "Error",
+      "message": "{\"kind\":\"Retry\",\"attemptedToBlock\":67214255,\"errorMessage\":\"eth_getLogs is limited to a 100 range\",\"requestStats\":[{\"method\":\"eth_getLogs\",\"seconds\":0.250432219}],\"retry\":{\"tag\":\"WithBackoff\",\"message\":\"Failed getting data for the block range. Will try smaller block range for the next attempt.\",\"backoffMillis\":2000}}",
+      "stack":
+          Error: {"kind":"Retry","attemptedToBlock":67214255,"errorMessage":"eth_getLogs is limited to a 100 range","requestStats":[{"method":"eth_getLogs","seconds":0.250432219}],"retry":{"tag":"WithBackoff","message":"Failed getting data for the block range. Will try smaller block range for the next attempt.","backoffMillis":2000}}
+      "code": "GenericFailure"
+    }
+
+[14:33:36.641] [32mINFO[39m: [36mFound existing indexer storage. Resuming indexing state...[39m
+
+[14:33:36.662] [32mINFO[39m: [36mSuccessfully resumed indexing state! Continuing from the last checkpoint.[39m
+    [35mprogress[39m: {
+      "143": 109565099,
+      "10143": 67214099
+    }
+
+[14:33:51.097] [33mWARN[39m: [36mIssue while running fetching batch of events from the RPC. Will wait 1000ms and try again.[39m
+    [35msource[39m: "RPC (rpc.monad.xyz)"
+    [35mchainId[39m: 143
+    [35mtype[39m: "EXPONENTIAL_BACKOFF"
+    err: {
+      "type": "Error",
+      "message": "[rescript-rest] Failed parsing response at [\"data\"]. Reason: Expected { jsonrpc: \"2.0\"; id: 1; result: JSON | null; }, received \"{\\\"code\\\":-32007,\\\"message\\\":\\\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\\\"}\"",
+      "stack":
+          Error: [rescript-rest] Failed parsing response at ["data"]. Reason: Expected { jsonrpc: "2.0"; id: 1; result: JSON | null; }, received "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}"
+              at panic (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:8:15)
+              at file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:499:18
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+              at async Module.getRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/Rpc.res.mjs:161:10)
+              at async getKnownRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:32:14)
+              at async getKnownRawBlockWithBackoff (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:57:14)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:56:15)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:68:14)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+      "params": {
+        "response": {
+          "data": "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}",
+          "status": 429,
+          "headers": {}
+        }
+      }
+    }
+
+[14:34:01.411] [33mWARN[39m: [36mFailed getting data for the block range. Will try smaller block range for the next attempt.[39m
+    [35mchainId[39m: 143
+    [35mlogType[39m: "Block Range Query"
+    [35mpartitionId[39m: "0"
+    [35msource[39m: "RPC (rpc.monad.xyz)"
+    [35mfromBlock[39m: 109565200
+    [35mtoBlock[39m: 109565444
+    [35maddresses[39m: 1
+    [35mretry[39m: 4
+    [35mbackOffMilliseconds[39m: 2000
+    err: {
+      "type": "Error",
+      "message": "{\"kind\":\"Retry\",\"attemptedToBlock\":109565444,\"errorMessage\":\"eth_getLogs is limited to a 100 range\",\"requestStats\":[{\"method\":\"eth_getLogs\",\"seconds\":0.206132467}],\"retry\":{\"tag\":\"WithBackoff\",\"message\":\"Failed getting data for the block range. Will try smaller block range for the next attempt.\",\"backoffMillis\":2000}}",
+      "stack":
+          Error: {"kind":"Retry","attemptedToBlock":109565444,"errorMessage":"eth_getLogs is limited to a 100 range","requestStats":[{"method":"eth_getLogs","seconds":0.206132467}],"retry":{"tag":"WithBackoff","message":"Failed getting data for the block range. Will try smaller block range for the next attempt.","backoffMillis":2000}}
+      "code": "GenericFailure"
+    }
+
+[14:34:03.643] [33mWARN[39m: [36mFailed getting data for the block range. Will try smaller block range for the next attempt.[39m
+    [35mchainId[39m: 143
+    [35mlogType[39m: "Block Range Query"
+    [35mpartitionId[39m: "0"
+    [35msource[39m: "RPC (rpc.monad.xyz)"
+    [35mfromBlock[39m: 109565200
+    [35mtoBlock[39m: 109565395
+    [35maddresses[39m: 1
+    [35mretry[39m: 5
+    [35mbackOffMilliseconds[39m: 2000
+    err: {
+      "type": "Error",
+      "message": "{\"kind\":\"Retry\",\"attemptedToBlock\":109565395,\"errorMessage\":\"eth_getLogs is limited to a 100 range\",\"requestStats\":[{\"method\":\"eth_getLogs\",\"seconds\":0.230259855}],\"retry\":{\"tag\":\"WithBackoff\",\"message\":\"Failed getting data for the block range. Will try smaller block range for the next attempt.\",\"backoffMillis\":2000}}",
+      "stack":
+          Error: {"kind":"Retry","attemptedToBlock":109565395,"errorMessage":"eth_getLogs is limited to a 100 range","requestStats":[{"method":"eth_getLogs","seconds":0.230259855}],"retry":{"tag":"WithBackoff","message":"Failed getting data for the block range. Will try smaller block range for the next attempt.","backoffMillis":2000}}
+      "code": "GenericFailure"
+    }
+
+[14:34:05.876] [33mWARN[39m: [36mFailed getting data for the block range. Will try smaller block range for the next attempt.[39m
+    [35mchainId[39m: 143
+    [35mlogType[39m: "Block Range Query"
+    [35mpartitionId[39m: "0"
+    [35msource[39m: "RPC (rpc.monad.xyz)"
+    [35mfromBlock[39m: 109565200
+    [35mtoBlock[39m: 109565355
+    [35maddresses[39m: 1
+    [35mretry[39m: 6
+    [35mbackOffMilliseconds[39m: 2000
+    err: {
+      "type": "Error",
+      "message": "{\"kind\":\"Retry\",\"attemptedToBlock\":109565355,\"errorMessage\":\"eth_getLogs is limited to a 100 range\",\"requestStats\":[{\"method\":\"eth_getLogs\",\"seconds\":0.231586801}],\"retry\":{\"tag\":\"WithBackoff\",\"message\":\"Failed getting data for the block range. Will try smaller block range for the next attempt.\",\"backoffMillis\":2000}}",
+      "stack":
+          Error: {"kind":"Retry","attemptedToBlock":109565355,"errorMessage":"eth_getLogs is limited to a 100 range","requestStats":[{"method":"eth_getLogs","seconds":0.231586801}],"retry":{"tag":"WithBackoff","message":"Failed getting data for the block range. Will try smaller block range for the next attempt.","backoffMillis":2000}}
+      "code": "GenericFailure"
+    }
+
+[14:34:08.102] [33mWARN[39m: [36mFailed getting data for the block range. Will try smaller block range for the next attempt.[39m
+    [35mchainId[39m: 143
+    [35mlogType[39m: "Block Range Query"
+    [35mpartitionId[39m: "0"
+    [35msource[39m: "RPC (rpc.monad.xyz)"
+    [35mfromBlock[39m: 109565200
+    [35mtoBlock[39m: 109565323
+    [35maddresses[39m: 1
+    [35mretry[39m: 7
+    [35mbackOffMilliseconds[39m: 2000
+    err: {
+      "type": "Error",
+      "message": "{\"kind\":\"Retry\",\"attemptedToBlock\":109565323,\"errorMessage\":\"eth_getLogs is limited to a 100 range\",\"requestStats\":[{\"method\":\"eth_getLogs\",\"seconds\":0.224942465}],\"retry\":{\"tag\":\"WithBackoff\",\"message\":\"Failed getting data for the block range. Will try smaller block range for the next attempt.\",\"backoffMillis\":2000}}",
+      "stack":
+          Error: {"kind":"Retry","attemptedToBlock":109565323,"errorMessage":"eth_getLogs is limited to a 100 range","requestStats":[{"method":"eth_getLogs","seconds":0.224942465}],"retry":{"tag":"WithBackoff","message":"Failed getting data for the block range. Will try smaller block range for the next attempt.","backoffMillis":2000}}
+      "code": "GenericFailure"
+    }
+
+[14:34:13.609] [32mINFO[39m: [36mFound existing indexer storage. Resuming indexing state...[39m
+
+[14:34:13.637] [32mINFO[39m: [36mSuccessfully resumed indexing state! Continuing from the last checkpoint.[39m
+    [35mprogress[39m: {
+      "143": 109565199,
+      "10143": 67214099
+    }
+
+[14:35:16.125] [33mWARN[39m: [36mIssue while running fetching batch of events from the RPC. Will wait 1000ms and try again.[39m
+    [35msource[39m: "RPC (rpc.monad.xyz)"
+    [35mchainId[39m: 143
+    [35mtype[39m: "EXPONENTIAL_BACKOFF"
+    err: {
+      "type": "Error",
+      "message": "[rescript-rest] Failed parsing response at [\"data\"]. Reason: Expected { jsonrpc: \"2.0\"; id: 1; result: JSON | null; }, received \"{\\\"code\\\":-32007,\\\"message\\\":\\\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\\\"}\"",
+      "stack":
+          Error: [rescript-rest] Failed parsing response at ["data"]. Reason: Expected { jsonrpc: "2.0"; id: 1; result: JSON | null; }, received "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}"
+              at panic (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:8:15)
+              at file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:499:18
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+              at async Module.getRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/Rpc.res.mjs:161:10)
+              at async getKnownRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:32:14)
+              at async getKnownRawBlockWithBackoff (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:57:14)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:56:15)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:68:14)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+      "params": {
+        "response": {
+          "data": "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}",
+          "status": 429,
+          "headers": {}
+        }
+      }
+    }
+
+[14:36:03.780] [33mWARN[39m: [36mIssue while running fetching batch of events from the RPC. Will wait 1000ms and try again.[39m
+    [35msource[39m: "RPC (testnet-rpc.monad.xyz)"
+    [35mchainId[39m: 10143
+    [35mtype[39m: "EXPONENTIAL_BACKOFF"
+    err: {
+      "type": "Error",
+      "message": "[rescript-rest] Failed parsing response at [\"data\"]. Reason: Expected { jsonrpc: \"2.0\"; id: 1; result: JSON | null; }, received \"{\\\"code\\\":-32007,\\\"message\\\":\\\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\\\"}\"",
+      "stack":
+          Error: [rescript-rest] Failed parsing response at ["data"]. Reason: Expected { jsonrpc: "2.0"; id: 1; result: JSON | null; }, received "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}"
+              at panic (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:8:15)
+              at file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:499:18
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+              at async Module.getRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/Rpc.res.mjs:161:10)
+              at async getKnownRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:32:14)
+              at async getKnownRawBlockWithBackoff (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:57:14)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:56:15)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:68:14)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+      "params": {
+        "response": {
+          "data": "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}",
+          "status": 429,
+          "headers": {}
+        }
+      }
+    }
+
+[14:36:03.804] [33mWARN[39m: [36mIssue while running fetching batch of events from the RPC. Will wait 1000ms and try again.[39m
+    [35msource[39m: "RPC (testnet-rpc.monad.xyz)"
+    [35mchainId[39m: 10143
+    [35mtype[39m: "EXPONENTIAL_BACKOFF"
+    err: {
+      "type": "Error",
+      "message": "[rescript-rest] Failed parsing response at [\"data\"]. Reason: Expected { jsonrpc: \"2.0\"; id: 1; result: JSON | null; }, received \"{\\\"code\\\":-32007,\\\"message\\\":\\\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\\\"}\"",
+      "stack":
+          Error: [rescript-rest] Failed parsing response at ["data"]. Reason: Expected { jsonrpc: "2.0"; id: 1; result: JSON | null; }, received "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}"
+              at panic (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:8:15)
+              at file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:499:18
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+              at async Module.getRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/Rpc.res.mjs:161:10)
+              at async getKnownRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:32:14)
+              at async getKnownRawBlockWithBackoff (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:57:14)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:56:15)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:68:14)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+      "params": {
+        "response": {
+          "data": "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}",
+          "status": 429,
+          "headers": {}
+        }
+      }
+    }
+
+[14:36:03.980] [33mWARN[39m: [36mIssue while running fetching batch of events from the RPC. Will wait 1000ms and try again.[39m
+    [35msource[39m: "RPC (testnet-rpc.monad.xyz)"
+    [35mchainId[39m: 10143
+    [35mtype[39m: "EXPONENTIAL_BACKOFF"
+    err: {
+      "type": "Error",
+      "message": "[rescript-rest] Failed parsing response at [\"data\"]. Reason: Expected { jsonrpc: \"2.0\"; id: 1; result: JSON | null; }, received \"{\\\"code\\\":-32007,\\\"message\\\":\\\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\\\"}\"",
+      "stack":
+          Error: [rescript-rest] Failed parsing response at ["data"]. Reason: Expected { jsonrpc: "2.0"; id: 1; result: JSON | null; }, received "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}"
+              at panic (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:8:15)
+              at file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:499:18
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+              at async Module.getRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/Rpc.res.mjs:161:10)
+              at async getKnownRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:32:14)
+              at async getKnownRawBlockWithBackoff (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:57:14)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:56:15)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:68:14)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+      "params": {
+        "response": {
+          "data": "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}",
+          "status": 429,
+          "headers": {}
+        }
+      }
+    }
+
+[14:36:04.748] [33mWARN[39m: [36mIssue while running fetching batch of events from the RPC. Will wait 1000ms and try again.[39m
+    [35msource[39m: "RPC (rpc.monad.xyz)"
+    [35mchainId[39m: 143
+    [35mtype[39m: "EXPONENTIAL_BACKOFF"
+    err: {
+      "type": "Error",
+      "message": "[rescript-rest] Failed parsing response at [\"data\"]. Reason: Expected { jsonrpc: \"2.0\"; id: 1; result: JSON | null; }, received \"{\\\"code\\\":-32007,\\\"message\\\":\\\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\\\"}\"",
+      "stack":
+          Error: [rescript-rest] Failed parsing response at ["data"]. Reason: Expected { jsonrpc: "2.0"; id: 1; result: JSON | null; }, received "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}"
+              at panic (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:8:15)
+              at file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:499:18
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+              at async Module.getRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/Rpc.res.mjs:161:10)
+              at async getKnownRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:32:14)
+              at async getKnownRawBlockWithBackoff (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:57:14)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:56:15)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:68:14)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+      "params": {
+        "response": {
+          "data": "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}",
+          "status": 429,
+          "headers": {}
+        }
+      }
+    }
+
+[14:36:05.824] [33mWARN[39m: [36mIssue while running fetching batch of events from the RPC. Will wait 1000ms and try again.[39m
+    [35msource[39m: "RPC (testnet-rpc.monad.xyz)"
+    [35mchainId[39m: 10143
+    [35mtype[39m: "EXPONENTIAL_BACKOFF"
+    err: {
+      "type": "Error",
+      "message": "[rescript-rest] Failed parsing response at [\"data\"]. Reason: Expected { jsonrpc: \"2.0\"; id: 1; result: JSON | null; }, received \"{\\\"code\\\":-32007,\\\"message\\\":\\\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\\\"}\"",
+      "stack":
+          Error: [rescript-rest] Failed parsing response at ["data"]. Reason: Expected { jsonrpc: "2.0"; id: 1; result: JSON | null; }, received "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}"
+              at panic (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:8:15)
+              at file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:499:18
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+              at async Module.getRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/Rpc.res.mjs:161:10)
+              at async getKnownRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:32:14)
+              at async getKnownRawBlockWithBackoff (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:57:14)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:56:15)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:68:14)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+      "params": {
+        "response": {
+          "data": "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}",
+          "status": 429,
+          "headers": {}
+        }
+      }
+    }
+
+[14:36:05.976] [33mWARN[39m: [36mIssue while running fetching batch of events from the RPC. Will wait 1000ms and try again.[39m
+    [35msource[39m: "RPC (testnet-rpc.monad.xyz)"
+    [35mchainId[39m: 10143
+    [35mtype[39m: "EXPONENTIAL_BACKOFF"
+    err: {
+      "type": "Error",
+      "message": "[rescript-rest] Failed parsing response at [\"data\"]. Reason: Expected { jsonrpc: \"2.0\"; id: 1; result: JSON | null; }, received \"{\\\"code\\\":-32007,\\\"message\\\":\\\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\\\"}\"",
+      "stack":
+          Error: [rescript-rest] Failed parsing response at ["data"]. Reason: Expected { jsonrpc: "2.0"; id: 1; result: JSON | null; }, received "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}"
+              at panic (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:8:15)
+              at file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:499:18
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+              at async Module.getRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/Rpc.res.mjs:161:10)
+              at async getKnownRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:32:14)
+              at async getKnownRawBlockWithBackoff (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:57:14)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:56:15)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:68:14)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+      "params": {
+        "response": {
+          "data": "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}",
+          "status": 429,
+          "headers": {}
+        }
+      }
+    }
+
+[14:36:06.029] [33mWARN[39m: [36mIssue while running fetching batch of events from the RPC. Will wait 1000ms and try again.[39m
+    [35msource[39m: "RPC (testnet-rpc.monad.xyz)"
+    [35mchainId[39m: 10143
+    [35mtype[39m: "EXPONENTIAL_BACKOFF"
+    err: {
+      "type": "Error",
+      "message": "[rescript-rest] Failed parsing response at [\"data\"]. Reason: Expected { jsonrpc: \"2.0\"; id: 1; result: JSON | null; }, received \"{\\\"code\\\":-32007,\\\"message\\\":\\\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\\\"}\"",
+      "stack":
+          Error: [rescript-rest] Failed parsing response at ["data"]. Reason: Expected { jsonrpc: "2.0"; id: 1; result: JSON | null; }, received "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}"
+              at panic (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:8:15)
+              at file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:499:18
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+              at async Module.getRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/Rpc.res.mjs:161:10)
+              at async getKnownRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:32:14)
+              at async getKnownRawBlockWithBackoff (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:57:14)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:56:15)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:68:14)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+      "params": {
+        "response": {
+          "data": "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}",
+          "status": 429,
+          "headers": {}
+        }
+      }
+    }
+
+[14:36:06.030] [33mWARN[39m: [36mIssue while running fetching batch of events from the RPC. Will wait 1000ms and try again.[39m
+    [35msource[39m: "RPC (testnet-rpc.monad.xyz)"
+    [35mchainId[39m: 10143
+    [35mtype[39m: "EXPONENTIAL_BACKOFF"
+    err: {
+      "type": "Error",
+      "message": "[rescript-rest] Failed parsing response at [\"data\"]. Reason: Expected { jsonrpc: \"2.0\"; id: 1; result: JSON | null; }, received \"{\\\"code\\\":-32007,\\\"message\\\":\\\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\\\"}\"",
+      "stack":
+          Error: [rescript-rest] Failed parsing response at ["data"]. Reason: Expected { jsonrpc: "2.0"; id: 1; result: JSON | null; }, received "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}"
+              at panic (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:8:15)
+              at file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:499:18
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+              at async Module.getRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/Rpc.res.mjs:161:10)
+              at async getKnownRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:32:14)
+              at async getKnownRawBlockWithBackoff (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:57:14)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:56:15)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:68:14)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+      "params": {
+        "response": {
+          "data": "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}",
+          "status": 429,
+          "headers": {}
+        }
+      }
+    }
+
+[14:36:07.904] [33mWARN[39m: [36mIssue while running fetching batch of events from the RPC. Will wait 1000ms and try again.[39m
+    [35msource[39m: "RPC (testnet-rpc.monad.xyz)"
+    [35mchainId[39m: 10143
+    [35mtype[39m: "EXPONENTIAL_BACKOFF"
+    err: {
+      "type": "Error",
+      "message": "[rescript-rest] Failed parsing response at [\"data\"]. Reason: Expected { jsonrpc: \"2.0\"; id: 1; result: JSON | null; }, received \"{\\\"code\\\":-32007,\\\"message\\\":\\\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\\\"}\"",
+      "stack":
+          Error: [rescript-rest] Failed parsing response at ["data"]. Reason: Expected { jsonrpc: "2.0"; id: 1; result: JSON | null; }, received "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}"
+              at panic (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:8:15)
+              at file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:499:18
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+              at async Module.getRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/Rpc.res.mjs:161:10)
+              at async getKnownRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:32:14)
+              at async getKnownRawBlockWithBackoff (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:57:14)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:56:15)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:68:14)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+      "params": {
+        "response": {
+          "data": "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}",
+          "status": 429,
+          "headers": {}
+        }
+      }
+    }
+
+[14:36:07.932] [33mWARN[39m: [36mIssue while running fetching batch of events from the RPC. Will wait 1000ms and try again.[39m
+    [35msource[39m: "RPC (testnet-rpc.monad.xyz)"
+    [35mchainId[39m: 10143
+    [35mtype[39m: "EXPONENTIAL_BACKOFF"
+    err: {
+      "type": "Error",
+      "message": "[rescript-rest] Failed parsing response at [\"data\"]. Reason: Expected { jsonrpc: \"2.0\"; id: 1; result: JSON | null; }, received \"{\\\"code\\\":-32007,\\\"message\\\":\\\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\\\"}\"",
+      "stack":
+          Error: [rescript-rest] Failed parsing response at ["data"]. Reason: Expected { jsonrpc: "2.0"; id: 1; result: JSON | null; }, received "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}"
+              at panic (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:8:15)
+              at file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:499:18
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+              at async Module.getRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/Rpc.res.mjs:161:10)
+              at async getKnownRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:32:14)
+              at async getKnownRawBlockWithBackoff (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:57:14)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:56:15)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:68:14)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+      "params": {
+        "response": {
+          "data": "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}",
+          "status": 429,
+          "headers": {}
+        }
+      }
+    }
+
+[14:36:07.936] [33mWARN[39m: [36mIssue while running fetching batch of events from the RPC. Will wait 1000ms and try again.[39m
+    [35msource[39m: "RPC (testnet-rpc.monad.xyz)"
+    [35mchainId[39m: 10143
+    [35mtype[39m: "EXPONENTIAL_BACKOFF"
+    err: {
+      "type": "Error",
+      "message": "[rescript-rest] Failed parsing response at [\"data\"]. Reason: Expected { jsonrpc: \"2.0\"; id: 1; result: JSON | null; }, received \"{\\\"code\\\":-32007,\\\"message\\\":\\\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\\\"}\"",
+      "stack":
+          Error: [rescript-rest] Failed parsing response at ["data"]. Reason: Expected { jsonrpc: "2.0"; id: 1; result: JSON | null; }, received "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}"
+              at panic (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:8:15)
+              at file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:499:18
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+              at async Module.getRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/Rpc.res.mjs:161:10)
+              at async getKnownRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:32:14)
+              at async getKnownRawBlockWithBackoff (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:57:14)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:56:15)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:68:14)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+      "params": {
+        "response": {
+          "data": "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}",
+          "status": 429,
+          "headers": {}
+        }
+      }
+    }
+
+[14:36:08.041] [33mWARN[39m: [36mIssue while running fetching batch of events from the RPC. Will wait 1000ms and try again.[39m
+    [35msource[39m: "RPC (testnet-rpc.monad.xyz)"
+    [35mchainId[39m: 10143
+    [35mtype[39m: "EXPONENTIAL_BACKOFF"
+    err: {
+      "type": "Error",
+      "message": "[rescript-rest] Failed parsing response at [\"data\"]. Reason: Expected { jsonrpc: \"2.0\"; id: 1; result: JSON | null; }, received \"{\\\"code\\\":-32007,\\\"message\\\":\\\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\\\"}\"",
+      "stack":
+          Error: [rescript-rest] Failed parsing response at ["data"]. Reason: Expected { jsonrpc: "2.0"; id: 1; result: JSON | null; }, received "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}"
+              at panic (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:8:15)
+              at file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:499:18
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+              at async Module.getRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/Rpc.res.mjs:161:10)
+              at async getKnownRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:32:14)
+              at async getKnownRawBlockWithBackoff (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:57:14)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:56:15)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:68:14)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+      "params": {
+        "response": {
+          "data": "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}",
+          "status": 429,
+          "headers": {}
+        }
+      }
+    }
+
+[14:36:08.048] [33mWARN[39m: [36mIssue while running fetching batch of events from the RPC. Will wait 1000ms and try again.[39m
+    [35msource[39m: "RPC (testnet-rpc.monad.xyz)"
+    [35mchainId[39m: 10143
+    [35mtype[39m: "EXPONENTIAL_BACKOFF"
+    err: {
+      "type": "Error",
+      "message": "[rescript-rest] Failed parsing response at [\"data\"]. Reason: Expected { jsonrpc: \"2.0\"; id: 1; result: JSON | null; }, received \"{\\\"code\\\":-32007,\\\"message\\\":\\\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\\\"}\"",
+      "stack":
+          Error: [rescript-rest] Failed parsing response at ["data"]. Reason: Expected { jsonrpc: "2.0"; id: 1; result: JSON | null; }, received "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}"
+              at panic (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:8:15)
+              at file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:499:18
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+              at async Module.getRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/Rpc.res.mjs:161:10)
+              at async getKnownRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:32:14)
+              at async getKnownRawBlockWithBackoff (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:57:14)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:56:15)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:68:14)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+      "params": {
+        "response": {
+          "data": "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}",
+          "status": 429,
+          "headers": {}
+        }
+      }
+    }
+
+[14:36:10.060] [33mWARN[39m: [36mIssue while running fetching batch of events from the RPC. Will wait 1000ms and try again.[39m
+    [35msource[39m: "RPC (testnet-rpc.monad.xyz)"
+    [35mchainId[39m: 10143
+    [35mtype[39m: "EXPONENTIAL_BACKOFF"
+    err: {
+      "type": "Error",
+      "message": "[rescript-rest] Failed parsing response at [\"data\"]. Reason: Expected { jsonrpc: \"2.0\"; id: 1; result: JSON | null; }, received \"{\\\"code\\\":-32007,\\\"message\\\":\\\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\\\"}\"",
+      "stack":
+          Error: [rescript-rest] Failed parsing response at ["data"]. Reason: Expected { jsonrpc: "2.0"; id: 1; result: JSON | null; }, received "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}"
+              at panic (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:8:15)
+              at file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:499:18
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+              at async Module.getRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/Rpc.res.mjs:161:10)
+              at async getKnownRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:32:14)
+              at async getKnownRawBlockWithBackoff (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:57:14)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:56:15)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:68:14)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+      "params": {
+        "response": {
+          "data": "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}",
+          "status": 429,
+          "headers": {}
+        }
+      }
+    }
+
+[14:36:10.232] [33mWARN[39m: [36mIssue while running fetching batch of events from the RPC. Will wait 1000ms and try again.[39m
+    [35msource[39m: "RPC (testnet-rpc.monad.xyz)"
+    [35mchainId[39m: 10143
+    [35mtype[39m: "EXPONENTIAL_BACKOFF"
+    err: {
+      "type": "Error",
+      "message": "[rescript-rest] Failed parsing response at [\"data\"]. Reason: Expected { jsonrpc: \"2.0\"; id: 1; result: JSON | null; }, received \"{\\\"code\\\":-32007,\\\"message\\\":\\\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\\\"}\"",
+      "stack":
+          Error: [rescript-rest] Failed parsing response at ["data"]. Reason: Expected { jsonrpc: "2.0"; id: 1; result: JSON | null; }, received "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}"
+              at panic (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:8:15)
+              at file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:499:18
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+              at async Module.getRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/Rpc.res.mjs:161:10)
+              at async getKnownRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:32:14)
+              at async getKnownRawBlockWithBackoff (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:57:14)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:56:15)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:68:14)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+      "params": {
+        "response": {
+          "data": "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}",
+          "status": 429,
+          "headers": {}
+        }
+      }
+    }
+
+[14:36:22.552] [33mWARN[39m: [36mIssue while running fetching batch of events from the RPC. Will wait 1000ms and try again.[39m
+    [35msource[39m: "RPC (rpc.monad.xyz)"
+    [35mchainId[39m: 143
+    [35mtype[39m: "EXPONENTIAL_BACKOFF"
+    err: {
+      "type": "Error",
+      "message": "[rescript-rest] Failed parsing response at [\"data\"]. Reason: Expected { jsonrpc: \"2.0\"; id: 1; result: JSON | null; }, received \"{\\\"code\\\":-32007,\\\"message\\\":\\\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\\\"}\"",
+      "stack":
+          Error: [rescript-rest] Failed parsing response at ["data"]. Reason: Expected { jsonrpc: "2.0"; id: 1; result: JSON | null; }, received "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}"
+              at panic (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:8:15)
+              at file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:499:18
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+              at async Module.getRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/Rpc.res.mjs:161:10)
+              at async getKnownRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:32:14)
+              at async getKnownRawBlockWithBackoff (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:57:14)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:56:15)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:68:14)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+      "params": {
+        "response": {
+          "data": "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}",
+          "status": 429,
+          "headers": {}
+        }
+      }
+    }
+
+[14:36:22.904] [32mINFO[39m: [36mAll events have been fetched[39m
+    [35mchainId[39m: 10143
+
+[14:36:25.368] [33mWARN[39m: [36mIssue while running fetching batch of events from the RPC. Will wait 1000ms and try again.[39m
+    [35msource[39m: "RPC (rpc.monad.xyz)"
+    [35mchainId[39m: 143
+    [35mtype[39m: "EXPONENTIAL_BACKOFF"
+    err: {
+      "type": "Error",
+      "message": "[rescript-rest] Failed parsing response at [\"data\"]. Reason: Expected { jsonrpc: \"2.0\"; id: 1; result: JSON | null; }, received \"{\\\"code\\\":-32007,\\\"message\\\":\\\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\\\"}\"",
+      "stack":
+          Error: [rescript-rest] Failed parsing response at ["data"]. Reason: Expected { jsonrpc: "2.0"; id: 1; result: JSON | null; }, received "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}"
+              at panic (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:8:15)
+              at file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:499:18
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+              at async Module.getRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/Rpc.res.mjs:161:10)
+              at async getKnownRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:32:14)
+              at async getKnownRawBlockWithBackoff (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:57:14)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:56:15)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:68:14)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+      "params": {
+        "response": {
+          "data": "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}",
+          "status": 429,
+          "headers": {}
+        }
+      }
+    }
+
+[14:36:26.944] [33mWARN[39m: [36mIssue while running fetching batch of events from the RPC. Will wait 1000ms and try again.[39m
+    [35msource[39m: "RPC (rpc.monad.xyz)"
+    [35mchainId[39m: 143
+    [35mtype[39m: "EXPONENTIAL_BACKOFF"
+    err: {
+      "type": "Error",
+      "message": "[rescript-rest] Failed parsing response at [\"data\"]. Reason: Expected { jsonrpc: \"2.0\"; id: 1; result: JSON | null; }, received \"{\\\"code\\\":-32007,\\\"message\\\":\\\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\\\"}\"",
+      "stack":
+          Error: [rescript-rest] Failed parsing response at ["data"]. Reason: Expected { jsonrpc: "2.0"; id: 1; result: JSON | null; }, received "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}"
+              at panic (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:8:15)
+              at file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:499:18
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+              at async Module.getRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/Rpc.res.mjs:161:10)
+              at async getKnownRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:32:14)
+              at async getKnownRawBlockWithBackoff (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:57:14)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:56:15)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:68:14)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+      "params": {
+        "response": {
+          "data": "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}",
+          "status": 429,
+          "headers": {}
+        }
+      }
+    }
+
+[14:36:28.984] [33mWARN[39m: [36mIssue while running fetching batch of events from the RPC. Will wait 1000ms and try again.[39m
+    [35msource[39m: "RPC (rpc.monad.xyz)"
+    [35mchainId[39m: 143
+    [35mtype[39m: "EXPONENTIAL_BACKOFF"
+    err: {
+      "type": "Error",
+      "message": "[rescript-rest] Failed parsing response at [\"data\"]. Reason: Expected { jsonrpc: \"2.0\"; id: 1; result: JSON | null; }, received \"{\\\"code\\\":-32007,\\\"message\\\":\\\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\\\"}\"",
+      "stack":
+          Error: [rescript-rest] Failed parsing response at ["data"]. Reason: Expected { jsonrpc: "2.0"; id: 1; result: JSON | null; }, received "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}"
+              at panic (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:8:15)
+              at file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:499:18
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+              at async Module.getRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/Rpc.res.mjs:161:10)
+              at async getKnownRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:32:14)
+              at async getKnownRawBlockWithBackoff (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:57:14)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:56:15)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:68:14)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+      "params": {
+        "response": {
+          "data": "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}",
+          "status": 429,
+          "headers": {}
+        }
+      }
+    }
+
+[14:36:29.064] [33mWARN[39m: [36mIssue while running fetching batch of events from the RPC. Will wait 1000ms and try again.[39m
+    [35msource[39m: "RPC (rpc.monad.xyz)"
+    [35mchainId[39m: 143
+    [35mtype[39m: "EXPONENTIAL_BACKOFF"
+    err: {
+      "type": "Error",
+      "message": "[rescript-rest] Failed parsing response at [\"data\"]. Reason: Expected { jsonrpc: \"2.0\"; id: 1; result: JSON | null; }, received \"{\\\"code\\\":-32007,\\\"message\\\":\\\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\\\"}\"",
+      "stack":
+          Error: [rescript-rest] Failed parsing response at ["data"]. Reason: Expected { jsonrpc: "2.0"; id: 1; result: JSON | null; }, received "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}"
+              at panic (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:8:15)
+              at file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:499:18
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+              at async Module.getRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/Rpc.res.mjs:161:10)
+              at async getKnownRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:32:14)
+              at async getKnownRawBlockWithBackoff (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:57:14)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:56:15)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:68:14)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+      "params": {
+        "response": {
+          "data": "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}",
+          "status": 429,
+          "headers": {}
+        }
+      }
+    }
+
+[14:36:30.744] [33mWARN[39m: [36mIssue while running fetching batch of events from the RPC. Will wait 1000ms and try again.[39m
+    [35msource[39m: "RPC (rpc.monad.xyz)"
+    [35mchainId[39m: 143
+    [35mtype[39m: "EXPONENTIAL_BACKOFF"
+    err: {
+      "type": "Error",
+      "message": "[rescript-rest] Failed parsing response at [\"data\"]. Reason: Expected { jsonrpc: \"2.0\"; id: 1; result: JSON | null; }, received \"{\\\"code\\\":-32007,\\\"message\\\":\\\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\\\"}\"",
+      "stack":
+          Error: [rescript-rest] Failed parsing response at ["data"]. Reason: Expected { jsonrpc: "2.0"; id: 1; result: JSON | null; }, received "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}"
+              at panic (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:8:15)
+              at file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:499:18
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+              at async Module.getRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/Rpc.res.mjs:161:10)
+              at async getKnownRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:32:14)
+              at async getKnownRawBlockWithBackoff (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:57:14)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:56:15)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:68:14)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+      "params": {
+        "response": {
+          "data": "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}",
+          "status": 429,
+          "headers": {}
+        }
+      }
+    }
+
+[14:36:30.745] [33mWARN[39m: [36mIssue while running fetching batch of events from the RPC. Will wait 1000ms and try again.[39m
+    [35msource[39m: "RPC (rpc.monad.xyz)"
+    [35mchainId[39m: 143
+    [35mtype[39m: "EXPONENTIAL_BACKOFF"
+    err: {
+      "type": "Error",
+      "message": "[rescript-rest] Failed parsing response at [\"data\"]. Reason: Expected { jsonrpc: \"2.0\"; id: 1; result: JSON | null; }, received \"{\\\"code\\\":-32007,\\\"message\\\":\\\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\\\"}\"",
+      "stack":
+          Error: [rescript-rest] Failed parsing response at ["data"]. Reason: Expected { jsonrpc: "2.0"; id: 1; result: JSON | null; }, received "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}"
+              at panic (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:8:15)
+              at file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:499:18
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+              at async Module.getRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/Rpc.res.mjs:161:10)
+              at async getKnownRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:32:14)
+              at async getKnownRawBlockWithBackoff (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:57:14)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:56:15)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:68:14)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+      "params": {
+        "response": {
+          "data": "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}",
+          "status": 429,
+          "headers": {}
+        }
+      }
+    }
+
+[14:36:32.848] [33mWARN[39m: [36mIssue while running fetching batch of events from the RPC. Will wait 1000ms and try again.[39m
+    [35msource[39m: "RPC (rpc.monad.xyz)"
+    [35mchainId[39m: 143
+    [35mtype[39m: "EXPONENTIAL_BACKOFF"
+    err: {
+      "type": "Error",
+      "message": "[rescript-rest] Failed parsing response at [\"data\"]. Reason: Expected { jsonrpc: \"2.0\"; id: 1; result: JSON | null; }, received \"{\\\"code\\\":-32007,\\\"message\\\":\\\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\\\"}\"",
+      "stack":
+          Error: [rescript-rest] Failed parsing response at ["data"]. Reason: Expected { jsonrpc: "2.0"; id: 1; result: JSON | null; }, received "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}"
+              at panic (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:8:15)
+              at file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:499:18
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+              at async Module.getRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/Rpc.res.mjs:161:10)
+              at async getKnownRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:32:14)
+              at async getKnownRawBlockWithBackoff (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:57:14)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:56:15)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:68:14)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+      "params": {
+        "response": {
+          "data": "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}",
+          "status": 429,
+          "headers": {}
+        }
+      }
+    }
+
+[14:36:34.488] [33mWARN[39m: [36mIssue while running fetching batch of events from the RPC. Will wait 1000ms and try again.[39m
+    [35msource[39m: "RPC (rpc.monad.xyz)"
+    [35mchainId[39m: 143
+    [35mtype[39m: "EXPONENTIAL_BACKOFF"
+    err: {
+      "type": "Error",
+      "message": "[rescript-rest] Failed parsing response at [\"data\"]. Reason: Expected { jsonrpc: \"2.0\"; id: 1; result: JSON | null; }, received \"{\\\"code\\\":-32007,\\\"message\\\":\\\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\\\"}\"",
+      "stack":
+          Error: [rescript-rest] Failed parsing response at ["data"]. Reason: Expected { jsonrpc: "2.0"; id: 1; result: JSON | null; }, received "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}"
+              at panic (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:8:15)
+              at file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:499:18
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+              at async Module.getRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/Rpc.res.mjs:161:10)
+              at async getKnownRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:32:14)
+              at async getKnownRawBlockWithBackoff (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:57:14)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:56:15)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:68:14)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+      "params": {
+        "response": {
+          "data": "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}",
+          "status": 429,
+          "headers": {}
+        }
+      }
+    }
+
+[14:36:36.600] [33mWARN[39m: [36mIssue while running fetching batch of events from the RPC. Will wait 1000ms and try again.[39m
+    [35msource[39m: "RPC (rpc.monad.xyz)"
+    [35mchainId[39m: 143
+    [35mtype[39m: "EXPONENTIAL_BACKOFF"
+    err: {
+      "type": "Error",
+      "message": "[rescript-rest] Failed parsing response at [\"data\"]. Reason: Expected { jsonrpc: \"2.0\"; id: 1; result: JSON | null; }, received \"{\\\"code\\\":-32007,\\\"message\\\":\\\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\\\"}\"",
+      "stack":
+          Error: [rescript-rest] Failed parsing response at ["data"]. Reason: Expected { jsonrpc: "2.0"; id: 1; result: JSON | null; }, received "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}"
+              at panic (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:8:15)
+              at file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:499:18
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+              at async Module.getRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/Rpc.res.mjs:161:10)
+              at async getKnownRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:32:14)
+              at async getKnownRawBlockWithBackoff (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:57:14)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:56:15)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:68:14)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+      "params": {
+        "response": {
+          "data": "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}",
+          "status": 429,
+          "headers": {}
+        }
+      }
+    }
+
+[14:36:38.304] [33mWARN[39m: [36mIssue while running fetching batch of events from the RPC. Will wait 1000ms and try again.[39m
+    [35msource[39m: "RPC (rpc.monad.xyz)"
+    [35mchainId[39m: 143
+    [35mtype[39m: "EXPONENTIAL_BACKOFF"
+    err: {
+      "type": "Error",
+      "message": "[rescript-rest] Failed parsing response at [\"data\"]. Reason: Expected { jsonrpc: \"2.0\"; id: 1; result: JSON | null; }, received \"{\\\"code\\\":-32007,\\\"message\\\":\\\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\\\"}\"",
+      "stack":
+          Error: [rescript-rest] Failed parsing response at ["data"]. Reason: Expected { jsonrpc: "2.0"; id: 1; result: JSON | null; }, received "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}"
+              at panic (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:8:15)
+              at file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:499:18
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+              at async Module.getRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/Rpc.res.mjs:161:10)
+              at async getKnownRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:32:14)
+              at async getKnownRawBlockWithBackoff (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:57:14)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:56:15)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:68:14)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+      "params": {
+        "response": {
+          "data": "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}",
+          "status": 429,
+          "headers": {}
+        }
+      }
+    }
+
+[14:36:38.472] [33mWARN[39m: [36mIssue while running fetching batch of events from the RPC. Will wait 1000ms and try again.[39m
+    [35msource[39m: "RPC (rpc.monad.xyz)"
+    [35mchainId[39m: 143
+    [35mtype[39m: "EXPONENTIAL_BACKOFF"
+    err: {
+      "type": "Error",
+      "message": "[rescript-rest] Failed parsing response at [\"data\"]. Reason: Expected { jsonrpc: \"2.0\"; id: 1; result: JSON | null; }, received \"{\\\"code\\\":-32007,\\\"message\\\":\\\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\\\"}\"",
+      "stack":
+          Error: [rescript-rest] Failed parsing response at ["data"]. Reason: Expected { jsonrpc: "2.0"; id: 1; result: JSON | null; }, received "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}"
+              at panic (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:8:15)
+              at file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:499:18
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+              at async Module.getRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/Rpc.res.mjs:161:10)
+              at async getKnownRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:32:14)
+              at async getKnownRawBlockWithBackoff (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:57:14)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:56:15)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:68:14)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+      "params": {
+        "response": {
+          "data": "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}",
+          "status": 429,
+          "headers": {}
+        }
+      }
+    }
+
+[14:36:40.368] [33mWARN[39m: [36mIssue while running fetching batch of events from the RPC. Will wait 1000ms and try again.[39m
+    [35msource[39m: "RPC (rpc.monad.xyz)"
+    [35mchainId[39m: 143
+    [35mtype[39m: "EXPONENTIAL_BACKOFF"
+    err: {
+      "type": "Error",
+      "message": "[rescript-rest] Failed parsing response at [\"data\"]. Reason: Expected { jsonrpc: \"2.0\"; id: 1; result: JSON | null; }, received \"{\\\"code\\\":-32007,\\\"message\\\":\\\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\\\"}\"",
+      "stack":
+          Error: [rescript-rest] Failed parsing response at ["data"]. Reason: Expected { jsonrpc: "2.0"; id: 1; result: JSON | null; }, received "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}"
+              at panic (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:8:15)
+              at file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:499:18
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+              at async Module.getRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/Rpc.res.mjs:161:10)
+              at async getKnownRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:32:14)
+              at async getKnownRawBlockWithBackoff (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:57:14)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:56:15)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:68:14)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+      "params": {
+        "response": {
+          "data": "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}",
+          "status": 429,
+          "headers": {}
+        }
+      }
+    }
+
+[14:36:45.632] [33mWARN[39m: [36mIssue while running fetching batch of events from the RPC. Will wait 1000ms and try again.[39m
+    [35msource[39m: "RPC (rpc.monad.xyz)"
+    [35mchainId[39m: 143
+    [35mtype[39m: "EXPONENTIAL_BACKOFF"
+    err: {
+      "type": "Error",
+      "message": "[rescript-rest] Failed parsing response at [\"data\"]. Reason: Expected { jsonrpc: \"2.0\"; id: 1; result: JSON | null; }, received \"{\\\"code\\\":-32007,\\\"message\\\":\\\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\\\"}\"",
+      "stack":
+          Error: [rescript-rest] Failed parsing response at ["data"]. Reason: Expected { jsonrpc: "2.0"; id: 1; result: JSON | null; }, received "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}"
+              at panic (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:8:15)
+              at file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:499:18
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+              at async Module.getRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/Rpc.res.mjs:161:10)
+              at async getKnownRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:32:14)
+              at async getKnownRawBlockWithBackoff (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:57:14)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:56:15)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:68:14)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+      "params": {
+        "response": {
+          "data": "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}",
+          "status": 429,
+          "headers": {}
+        }
+      }
+    }
+
+[14:36:46.152] [33mWARN[39m: [36mIssue while running fetching batch of events from the RPC. Will wait 1000ms and try again.[39m
+    [35msource[39m: "RPC (rpc.monad.xyz)"
+    [35mchainId[39m: 143
+    [35mtype[39m: "EXPONENTIAL_BACKOFF"
+    err: {
+      "type": "Error",
+      "message": "[rescript-rest] Failed parsing response at [\"data\"]. Reason: Expected { jsonrpc: \"2.0\"; id: 1; result: JSON | null; }, received \"{\\\"code\\\":-32007,\\\"message\\\":\\\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\\\"}\"",
+      "stack":
+          Error: [rescript-rest] Failed parsing response at ["data"]. Reason: Expected { jsonrpc: "2.0"; id: 1; result: JSON | null; }, received "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}"
+              at panic (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:8:15)
+              at file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:499:18
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+              at async Module.getRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/Rpc.res.mjs:161:10)
+              at async getKnownRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:32:14)
+              at async getKnownRawBlockWithBackoff (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:57:14)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:56:15)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:68:14)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+      "params": {
+        "response": {
+          "data": "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}",
+          "status": 429,
+          "headers": {}
+        }
+      }
+    }
+
+[14:36:47.916] [33mWARN[39m: [36mIssue while running fetching batch of events from the RPC. Will wait 1000ms and try again.[39m
+    [35msource[39m: "RPC (rpc.monad.xyz)"
+    [35mchainId[39m: 143
+    [35mtype[39m: "EXPONENTIAL_BACKOFF"
+    err: {
+      "type": "Error",
+      "message": "[rescript-rest] Failed parsing response at [\"data\"]. Reason: Expected { jsonrpc: \"2.0\"; id: 1; result: JSON | null; }, received \"{\\\"code\\\":-32007,\\\"message\\\":\\\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\\\"}\"",
+      "stack":
+          Error: [rescript-rest] Failed parsing response at ["data"]. Reason: Expected { jsonrpc: "2.0"; id: 1; result: JSON | null; }, received "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}"
+              at panic (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:8:15)
+              at file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:499:18
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+              at async Module.getRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/Rpc.res.mjs:161:10)
+              at async getKnownRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:32:14)
+              at async getKnownRawBlockWithBackoff (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:57:14)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:56:15)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:68:14)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+      "params": {
+        "response": {
+          "data": "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}",
+          "status": 429,
+          "headers": {}
+        }
+      }
+    }
+
+[14:36:48.092] [33mWARN[39m: [36mIssue while running fetching batch of events from the RPC. Will wait 1000ms and try again.[39m
+    [35msource[39m: "RPC (rpc.monad.xyz)"
+    [35mchainId[39m: 143
+    [35mtype[39m: "EXPONENTIAL_BACKOFF"
+    err: {
+      "type": "Error",
+      "message": "[rescript-rest] Failed parsing response at [\"data\"]. Reason: Expected { jsonrpc: \"2.0\"; id: 1; result: JSON | null; }, received \"{\\\"code\\\":-32007,\\\"message\\\":\\\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\\\"}\"",
+      "stack":
+          Error: [rescript-rest] Failed parsing response at ["data"]. Reason: Expected { jsonrpc: "2.0"; id: 1; result: JSON | null; }, received "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}"
+              at panic (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:8:15)
+              at file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:499:18
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+              at async Module.getRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/Rpc.res.mjs:161:10)
+              at async getKnownRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:32:14)
+              at async getKnownRawBlockWithBackoff (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:57:14)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:56:15)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:68:14)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+      "params": {
+        "response": {
+          "data": "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}",
+          "status": 429,
+          "headers": {}
+        }
+      }
+    }
+
+[14:36:50.232] [33mWARN[39m: [36mIssue while running fetching batch of events from the RPC. Will wait 1000ms and try again.[39m
+    [35msource[39m: "RPC (rpc.monad.xyz)"
+    [35mchainId[39m: 143
+    [35mtype[39m: "EXPONENTIAL_BACKOFF"
+    err: {
+      "type": "Error",
+      "message": "[rescript-rest] Failed parsing response at [\"data\"]. Reason: Expected { jsonrpc: \"2.0\"; id: 1; result: JSON | null; }, received \"{\\\"code\\\":-32007,\\\"message\\\":\\\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\\\"}\"",
+      "stack":
+          Error: [rescript-rest] Failed parsing response at ["data"]. Reason: Expected { jsonrpc: "2.0"; id: 1; result: JSON | null; }, received "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}"
+              at panic (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:8:15)
+              at file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:499:18
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+              at async Module.getRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/Rpc.res.mjs:161:10)
+              at async getKnownRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:32:14)
+              at async getKnownRawBlockWithBackoff (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:57:14)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:56:15)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:68:14)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+      "params": {
+        "response": {
+          "data": "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}",
+          "status": 429,
+          "headers": {}
+        }
+      }
+    }
+
+[14:36:52.276] [33mWARN[39m: [36mIssue while running fetching batch of events from the RPC. Will wait 1000ms and try again.[39m
+    [35msource[39m: "RPC (rpc.monad.xyz)"
+    [35mchainId[39m: 143
+    [35mtype[39m: "EXPONENTIAL_BACKOFF"
+    err: {
+      "type": "Error",
+      "message": "[rescript-rest] Failed parsing response at [\"data\"]. Reason: Expected { jsonrpc: \"2.0\"; id: 1; result: JSON | null; }, received \"{\\\"code\\\":-32007,\\\"message\\\":\\\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\\\"}\"",
+      "stack":
+          Error: [rescript-rest] Failed parsing response at ["data"]. Reason: Expected { jsonrpc: "2.0"; id: 1; result: JSON | null; }, received "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}"
+              at panic (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:8:15)
+              at file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:499:18
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+              at async Module.getRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/Rpc.res.mjs:161:10)
+              at async getKnownRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:32:14)
+              at async getKnownRawBlockWithBackoff (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:57:14)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:56:15)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:68:14)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+      "params": {
+        "response": {
+          "data": "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}",
+          "status": 429,
+          "headers": {}
+        }
+      }
+    }
+
+[14:36:54.989] [33mWARN[39m: [36mIssue while running fetching batch of events from the RPC. Will wait 1000ms and try again.[39m
+    [35msource[39m: "RPC (rpc.monad.xyz)"
+    [35mchainId[39m: 143
+    [35mtype[39m: "EXPONENTIAL_BACKOFF"
+    err: {
+      "type": "Error",
+      "message": "[rescript-rest] Failed parsing response at [\"data\"]. Reason: Expected { jsonrpc: \"2.0\"; id: 1; result: JSON | null; }, received \"{\\\"code\\\":-32007,\\\"message\\\":\\\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\\\"}\"",
+      "stack":
+          Error: [rescript-rest] Failed parsing response at ["data"]. Reason: Expected { jsonrpc: "2.0"; id: 1; result: JSON | null; }, received "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}"
+              at panic (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:8:15)
+              at file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:499:18
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+              at async Module.getRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/Rpc.res.mjs:161:10)
+              at async getKnownRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:32:14)
+              at async getKnownRawBlockWithBackoff (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:57:14)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:56:15)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:68:14)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+      "params": {
+        "response": {
+          "data": "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}",
+          "status": 429,
+          "headers": {}
+        }
+      }
+    }
+
+[14:36:57.055] [32mINFO[39m: [36mAll events have been fetched[39m
+    [35mchainId[39m: 143
+
+[14:37:09.440] [32mINFO[39m: [36mAll events have been fetched[39m
+    [35mchainId[39m: 10143
+
+[14:37:09.441] [32mINFO[39m: [36mReorg threshold reached[39m
+
+[14:37:11.327] [33mWARN[39m: [36mIssue while running fetching batch of events from the RPC. Will wait 1000ms and try again.[39m
+    [35msource[39m: "RPC (testnet-rpc.monad.xyz)"
+    [35mchainId[39m: 10143
+    [35mtype[39m: "EXPONENTIAL_BACKOFF"
+    err: {
+      "type": "Error",
+      "message": "[rescript-rest] Failed parsing response at [\"data\"]. Reason: Expected { jsonrpc: \"2.0\"; id: 1; result: JSON | null; }, received \"{\\\"code\\\":-32007,\\\"message\\\":\\\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\\\"}\"",
+      "stack":
+          Error: [rescript-rest] Failed parsing response at ["data"]. Reason: Expected { jsonrpc: "2.0"; id: 1; result: JSON | null; }, received "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}"
+              at panic (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:8:15)
+              at file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:499:18
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+              at async Module.getRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/Rpc.res.mjs:161:10)
+              at async getKnownRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:32:14)
+              at async getKnownRawBlockWithBackoff (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:57:14)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:56:15)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:68:14)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+      "params": {
+        "response": {
+          "data": "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}",
+          "status": 429,
+          "headers": {}
+        }
+      }
+    }
+
+[14:37:11.364] [33mWARN[39m: [36mIssue while running fetching batch of events from the RPC. Will wait 1000ms and try again.[39m
+    [35msource[39m: "RPC (testnet-rpc.monad.xyz)"
+    [35mchainId[39m: 10143
+    [35mtype[39m: "EXPONENTIAL_BACKOFF"
+    err: {
+      "type": "Error",
+      "message": "[rescript-rest] Failed parsing response at [\"data\"]. Reason: Expected { jsonrpc: \"2.0\"; id: 1; result: JSON | null; }, received \"{\\\"code\\\":-32007,\\\"message\\\":\\\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\\\"}\"",
+      "stack":
+          Error: [rescript-rest] Failed parsing response at ["data"]. Reason: Expected { jsonrpc: "2.0"; id: 1; result: JSON | null; }, received "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}"
+              at panic (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:8:15)
+              at file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:499:18
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+              at async Module.getRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/Rpc.res.mjs:161:10)
+              at async getKnownRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:32:14)
+              at async getKnownRawBlockWithBackoff (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:57:14)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:56:15)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:68:14)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+      "params": {
+        "response": {
+          "data": "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}",
+          "status": 429,
+          "headers": {}
+        }
+      }
+    }
+
+[14:37:13.119] [32mINFO[39m: [36mAll events have been fetched[39m
+    [35mchainId[39m: 10143
+
+[14:37:15.190] [32mINFO[39m: [36mAll events have been fetched[39m
+    [35mchainId[39m: 10143
+
+[14:37:16.048] [33mWARN[39m: [36mIssue while running fetching batch of events from the RPC. Will wait 1000ms and try again.[39m
+    [35msource[39m: "RPC (rpc.monad.xyz)"
+    [35mchainId[39m: 143
+    [35mtype[39m: "EXPONENTIAL_BACKOFF"
+    err: {
+      "type": "Error",
+      "message": "[rescript-rest] Failed parsing response at [\"data\"]. Reason: Expected { jsonrpc: \"2.0\"; id: 1; result: JSON | null; }, received \"{\\\"code\\\":-32007,\\\"message\\\":\\\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\\\"}\"",
+      "stack":
+          Error: [rescript-rest] Failed parsing response at ["data"]. Reason: Expected { jsonrpc: "2.0"; id: 1; result: JSON | null; }, received "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}"
+              at panic (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:8:15)
+              at file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:499:18
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+              at async Module.getRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/Rpc.res.mjs:161:10)
+              at async getKnownRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:32:14)
+              at async getKnownRawBlockWithBackoff (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:57:14)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:56:15)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:68:14)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+      "params": {
+        "response": {
+          "data": "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}",
+          "status": 429,
+          "headers": {}
+        }
+      }
+    }
+
+[14:37:16.117] [32mINFO[39m: [36mAll events have been fetched[39m
+    [35mchainId[39m: 10143
+
+[14:37:16.147] [33mWARN[39m: [36mIssue while running fetching batch of events from the RPC. Will wait 1000ms and try again.[39m
+    [35msource[39m: "RPC (rpc.monad.xyz)"
+    [35mchainId[39m: 143
+    [35mtype[39m: "EXPONENTIAL_BACKOFF"
+    err: {
+      "type": "Error",
+      "message": "[rescript-rest] Failed parsing response at [\"data\"]. Reason: Expected { jsonrpc: \"2.0\"; id: 1; result: JSON | null; }, received \"{\\\"code\\\":-32007,\\\"message\\\":\\\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\\\"}\"",
+      "stack":
+          Error: [rescript-rest] Failed parsing response at ["data"]. Reason: Expected { jsonrpc: "2.0"; id: 1; result: JSON | null; }, received "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}"
+              at panic (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:8:15)
+              at file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:499:18
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+              at async Module.getRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/Rpc.res.mjs:161:10)
+              at async getKnownRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:32:14)
+              at async getKnownRawBlockWithBackoff (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:57:14)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:56:15)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:68:14)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+      "params": {
+        "response": {
+          "data": "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}",
+          "status": 429,
+          "headers": {}
+        }
+      }
+    }
+
+[14:37:16.148] [33mWARN[39m: [36mIssue while running fetching batch of events from the RPC. Will wait 1000ms and try again.[39m
+    [35msource[39m: "RPC (rpc.monad.xyz)"
+    [35mchainId[39m: 143
+    [35mtype[39m: "EXPONENTIAL_BACKOFF"
+    err: {
+      "type": "Error",
+      "message": "[rescript-rest] Failed parsing response at [\"data\"]. Reason: Expected { jsonrpc: \"2.0\"; id: 1; result: JSON | null; }, received \"{\\\"code\\\":-32007,\\\"message\\\":\\\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\\\"}\"",
+      "stack":
+          Error: [rescript-rest] Failed parsing response at ["data"]. Reason: Expected { jsonrpc: "2.0"; id: 1; result: JSON | null; }, received "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}"
+              at panic (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:8:15)
+              at file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:499:18
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+              at async Module.getRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/Rpc.res.mjs:161:10)
+              at async getKnownRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:32:14)
+              at async getKnownRawBlockWithBackoff (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:57:14)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:56:15)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:68:14)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+      "params": {
+        "response": {
+          "data": "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}",
+          "status": 429,
+          "headers": {}
+        }
+      }
+    }
+
+[14:37:16.148] [33mWARN[39m: [36mIssue while running fetching batch of events from the RPC. Will wait 1000ms and try again.[39m
+    [35msource[39m: "RPC (rpc.monad.xyz)"
+    [35mchainId[39m: 143
+    [35mtype[39m: "EXPONENTIAL_BACKOFF"
+    err: {
+      "type": "Error",
+      "message": "[rescript-rest] Failed parsing response at [\"data\"]. Reason: Expected { jsonrpc: \"2.0\"; id: 1; result: JSON | null; }, received \"{\\\"code\\\":-32007,\\\"message\\\":\\\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\\\"}\"",
+      "stack":
+          Error: [rescript-rest] Failed parsing response at ["data"]. Reason: Expected { jsonrpc: "2.0"; id: 1; result: JSON | null; }, received "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}"
+              at panic (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:8:15)
+              at file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:499:18
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+              at async Module.getRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/Rpc.res.mjs:161:10)
+              at async getKnownRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:32:14)
+              at async getKnownRawBlockWithBackoff (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:57:14)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:56:15)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:68:14)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+      "params": {
+        "response": {
+          "data": "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}",
+          "status": 429,
+          "headers": {}
+        }
+      }
+    }
+
+[14:37:16.149] [33mWARN[39m: [36mIssue while running fetching batch of events from the RPC. Will wait 1000ms and try again.[39m
+    [35msource[39m: "RPC (rpc.monad.xyz)"
+    [35mchainId[39m: 143
+    [35mtype[39m: "EXPONENTIAL_BACKOFF"
+    err: {
+      "type": "Error",
+      "message": "[rescript-rest] Failed parsing response at [\"data\"]. Reason: Expected { jsonrpc: \"2.0\"; id: 1; result: JSON | null; }, received \"{\\\"code\\\":-32007,\\\"message\\\":\\\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\\\"}\"",
+      "stack":
+          Error: [rescript-rest] Failed parsing response at ["data"]. Reason: Expected { jsonrpc: "2.0"; id: 1; result: JSON | null; }, received "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}"
+              at panic (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:8:15)
+              at file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:499:18
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+              at async Module.getRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/Rpc.res.mjs:161:10)
+              at async getKnownRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:32:14)
+              at async getKnownRawBlockWithBackoff (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:57:14)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:56:15)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:68:14)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+      "params": {
+        "response": {
+          "data": "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}",
+          "status": 429,
+          "headers": {}
+        }
+      }
+    }
+
+[14:37:16.205] [33mWARN[39m: [36mIssue while running fetching batch of events from the RPC. Will wait 1000ms and try again.[39m
+    [35msource[39m: "RPC (rpc.monad.xyz)"
+    [35mchainId[39m: 143
+    [35mtype[39m: "EXPONENTIAL_BACKOFF"
+    err: {
+      "type": "Error",
+      "message": "[rescript-rest] Failed parsing response at [\"data\"]. Reason: Expected { jsonrpc: \"2.0\"; id: 1; result: JSON | null; }, received \"{\\\"code\\\":-32007,\\\"message\\\":\\\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\\\"}\"",
+      "stack":
+          Error: [rescript-rest] Failed parsing response at ["data"]. Reason: Expected { jsonrpc: "2.0"; id: 1; result: JSON | null; }, received "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}"
+              at panic (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:8:15)
+              at file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:499:18
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+              at async Module.getRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/Rpc.res.mjs:161:10)
+              at async getKnownRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:32:14)
+              at async getKnownRawBlockWithBackoff (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:57:14)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:56:15)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:68:14)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+      "params": {
+        "response": {
+          "data": "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}",
+          "status": 429,
+          "headers": {}
+        }
+      }
+    }
+
+[14:37:16.746] [32mINFO[39m: [36mAll events have been fetched[39m
+    [35mchainId[39m: 10143
+
+[14:37:17.358] [32mINFO[39m: [36mAll events have been fetched[39m
+    [35mchainId[39m: 10143
+
+[14:37:17.924] [32mINFO[39m: [36mAll events have been fetched[39m
+    [35mchainId[39m: 10143
+
+[14:37:18.654] [32mINFO[39m: [36mAll events have been fetched[39m
+    [35mchainId[39m: 10143
+
+[14:37:19.516] [32mINFO[39m: [36mAll events have been fetched[39m
+    [35mchainId[39m: 10143
+
+[14:37:19.960] [33mWARN[39m: [36mIssue while running fetching batch of events from the RPC. Will wait 1000ms and try again.[39m
+    [35msource[39m: "RPC (rpc.monad.xyz)"
+    [35mchainId[39m: 143
+    [35mtype[39m: "EXPONENTIAL_BACKOFF"
+    err: {
+      "type": "Error",
+      "message": "[rescript-rest] Failed parsing response at [\"data\"]. Reason: Expected { jsonrpc: \"2.0\"; id: 1; result: JSON | null; }, received \"{\\\"code\\\":-32007,\\\"message\\\":\\\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\\\"}\"",
+      "stack":
+          Error: [rescript-rest] Failed parsing response at ["data"]. Reason: Expected { jsonrpc: "2.0"; id: 1; result: JSON | null; }, received "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}"
+              at panic (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:8:15)
+              at file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:499:18
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+              at async Module.getRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/Rpc.res.mjs:161:10)
+              at async getKnownRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:32:14)
+              at async getKnownRawBlockWithBackoff (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:57:14)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:56:15)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:68:14)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+      "params": {
+        "response": {
+          "data": "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}",
+          "status": 429,
+          "headers": {}
+        }
+      }
+    }
+
+[14:37:19.981] [32mINFO[39m: [36mAll events have been fetched[39m
+    [35mchainId[39m: 10143
+
+[14:37:20.024] [33mWARN[39m: [36mIssue while running fetching batch of events from the RPC. Will wait 1000ms and try again.[39m
+    [35msource[39m: "RPC (rpc.monad.xyz)"
+    [35mchainId[39m: 143
+    [35mtype[39m: "EXPONENTIAL_BACKOFF"
+    err: {
+      "type": "Error",
+      "message": "[rescript-rest] Failed parsing response at [\"data\"]. Reason: Expected { jsonrpc: \"2.0\"; id: 1; result: JSON | null; }, received \"{\\\"code\\\":-32007,\\\"message\\\":\\\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\\\"}\"",
+      "stack":
+          Error: [rescript-rest] Failed parsing response at ["data"]. Reason: Expected { jsonrpc: "2.0"; id: 1; result: JSON | null; }, received "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}"
+              at panic (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:8:15)
+              at file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:499:18
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+              at async Module.getRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/Rpc.res.mjs:161:10)
+              at async getKnownRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:32:14)
+              at async getKnownRawBlockWithBackoff (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:57:14)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:56:15)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:68:14)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+      "params": {
+        "response": {
+          "data": "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}",
+          "status": 429,
+          "headers": {}
+        }
+      }
+    }
+
+[14:37:20.076] [33mWARN[39m: [36mIssue while running fetching batch of events from the RPC. Will wait 1000ms and try again.[39m
+    [35msource[39m: "RPC (rpc.monad.xyz)"
+    [35mchainId[39m: 143
+    [35mtype[39m: "EXPONENTIAL_BACKOFF"
+    err: {
+      "type": "Error",
+      "message": "[rescript-rest] Failed parsing response at [\"data\"]. Reason: Expected { jsonrpc: \"2.0\"; id: 1; result: JSON | null; }, received \"{\\\"code\\\":-32007,\\\"message\\\":\\\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\\\"}\"",
+      "stack":
+          Error: [rescript-rest] Failed parsing response at ["data"]. Reason: Expected { jsonrpc: "2.0"; id: 1; result: JSON | null; }, received "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}"
+              at panic (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:8:15)
+              at file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:499:18
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+              at async Module.getRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/Rpc.res.mjs:161:10)
+              at async getKnownRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:32:14)
+              at async getKnownRawBlockWithBackoff (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:57:14)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:56:15)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:68:14)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+      "params": {
+        "response": {
+          "data": "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}",
+          "status": 429,
+          "headers": {}
+        }
+      }
+    }
+
+[14:37:20.084] [33mWARN[39m: [36mIssue while running fetching batch of events from the RPC. Will wait 1000ms and try again.[39m
+    [35msource[39m: "RPC (rpc.monad.xyz)"
+    [35mchainId[39m: 143
+    [35mtype[39m: "EXPONENTIAL_BACKOFF"
+    err: {
+      "type": "Error",
+      "message": "[rescript-rest] Failed parsing response at [\"data\"]. Reason: Expected { jsonrpc: \"2.0\"; id: 1; result: JSON | null; }, received \"{\\\"code\\\":-32007,\\\"message\\\":\\\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\\\"}\"",
+      "stack":
+          Error: [rescript-rest] Failed parsing response at ["data"]. Reason: Expected { jsonrpc: "2.0"; id: 1; result: JSON | null; }, received "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}"
+              at panic (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:8:15)
+              at file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:499:18
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+              at async Module.getRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/Rpc.res.mjs:161:10)
+              at async getKnownRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:32:14)
+              at async getKnownRawBlockWithBackoff (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:57:14)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:56:15)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:68:14)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+      "params": {
+        "response": {
+          "data": "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}",
+          "status": 429,
+          "headers": {}
+        }
+      }
+    }
+
+[14:37:20.084] [33mWARN[39m: [36mIssue while running fetching batch of events from the RPC. Will wait 1000ms and try again.[39m
+    [35msource[39m: "RPC (rpc.monad.xyz)"
+    [35mchainId[39m: 143
+    [35mtype[39m: "EXPONENTIAL_BACKOFF"
+    err: {
+      "type": "Error",
+      "message": "[rescript-rest] Failed parsing response at [\"data\"]. Reason: Expected { jsonrpc: \"2.0\"; id: 1; result: JSON | null; }, received \"{\\\"code\\\":-32007,\\\"message\\\":\\\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\\\"}\"",
+      "stack":
+          Error: [rescript-rest] Failed parsing response at ["data"]. Reason: Expected { jsonrpc: "2.0"; id: 1; result: JSON | null; }, received "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}"
+              at panic (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:8:15)
+              at file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/vendored/Rest.res.mjs:499:18
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+              at async Module.getRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/Rpc.res.mjs:161:10)
+              at async getKnownRawBlock (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:32:14)
+              at async getKnownRawBlockWithBackoff (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/sources/RpcSource.res.mjs:57:14)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:56:15)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+              at async awaitTaskPromiseAndLoadNextWithTimeout (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:68:14)
+              at async loadNext (file:///workspace/scratch/521d0942f783/mandate-workbench/integrations/envio/node_modules/envio/src/LazyLoader.res.mjs:75:11)
+      "params": {
+        "response": {
+          "data": "{\"code\":-32007,\"message\":\"50/second request limit reached - reduce calls per second or upgrade your account at https://dashboard.quicknode.com/billing/plan\"}",
+          "status": 429,
+          "headers": {}
+        }
+      }
+    }
+
+[14:37:20.546] [32mINFO[39m: [36mAll events have been fetched[39m
+    [35mchainId[39m: 10143
+
+[14:37:21.297] [32mINFO[39m: [36mAll events have been fetched[39m
+    [35mchainId[39m: 10143
+
+[14:37:21.327] [32mINFO[39m: [36mAll events have been fetched[39m
+    [35mchainId[39m: 143
+
+[14:37:21.365] [32mINFO[39m: [36mAll chains are caught up. Finalizing the indexer before switching to realtime: flushing pending writes, then creating the indexes the schema promises.[39m
+
+[14:37:21.460] [32mINFO[39m: [36mCreating the 2 remaining schema indexes before the indexer reports ready. Writes are paused until they are committed. This can take a long time on a large database.[39m
+    [35mstorage[39m: "postgres"
+    [35mindexes[39m: [
+      "ExchangeEvent_blockNumber_dvqng6mery",
+      "ExchangeEvent_chainId_9ih949203t"
+    ]
+
+[14:37:21.533] [32mINFO[39m: [36mCommitted 2 schema indexes and the ready timestamp in 0.07s.[39m
+    [35mstorage[39m: "postgres"
+
+[14:37:21.533] [32mINFO[39m: [36mThe indexer is ready. Switching to realtime indexing.[39m
+

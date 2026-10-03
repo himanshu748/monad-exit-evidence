@@ -1,0 +1,20 @@
+{
+  "data": {
+    "mode": "READ_ONLY",
+    "tradingEnabled": false,
+    "integrations": {
+      "perpl": "live-public-read",
+      "envio": "live",
+      "cre": "login-required",
+      "nansen": "access-required"
+    },
+    "envioNetworks": {
+      "mainnet": "live",
+      "testnet": "live"
+    }
+  },
+  "error": null,
+  "meta": {
+    "receivedAt": "2026-10-03T14:25:20.956Z"
+  }
+}

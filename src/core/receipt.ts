@@ -7,7 +7,7 @@ import type {
   VerificationResult,
   Check,
 } from "./types.ts";
-import { integer } from "./quantity.ts";
+import { integer, precision } from "./quantity.ts";
 export function digest(value: unknown): string {
   return createHash("sha256").update(canonical(value)).digest("hex");
 }
@@ -37,6 +37,63 @@ export function verifyReceipt(value: unknown): VerificationResult {
       r.schemaVersion !== 1
     )
       throw new Error("Unsupported receipt shape or mode");
+    const text = (v: unknown) => typeof v === "string" && v.length > 0;
+    const date = (v: unknown) =>
+      text(v) && Number.isFinite(Date.parse(v as string));
+    const policy = r.authorization,
+      execution = r.execution;
+    if (
+      !text(r.id) ||
+      !date(r.createdAt) ||
+      ![
+        "valid",
+        "unauthorized",
+        "partial",
+        "interrupted",
+        "duplicate",
+        "tampered",
+      ].includes(r.scenario) ||
+      !/^[a-f0-9]{64}$/.test(r.authorizationDigest ?? "") ||
+      !/^[a-f0-9]{64}$/.test(integrity.digest) ||
+      !text(integrity.meaning) ||
+      policy.schemaVersion !== 1 ||
+      policy.mode !== "REPLAY" ||
+      !["mainnet", "testnet"].includes(policy.network) ||
+      policy.chainId !== (policy.network === "mainnet" ? 143 : 10143) ||
+      !text(policy.accountId) ||
+      !text(policy.workerId) ||
+      !Number.isSafeInteger(policy.marketId) ||
+      policy.marketId <= 0 ||
+      !["long", "short"].includes(policy.direction) ||
+      policy.maxAttempts !== 1 ||
+      !date(policy.createdAt) ||
+      !date(policy.requestDeadline) ||
+      Date.parse(policy.requestDeadline) <= Date.parse(policy.createdAt) ||
+      !text(policy.snapshotRef) ||
+      !date(policy.snapshotObservedAt) ||
+      !text(execution.id) ||
+      !text(execution.attemptedOperation) ||
+      !Number.isSafeInteger(execution.simulatedSubmissions) ||
+      execution.simulatedSubmissions < 0 ||
+      execution.simulatedSubmissions > policy.maxAttempts ||
+      !Array.isArray(execution.timeline) ||
+      execution.timeline.length === 0 ||
+      execution.timeline.some(
+        (event) =>
+          !event ||
+          !text(event.title) ||
+          !text(event.detail) ||
+          !["complete", "blocked", "pending"].includes(event.state),
+      ) ||
+      !Array.isArray(r.limitations) ||
+      r.limitations.length === 0 ||
+      r.limitations.some((v) => !text(v))
+    )
+      throw new Error("Incomplete receipt metadata, policy or execution");
+    precision(policy.sizeDecimals);
+    precision(policy.priceDecimals);
+    if (integer(policy.priceLimit) <= 0n)
+      throw new Error("Invalid policy price limit");
     const required = [
       "Policy binding",
       "Replay boundary",
@@ -59,7 +116,13 @@ export function verifyReceipt(value: unknown): VerificationResult {
         (name) => r.checks.filter((c) => c?.name === name).length === 1,
       ) ||
       r.checks.some(
-        (c) => !c || !["PASS", "FAIL", "UNKNOWN"].includes(c.result),
+        (c) =>
+          !c ||
+          !text(c.name) ||
+          !text(c.expected) ||
+          !text(c.observed) ||
+          !text(c.source) ||
+          !["PASS", "FAIL", "UNKNOWN"].includes(c.result),
       ) ||
       !["COMPLETED", "REJECTED", "PARTIAL", "UNKNOWN"].includes(
         r.execution.status,
@@ -89,11 +152,15 @@ export function verifyReceipt(value: unknown): VerificationResult {
     const bounded =
       filled + reserved <= authorized &&
       authorized <= position &&
+      authorized > 0n &&
+      position > 0n &&
+      integer(r.execution.remainingPositionQuantity) + filled === position &&
       r.execution.providerWrites === 0;
     checks.push({
       name: "Recorded quantities stay within replay limits",
       result: bounded ? "PASS" : "FAIL",
-      expected: "filled + reserved <= approved <= original; real writes = 0",
+      expected:
+        "filled + reserved <= approved <= original; remaining + filled = original; real writes = 0",
       observed: `${filled} + ${reserved} <= ${authorized} <= ${position}`,
       source: "REPLAY_RECORD",
     });

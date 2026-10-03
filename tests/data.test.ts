@@ -134,3 +134,21 @@ test("collateral scale follows market-instance-token binding", () => {
     ),
   );
 });
+
+test("cached future provider timestamps remain stale", async () => {
+  const { getMarkets } = await import("../src/data/perpl.ts");
+  const originalFetch = globalThis.fetch,
+    originalNow = Date.now;
+  const future = structuredClone(context);
+  future.markets[0].state.at.t = now + 60000;
+  Date.now = () => now;
+  globalThis.fetch = async () =>
+    new Response(JSON.stringify(future), { status: 200 });
+  try {
+    assert.equal((await getMarkets("mainnet")).stale, true);
+    assert.equal((await getMarkets("mainnet")).stale, true);
+  } finally {
+    globalThis.fetch = originalFetch;
+    Date.now = originalNow;
+  }
+});

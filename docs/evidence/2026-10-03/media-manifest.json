@@ -1,0 +1,73 @@
+{
+  "capturedAt": "2026-10-03T14:18:00.479Z",
+  "captureSource": "Actual continuous Playwright Chromium recording of loopback production app; IAB used to inspect app but lacks a supported local frame-file export in this environment",
+  "narration": "Local macOS Samantha text-to-speech, no external service",
+  "rawCaptureOffsetSeconds": 1.7199999999999989,
+  "actualProductFootage": true,
+  "externalUploadPerformed": false,
+  "creBounty": "omitted by user choice",
+  "nansenBounty": "omitted, no live authorized data",
+  "files": [
+    {
+      "name": "monad-technical-demo.mp4",
+      "bytes": 8123886,
+      "sha256": "0a1c6f5a571700dfbbdd31e21955be75ca6cc7f2441631cb1ee79a7521d37c0c",
+      "durationSeconds": 123.0,
+      "limitSeconds": 180,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1600,
+            "height": 1200,
+            "r_frame_rate": "60/1"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "r_frame_rate": "0/0"
+          },
+          {
+            "codec_name": "mov_text",
+            "codec_type": "subtitle",
+            "r_frame_rate": "0/0"
+          }
+        ],
+        "format": {
+          "duration": "123.000000"
+        }
+      }
+    },
+    {
+      "name": "monad-pitch.mp4",
+      "bytes": 4975573,
+      "sha256": "e1d2d0d0f2ccd09289f1a5478080ce8e49149f1a12c761a71c3102b263aa0af5",
+      "durationSeconds": 79.818005,
+      "limitSeconds": 120,
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1600,
+            "height": 1200,
+            "r_frame_rate": "60/1"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "r_frame_rate": "0/0"
+          }
+        ],
+        "format": {
+          "duration": "79.818005"
+        }
+      }
+    }
+  ]
+}

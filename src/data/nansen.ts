@@ -164,6 +164,7 @@ export function evaluateWalletBudget(
     digest(body) !== expectedDigest ||
     limits.wallet.toLowerCase() !== snapshot.wallet ||
     limits.chainId !== 143 ||
+    !Number.isFinite(Date.parse(snapshot.receivedAt)) ||
     now - Date.parse(snapshot.receivedAt) > 300000 ||
     Date.parse(snapshot.receivedAt) > now + 15000
   )

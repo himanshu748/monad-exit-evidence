@@ -140,3 +140,19 @@ test("complete portfolio requires the first and only consistently sized page", (
     count: 2,
   });
 });
+
+test("invalid provider timestamp fails closed even with a matching digest", async () => {
+  const { digest } = await import("../src/core/receipt.ts");
+  const p = normalizeNansenBalances(payload, wallet, now, "FIXTURE");
+  p.receivedAt = "invalid";
+  const { digest: prior, ...body } = p;
+  p.digest = digest(body);
+  assert.equal(
+    evaluateWalletBudget(
+      p,
+      { ...limits, maxConcentrationBps: 9000, minLiquidBufferUsd: "100" },
+      now,
+    ).outcome,
+    "UNKNOWN",
+  );
+});

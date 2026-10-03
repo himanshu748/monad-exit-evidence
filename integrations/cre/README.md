@@ -14,6 +14,8 @@ The claim includes the full supported policy preimage (schemaVersion 1, chainId,
 
 **No successful CRE CLI simulation or DON deployment is claimed.** October 3 on Mac: the real SDK/Javy build now produces WASM after keeping the parameterized HTTP handler internal (exporting it caused `Exported functions with parameters are not supported`). `npm run build:wasm` is reproducible with Bun. See `../../docs/evidence/2026-10-03/cre-wasm-build-green.txt` and the WASM SHA256 manifest. A real public testnet claim also passed local predicates; this is not an authenticated CRE simulation.
 
+User chose to proceed without the CRE bounty on October 3. The steps below remain optional development instructions; simulation is not claimed and is not required for the current minimal bounty set.
+
 ## After user-controlled authentication
 
 1. Install CRE CLI from its [official installation guide](https://docs.chain.link/cre/getting-started/cli-installation).

@@ -229,7 +229,9 @@ export async function getMarkets(network: Network): Promise<MarketContext> {
     return {
       ...old.data,
       stale: old.data.markets.some(
-        (m) => now - Date.parse(m.observedAt) > 120000,
+        (m) =>
+          now - Date.parse(m.observedAt) > 120000 ||
+          Date.parse(m.observedAt) > now + 15000,
       ),
     };
   const data = normalizeContext(

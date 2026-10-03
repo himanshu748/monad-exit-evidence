@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { parseUnits, formatUnits } from "../src/core/quantity.ts";
 import { runRehearsal } from "../src/core/rehearsal.ts";
-import { verifyReceipt, sealReceipt } from "../src/core/receipt.ts";
+import { verifyReceipt, sealReceipt, digest } from "../src/core/receipt.ts";
 import type { RehearsalInput } from "../src/core/types.ts";
 const now = 1790844800000;
 const input: RehearsalInput = {
@@ -187,4 +187,61 @@ test("missing required predicates is structural failure even if digest is recomp
     verifyReceipt(sealReceipt({ ...body, checks: [] })).valid,
     false,
   );
+});
+
+test("recomputed hashes cannot make incomplete receipts or inconsistent quantities valid", () => {
+  const receipt = runRehearsal(input, now);
+  const { integrity, ...original } = receipt;
+  const mutations = [
+    (r: any) => {
+      delete r.id;
+    },
+    (r: any) => {
+      delete r.createdAt;
+    },
+    (r: any) => {
+      delete r.scenario;
+    },
+    (r: any) => {
+      delete r.limitations;
+    },
+    (r: any) => {
+      delete r.authorization.accountId;
+    },
+    (r: any) => {
+      r.authorization.chainId = 10143;
+    },
+    (r: any) => {
+      r.authorization.requestDeadline = "invalid";
+    },
+    (r: any) => {
+      delete r.authorization.snapshotRef;
+    },
+    (r: any) => {
+      delete r.execution.timeline;
+    },
+    (r: any) => {
+      r.execution.remainingPositionQuantity = "0";
+    },
+    (r: any) => {
+      r.checks = r.checks.map(({ name, result }: any) => ({ name, result }));
+    },
+  ];
+  for (const mutate of mutations) {
+    const body = structuredClone(original);
+    mutate(body);
+    body.authorizationDigest = digest(body.authorization);
+    assert.equal(verifyReceipt(sealReceipt(body)).valid, false);
+  }
+  for (const scenario of [
+    "valid",
+    "unauthorized",
+    "partial",
+    "interrupted",
+    "duplicate",
+  ] as const)
+    assert.equal(
+      verifyReceipt(runRehearsal({ ...input, scenario }, now)).valid,
+      true,
+    );
 });

@@ -1,0 +1,46 @@
+[
+  [
+    0,
+    "Exit Evidence Workbench makes requests, fills, and uncertainty visible. This is the actual local product, reading public Perpl markets on Monad. No wallet is connected."
+  ],
+  [
+    12,
+    "These limits describe a hypothetical position reduction. Review freezes the network, market, source snapshot, and exact integer quantities. It is a rehearsal, not an owner signature."
+  ],
+  [
+    25,
+    "A partial outcome fills less than the approved close. The unfilled remainder is not retried. The visible result is explicitly partial, rather than success."
+  ],
+  [
+    35,
+    "Verification checks completeness and conservation. Hashes detect changes; they cannot prove an owner signature or execution."
+  ],
+  [
+    44,
+    "Export JSON preserves the returned receipt. The file can be inspected independently."
+  ],
+  [
+    51,
+    "Now the response is interrupted. The outcome stays unknown and the approved quantity remains reserved. That uncertainty prevents another attempt."
+  ],
+  [
+    67,
+    "Reload and retry recover the same durable request identity. This retrieves the original record rather than silently creating another execution."
+  ],
+  [
+    80,
+    "Unknown can have a complete receipt. Integrity never changes an unknown outcome into completed."
+  ],
+  [
+    89,
+    "Editing an observed quantity breaks receipt integrity. The workbench shows the failure instead of accepting the changed result."
+  ],
+  [
+    101,
+    "Envio supplies real public exchange events with a chain watermark. This participant activity is separate from our hypothetical rehearsal. CRE and Nansen remain gated."
+  ],
+  [
+    114,
+    "This local product makes zero provider writes. Onchain deployment, CRE simulation, and live Nansen data are not claimed."
+  ]
+]

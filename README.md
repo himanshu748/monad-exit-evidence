@@ -9,7 +9,7 @@ A read-only Monad workbench for reviewing exact position-reduction limits, under
 - Independent deterministic policy checks, bounded integer arithmetic, SQLite idempotency across restart, retained unknown reservations and exact receipt integrity checks
 - Real Envio HyperIndex ingestion on both Monad networks. The activity feature consumes fresh Envio-committed SQL data, not static fixtures or a direct-RPC substitute
 - A typed Nansen balance/budget adapter, with account/network/freshness checks and no live access configured
-- A genuine read-only Chainlink CRE SDK workflow for narrow public position-decrease observations. Typechecking and predicate tests pass; actual CRE CLI simulation is blocked on user login
+- A genuine read-only Chainlink CRE SDK workflow for narrow public position-decrease observations. Typechecking, predicate tests and real WASM compilation pass; no actual CRE CLI simulation is claimed, and its bounty is omitted by user choice
 
 ## Important distinctions
 
@@ -50,7 +50,7 @@ See [evidence and limitations](docs/evidence.md), [security boundaries](docs/sec
 
 ## Hackathon scope
 
-Primary track: Onchain Finance & Trading. Envio and CRE are targeted cash bounties, with Nansen an optional additional target. No prize eligibility or payout is guaranteed. The current app is **not submission-ready**: verified event rules and deadline, publication approval, CRE login and genuine simulation, refreshed live demo/pitch evidence, and independent release review remain required. Nansen is optional and access-gated; testnet deployment is an unresolved event requirement, not permission to make a transaction. Desktop/mobile browser QA passed locally. No public deployment or financial transaction has been made by this build.
+Historical primary track: Onchain Finance & Trading; current eligibility remains unconfirmed because the local read-only product has no app-owned deployed onchain mechanism or settlement. Metropolis allows Monad mainnet or testnet and requires public source, a deployed live product, technical demo <=3 minutes and pitch <=2 minutes. Deadline October 13, 2026 at 11:59 PM ET (October 14 03:59 UTC). Proposed minimal bounty set: Envio only, conditional on public source/pipeline/demo deliverables. CRE is omitted by user choice; Nansen is omitted without live access. Local independent review, regression/browser checks, patched dependency audits and genuine Envio receipt cross-checks are complete. Local videos are prepared separately; no hosted link or completed submission is claimed. Previously blocked push/upload still requires direct approval. No public deployment or financial transaction has been made. See [submission draft](docs/submission-draft.md), [local completion](docs/local-completion-2026-10-03.md) and [GTM plan](docs/go-to-market.md).
 
 See [current local readiness](docs/local-completion-2026-10-03.md), [demo script](docs/demo-script.md), and [submission draft](docs/submission-draft.md). All materials remain local; the historical source ZIP predates this completion work.
 

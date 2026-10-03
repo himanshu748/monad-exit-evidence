@@ -1,0 +1,13 @@
+
+> exit-evidence-web@0.1.0 test
+> vitest run
+
+
+ RUN  v4.1.11 /Users/himanshujha/Documents/Codex/2026-10-01/task-2/monad-project/web
+
+
+ Test Files  2 passed (2)
+      Tests  26 passed (26)
+   Start at  18:58:05
+   Duration  5.88s (transform 499ms, setup 1.01s, import 709ms, tests 3.85s, environment 1.66s)
+

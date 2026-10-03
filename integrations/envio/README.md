@@ -12,7 +12,7 @@ Watermark is Envio's committed `progress_block`, not the greatest returned event
 
 ## Run locally
 
-Requires Node ≥24 and Linux x64 (the verified platform). `embedded-postgres` selects a packaged binary for the host platform. From this directory:
+Requires Node ≥24. Linux x64 and macOS arm64 startup/indexing have been exercised; current public RPC reliability still controls freshness. `embedded-postgres` selects a packaged binary for the host platform. From this directory:
 
 ```sh
 npm ci --cache /tmp/mandate-npm-cache
@@ -21,7 +21,7 @@ npm run typecheck
 npm start
 ```
 
-`npm start` runs PostgreSQL as the current non-root user on loopback TCP port 5439, Envio on port 9899, and exports snapshots every five seconds. No Docker, daemon installation, OS user creation or privileged operation is needed. The `local-development-only` database password is an isolated local development value, not an external credential. Hasura is explicitly disabled; there is no public GraphQL endpoint. Envio's default health/metrics listener belongs to the local process; do not expose these ports outside a trusted development environment.
+`npm start` runs PostgreSQL as the current non-root user on loopback TCP port 5439, Envio on loopback port 9899, and exports snapshots every five seconds. No Docker, daemon installation, OS user creation or privileged operation is needed. The `local-development-only` database password is an isolated local development value, not an external credential. Hasura is explicitly disabled; there is no public GraphQL endpoint. Envio's default health/metrics listener belongs to the local process; do not expose these ports outside a trusted development environment.
 
 The supervised command keeps all processes together, which also works when separate shell commands have isolated network namespaces. The application reads only atomically renamed files and needs no database credentials. Stop gracefully with `touch .runtime/stop` and wait for the supervisor to exit (within its five-second export interval). Restart with `rm -f .runtime/stop && npm start`. This is a temporary foreground development process, not an installed service; it is not guaranteed to survive the executor/session closing. Repeated starts resume Envio checkpoints; they do not clear existing state. Do not run two supervisors against this database directory.
 
@@ -56,3 +56,13 @@ The cross-check independently fetches one already-indexed receipt per network an
 - [Envio handlers and preload semantics](https://docs.envio.dev/docs/HyperIndex/event-handlers)
 - [Envio environment variables, external RPC and disabled Hasura](https://docs.envio.dev/docs/HyperIndex/environment-variables)
 - [Embedded PostgreSQL npm source](https://github.com/leinelissen/embedded-postgres)
+
+## Recent window on Mac
+
+`npm run start:recent` obtains public RPC heads once, starts 200 blocks before each, records the exact window in `.runtime/recent/window.json`, and uses a separate PostgreSQL directory and SQL schema. Subsequent starts resume that window, preserving the original October 1 backfill. Run only one supervisor at a time (both modes use ports 5439/9899).
+
+Stop recent mode with `touch .runtime/recent/stop`; resume with `rm -f .runtime/recent/stop` then `npm run start:recent`. Standard mode still uses `.runtime/stop`. Both modes export to `.runtime/{mainnet,testnet}.json`, which the app validates for freshness. Restarting a days-old recent window still requires catch-up; it does not silently reset history.
+
+The nested config resolves schema and ABI relative to its own directory, while Envio resolves the handler relative to the project directory. The supervisor preloads `scripts/loopback-only.mjs` only in its Envio child because 3.12.1 ignores `ENVIO_INDEXER_HOST` and otherwise binds its health listener on all interfaces. No OS firewall or dependency source is changed. `lsof -nP -iTCP:9899 -sTCP:LISTEN` verifies the actual binding.
+
+For cross-check output without replacing historical artifacts: set `EVIDENCE_DIR` to an existing absolute directory before running `node scripts/verify-evidence.mjs`. RPC timeouts and stale source blocks remain unavailable, never success.

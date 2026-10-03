@@ -1,0 +1,75 @@
+{
+  "generatedAt": "2026-10-03T13:41:26.382Z",
+  "source": "ENVIO plus independent public RPC receipt and Perpl context",
+  "snapshotQueriedAt": "2026-10-03T13:41:16.597Z",
+  "watermark": 67843687,
+  "indexedEvent": {
+    "id": "10143:0x6413aad9f4984c6d9d8514e76d00c5e2339f09a6ea2999794fb1d3f7f1ba9e00:2",
+    "chainId": 10143,
+    "contract": "0x1964c32f0be608e7d29302aff5e61268e72080cc",
+    "transactionHash": "0x6413aad9f4984c6d9d8514e76d00c5e2339f09a6ea2999794fb1d3f7f1ba9e00",
+    "blockHash": "0x1691e9c17dfdd8a1af9d66e5b5d8a253e0844a82e89064c39b0c61bcc3c5b02b",
+    "blockNumber": 67843679,
+    "logIndex": 2,
+    "kind": "PositionDecreased",
+    "marketId": "64",
+    "accountId": "1",
+    "quantity": "603",
+    "source": "ENVIO",
+    "observedAt": "2026-10-03T13:40:59.000Z",
+    "outcome": "OBSERVED_EVENT",
+    "decoded": "{\"accountId\":\"1\",\"deltaPnlCNS\":\"282603\",\"endDepositCNS\":\"5292925287\",\"endLotLNS\":\"502977\",\"fundingCNS\":\"0\",\"perpId\":\"64\",\"positionType\":\"1\",\"startDepositCNS\":\"5299270773\",\"startLotLNS\":\"503580\"}"
+  },
+  "rpc": "https://testnet-rpc.monad.xyz",
+  "localPredicateResult": {
+    "outcome": "VERIFIED_OBSERVATION",
+    "filledQuantity": "603",
+    "policyDigest": "0ea4b92a7ef8ddddeeb08d0f4a4d97aad04a73f2ef0b26d710b543fea5373fb8",
+    "ownerAuthorizationVerified": false,
+    "checks": [
+      {
+        "name": "Policy preimage binding",
+        "result": "PASS",
+        "detail": "The full supported policy preimage must hash to the supplied digest and match every claimed limit. This is integrity, not owner authentication."
+      },
+      {
+        "name": "Declared scope",
+        "result": "PASS",
+        "detail": "The claim binds policy digest, chain, exchange, transaction, account, market and quantity; it does not authenticate an owner."
+      },
+      {
+        "name": "Chain evidence binding",
+        "result": "PASS",
+        "detail": "Observed receipt must match the declared chain, transaction and exchange."
+      },
+      {
+        "name": "External API context",
+        "result": "PASS",
+        "detail": "Perpl public context identifies the same exchange, chain and market."
+      },
+      {
+        "name": "API freshness",
+        "result": "PASS",
+        "detail": "Current context must be no more than 120 seconds old and not materially future-dated."
+      },
+      {
+        "name": "Transaction status",
+        "result": "PASS",
+        "detail": "Receipt success is required; success alone does not prove a position reduction."
+      },
+      {
+        "name": "Attributable position-decrease logs",
+        "result": "PASS",
+        "detail": "603 observed base units; target 603. Unsupported close-only logs without a quantity remain inconclusive."
+      }
+    ],
+    "limitations": [
+      "Verifies named public observations only; owner signature and agent attribution are not established.",
+      "Receipt retrieval alone is not a finality proof.",
+      "CRE CLI simulation is local; no DON-deployed verification is implied."
+    ]
+  },
+  "creSimulationPerformed": false,
+  "ownerAuthorizationVerified": false,
+  "policyMode": "HYPOTHETICAL_PUBLIC_OBSERVATION"
+}

@@ -1,0 +1,59 @@
+{
+  "url": "http://127.0.0.1:4180",
+  "title": "Exit evidence · Read-only workbench",
+  "viewport": {
+    "desktop": "1536x1024",
+    "mobile": "390x844"
+  },
+  "provider": "Real public Perpl reads",
+  "results": [
+    {
+      "scenario": "partial",
+      "status": "PARTIAL",
+      "providerWrites": 0,
+      "filledQuantity": "1200",
+      "reservedQuantity": "0"
+    },
+    {
+      "scenario": "interrupted",
+      "status": "UNKNOWN",
+      "providerWrites": 0,
+      "filledQuantity": "0",
+      "reservedQuantity": "2000"
+    },
+    {
+      "scenario": "unauthorized",
+      "status": "REJECTED",
+      "providerWrites": 0,
+      "filledQuantity": "0",
+      "reservedQuantity": "0"
+    },
+    {
+      "scenario": "duplicate",
+      "status": "COMPLETED",
+      "providerWrites": 0,
+      "filledQuantity": "2000",
+      "reservedQuantity": "0"
+    },
+    {
+      "scenario": "valid",
+      "status": "COMPLETED",
+      "providerWrites": 0,
+      "filledQuantity": "2000",
+      "reservedQuantity": "0"
+    },
+    {
+      "scenario": "tampered",
+      "status": "COMPLETED",
+      "providerWrites": 0,
+      "filledQuantity": "2001",
+      "reservedQuantity": "0"
+    }
+  ],
+  "exportUnchanged": true,
+  "reloadIdempotency": true,
+  "networkReset": true,
+  "mobileOverflow": false,
+  "browserErrors": [],
+  "method": "Local Playwright Chromium on macOS using the production Node server and real public Perpl reads."
+}

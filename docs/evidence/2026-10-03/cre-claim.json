@@ -1,0 +1,17 @@
+{
+  "chainId": 10143,
+  "exchange": "0x1964c32f0be608e7d29302aff5e61268e72080cc",
+  "accountId": "1",
+  "marketId": "64",
+  "authorizedCloseQuantity": "603",
+  "transactionHash": "0x6413aad9f4984c6d9d8514e76d00c5e2339f09a6ea2999794fb1d3f7f1ba9e00",
+  "policyDigest": "0ea4b92a7ef8ddddeeb08d0f4a4d97aad04a73f2ef0b26d710b543fea5373fb8",
+  "policy": {
+    "schemaVersion": 1,
+    "chainId": 10143,
+    "exchange": "0x1964c32f0be608e7d29302aff5e61268e72080cc",
+    "accountId": "1",
+    "marketId": "64",
+    "authorizedCloseQuantity": "603"
+  }
+}

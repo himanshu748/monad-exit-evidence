@@ -1,0 +1,10 @@
+{
+  "artifact": "integrations/cre/.runtime/exit-verifier.wasm",
+  "bytes": 2666386,
+  "sha256": "0316ab6bfe231067570066e43592e9c9d035c96541663d83ff70968395020706",
+  "sdk": "1.23.0",
+  "plugin": "1.7.0",
+  "compiler": "Javy 8.1.0 darwin-arm64",
+  "creCliSimulationPerformed": false,
+  "donDeploymentPerformed": false
+}

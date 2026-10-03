@@ -1,1 +1,20 @@
-{"name":"mandate-envio-indexer","private":true,"type":"module","scripts":{"codegen":"envio codegen","typecheck":"tsc --noEmit","start":"node scripts/run-local.mjs"},"dependencies":{"envio":"3.12.1","embedded-postgres":"17.9.0-beta.16","postgres":"3.4.7"},"devDependencies":{"typescript":"7.0.2","@types/node":"26.6.3"}}
+{
+  "name": "mandate-envio-indexer",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "codegen": "envio codegen",
+    "typecheck": "tsc --noEmit",
+    "start": "node scripts/run-local.mjs",
+    "start:recent": "node scripts/run-local.mjs --recent"
+  },
+  "dependencies": {
+    "envio": "3.12.1",
+    "embedded-postgres": "17.9.0-beta.16",
+    "postgres": "3.4.7"
+  },
+  "devDependencies": {
+    "typescript": "7.0.2",
+    "@types/node": "26.6.3"
+  }
+}

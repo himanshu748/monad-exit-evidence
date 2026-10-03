@@ -44,7 +44,7 @@ function fetchContext(
     observedAt: market.state.at.t as number,
   };
 }
-export function onRequest(runtime: Runtime<Config>, payload: HTTPPayload) {
+function onRequest(runtime: Runtime<Config>, payload: HTTPPayload) {
   const claim = JSON.parse(
     new TextDecoder().decode(payload.input),
   ) as ExitClaim;

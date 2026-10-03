@@ -1,0 +1,51 @@
+🚀 Compiling workflow
+📁 Input:   /Users/himanshujha/Documents/Codex/2026-10-01/task-2/monad-project/integrations/cre/workflow/main.ts
+🧪 JS out:  /tmp/monad-cre-verifier.js
+🎯 WASM out:/tmp/monad-cre-verifier.wasm
+
+📦 Step 1: Compiling JS...
+📁 Using input file: /Users/himanshujha/Documents/Codex/2026-10-01/task-2/monad-project/integrations/cre/workflow/main.ts
+Bundled 1 module in 219ms
+
+  monad-cre-verifier.js  0.83 MB  (entry point)
+
+✅ Built: /tmp/monad-cre-verifier.js
+
+🔨 Step 2: Compiling to WASM...
+🔨 Compiling to WASM
+📁 Input:  /tmp/monad-cre-verifier.js
+🎯 Output: /tmp/monad-cre-verifier.wasm
+[cre-sdk-javy-plugin] Detected platform: darwin, arch: arm64
+[cre-sdk-javy-plugin] Acquired lock /Users/himanshujha/.cache/javy/v8.1.0/darwin-arm64/.lock pid= 56747
+[cre-sdk-javy-plugin] Downloading sha256: https://github.com/bytecodealliance/javy/releases/download/v8.1.0/javy-arm-macos-v8.1.0.gz.sha256
+[cre-sdk-javy-plugin] Downloading binary: https://github.com/bytecodealliance/javy/releases/download/v8.1.0/javy-arm-macos-v8.1.0.gz
+[cre-sdk-javy-plugin] Verifying checksum...
+[cre-sdk-javy-plugin] Decompressing .gz...
+[cre-sdk-javy-plugin] Writing executable: /Users/himanshujha/.cache/javy/v8.1.0/darwin-arm64/javy
+[cre-sdk-javy-plugin] Installed Javy at /Users/himanshujha/.cache/javy/v8.1.0/darwin-arm64/javy
+[cre-sdk-javy-plugin] Released lock /Users/himanshujha/.cache/javy/v8.1.0/darwin-arm64/.lock
+Error: Exported functions with parameters are not supported
+15 | 			env: env ? { ...process.env, ...env } : process.env,
+16 | 		})
+17 | 		p.on('error', reject)
+18 | 		p.on('exit', (code) => {
+19 | 			if (code === 0) resolve()
+20 | 			else reject(new Error(`${cmd} exited with ${code}`))
+                        ^
+error: /Users/himanshujha/.cache/javy/v8.1.0/darwin-arm64/javy exited with 1
+      at <anonymous> (/Users/himanshujha/Documents/Codex/2026-10-01/task-2/monad-project/integrations/cre/node_modules/@chainlink/cre-sdk-javy-plugin/scripts/shared.ts:20:20)
+      at emit (node:events:98:22)
+      at #handleOnExit (node:child_process:520:14)
+
+11 | 			env: process.env,
+12 | 		})
+13 | 		child.on('error', reject)
+14 | 		child.on('exit', (code) => {
+15 | 			if (code === 0) resolve()
+16 | 			else reject(new Error(`bun exited with code ${code ?? 'unknown'}`))
+                        ^
+error: bun exited with code 1
+      at <anonymous> (/Users/himanshujha/Documents/Codex/2026-10-01/task-2/monad-project/integrations/cre/node_modules/@chainlink/cre-sdk/scripts/src/compile-to-wasm.ts:16:20)
+      at emit (node:events:98:22)
+      at #handleOnExit (node:child_process:520:14)
+

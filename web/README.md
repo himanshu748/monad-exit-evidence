@@ -25,12 +25,12 @@ npm test
 npm --prefix web run test:browser
 ```
 
-The browser smoke script starts an isolated backend on port 4180 and launches local Chromium at `/usr/bin/chromium`. Set `CHROMIUM_PATH`, `SMOKE_PORT`, or `EVIDENCE_DIR` if needed. It exercises six scenarios against real public Perpl reads, JSON verification/export, reload recovery, network reset, and 1536 × 1024 / 390 × 844 layouts. Public data failures correctly fail this smoke rather than substituting fixtures.
+The browser smoke script starts an isolated backend on port 4180 and uses `/usr/bin/chromium` when present, otherwise cached Playwright Chromium. Set `CHROMIUM_PATH`, `SMOKE_PORT`, or `EVIDENCE_DIR` if needed. It exercises six scenarios against real public Perpl reads, JSON verification/export, reload recovery, network reset, and 1536 × 1024 / 390 × 844 layouts. Public data failures correctly fail this smoke rather than substituting fixtures.
 
 ## Current evidence and remaining gate
 
 - UI/form tests and the production build were verified in this environment. See `design/qa.md` for the exact scope.
-- Browser verification is **blocked, not passed**. Cloud Browser returned `net::ERR_BLOCKED_BY_CLIENT` for the localhost app. Local Chromium then failed on `socket() failed: Operation not permitted`, including a reviewed escalated launch. No rendered screenshots or completed fidelity claim exist.
+- Browser verification passed on this Mac on October 1 and was refreshed October 3: six real-public-data scenarios, receipt/export/reload identity, network reset, zero browser errors, no mobile overflow. Fresh screenshots and results are in `../docs/evidence/2026-10-03/browser/`. The older cloud blocker is superseded for these bounded Mac checks.
 - `design/exit-evidence-concept.png` is a generated design reference with concept-only data, not an application screenshot or actual execution evidence.
 
 ## Important behavior

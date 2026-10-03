@@ -1,0 +1,74 @@
+
+> start:recent
+> node scripts/run-local.mjs --recent
+
+Envio runtime .runtime/recent; configuration .runtime/recent/config.yaml
+2026-10-03 19:17:13.434 IST [59107] LOG:  starting PostgreSQL 17.9 on x86_64-apple-darwin24.6.0, compiled by Apple clang version 17.0.0 (clang-1700.6.3.2), 64-bit
+2026-10-03 19:17:13.434 IST [59107] LOG:  listening on IPv4 address "127.0.0.1", port 5439
+2026-10-03 19:17:13.465 IST [59110] LOG:  database system was shut down at 2026-10-03 19:16:53 IST
+2026-10-03 19:17:13.485 IST [59107] LOG:  database system is ready to accept connections
+Waiting for Envio: fetch failed
+mainnet: chain progress {"id":143,"ecosystem":"evm","start_block":110192097,"end_block":null,"max_reorg_depth":200,"buffer_block":110195839,"source_block":110195839,"first_event_block":110192097,"ready_at":"2026-10-03T13:35:01.301Z","events_processed":"84688","_is_hyper_sync":false,"progress_block":110195839,"progress_block_time":"2026-10-03T13:46:49.000Z","checkpoint_id":"5966"}
+testnet: chain progress {"id":10143,"ecosystem":"evm","start_block":67841132,"end_block":null,"max_reorg_depth":200,"buffer_block":67844844,"source_block":67844844,"first_event_block":67841132,"ready_at":"2026-10-03T13:35:01.301Z","events_processed":"26686","_is_hyper_sync":false,"progress_block":67844844,"progress_block_time":"2026-10-03T13:46:50.000Z","checkpoint_id":"5972"}
+mainnet: Envio watermark 110195839, 50 recent indexed events
+testnet: Envio watermark 67844844, 50 recent indexed events
+mainnet: chain progress {"id":143,"ecosystem":"evm","start_block":110192097,"end_block":null,"max_reorg_depth":200,"buffer_block":110195946,"source_block":110195946,"first_event_block":110192097,"ready_at":"2026-10-03T13:35:01.301Z","events_processed":"86875","_is_hyper_sync":false,"progress_block":110195946,"progress_block_time":"2026-10-03T13:47:21.000Z","checkpoint_id":"6127"}
+testnet: chain progress {"id":10143,"ecosystem":"evm","start_block":67841132,"end_block":null,"max_reorg_depth":200,"buffer_block":67844950,"source_block":67844950,"first_event_block":67841132,"ready_at":"2026-10-03T13:35:01.301Z","events_processed":"27324","_is_hyper_sync":false,"progress_block":67844950,"progress_block_time":"2026-10-03T13:47:22.000Z","checkpoint_id":"6131"}
+mainnet: Envio watermark 110195946, 50 recent indexed events
+testnet: Envio watermark 67844950, 50 recent indexed events
+mainnet: chain progress {"id":143,"ecosystem":"evm","start_block":110192097,"end_block":null,"max_reorg_depth":200,"buffer_block":110195970,"source_block":110195970,"first_event_block":110192097,"ready_at":"2026-10-03T13:35:01.301Z","events_processed":"87426","_is_hyper_sync":false,"progress_block":110195970,"progress_block_time":"2026-10-03T13:47:29.000Z","checkpoint_id":"6172"}
+testnet: chain progress {"id":10143,"ecosystem":"evm","start_block":67841132,"end_block":null,"max_reorg_depth":200,"buffer_block":67844969,"source_block":67844969,"first_event_block":67841132,"ready_at":"2026-10-03T13:35:01.301Z","events_processed":"27475","_is_hyper_sync":false,"progress_block":67844969,"progress_block_time":"2026-10-03T13:47:28.000Z","checkpoint_id":"6170"}
+mainnet: Envio watermark 110195970, 50 recent indexed events
+testnet: Envio watermark 67844969, 50 recent indexed events
+mainnet: chain progress {"id":143,"ecosystem":"evm","start_block":110192097,"end_block":null,"max_reorg_depth":200,"buffer_block":110195980,"source_block":110195980,"first_event_block":110192097,"ready_at":"2026-10-03T13:35:01.301Z","events_processed":"87604","_is_hyper_sync":false,"progress_block":110195980,"progress_block_time":"2026-10-03T13:47:32.000Z","checkpoint_id":"6191"}
+testnet: chain progress {"id":10143,"ecosystem":"evm","start_block":67841132,"end_block":null,"max_reorg_depth":200,"buffer_block":67844980,"source_block":67844980,"first_event_block":67841132,"ready_at":"2026-10-03T13:35:01.301Z","events_processed":"27507","_is_hyper_sync":false,"progress_block":67844980,"progress_block_time":"2026-10-03T13:47:31.000Z","checkpoint_id":"6188"}
+mainnet: Envio watermark 110195980, 50 recent indexed events
+testnet: Envio watermark 67844980, 50 recent indexed events
+mainnet: chain progress {"id":143,"ecosystem":"evm","start_block":110192097,"end_block":null,"max_reorg_depth":200,"buffer_block":110195999,"source_block":110195999,"first_event_block":110192097,"ready_at":"2026-10-03T13:35:01.301Z","events_processed":"87888","_is_hyper_sync":false,"progress_block":110195999,"progress_block_time":"2026-10-03T13:47:37.000Z","checkpoint_id":"6219"}
+testnet: chain progress {"id":10143,"ecosystem":"evm","start_block":67841132,"end_block":null,"max_reorg_depth":200,"buffer_block":67845003,"source_block":67845003,"first_event_block":67841132,"ready_at":"2026-10-03T13:35:01.301Z","events_processed":"27669","_is_hyper_sync":false,"progress_block":67845003,"progress_block_time":"2026-10-03T13:47:38.000Z","checkpoint_id":"6226"}
+mainnet: Envio watermark 110195999, 50 recent indexed events
+testnet: Envio watermark 67845003, 50 recent indexed events
+mainnet: chain progress {"id":143,"ecosystem":"evm","start_block":110192097,"end_block":null,"max_reorg_depth":200,"buffer_block":110196015,"source_block":110196015,"first_event_block":110192097,"ready_at":"2026-10-03T13:35:01.301Z","events_processed":"88303","_is_hyper_sync":false,"progress_block":110196015,"progress_block_time":"2026-10-03T13:47:42.000Z","checkpoint_id":"6250"}
+testnet: chain progress {"id":10143,"ecosystem":"evm","start_block":67841132,"end_block":null,"max_reorg_depth":200,"buffer_block":67845016,"source_block":67845016,"first_event_block":67841132,"ready_at":"2026-10-03T13:35:01.301Z","events_processed":"27709","_is_hyper_sync":false,"progress_block":67845016,"progress_block_time":"2026-10-03T13:47:42.000Z","checkpoint_id":"6253"}
+mainnet: Envio watermark 110196015, 50 recent indexed events
+testnet: Envio watermark 67845016, 50 recent indexed events
+mainnet: chain progress {"id":143,"ecosystem":"evm","start_block":110192097,"end_block":null,"max_reorg_depth":200,"buffer_block":110196025,"source_block":110196025,"first_event_block":110192097,"ready_at":"2026-10-03T13:35:01.301Z","events_processed":"88446","_is_hyper_sync":false,"progress_block":110196025,"progress_block_time":"2026-10-03T13:47:45.000Z","checkpoint_id":"6267"}
+testnet: chain progress {"id":10143,"ecosystem":"evm","start_block":67841132,"end_block":null,"max_reorg_depth":200,"buffer_block":67845027,"source_block":67845027,"first_event_block":67841132,"ready_at":"2026-10-03T13:35:01.301Z","events_processed":"27764","_is_hyper_sync":false,"progress_block":67845027,"progress_block_time":"2026-10-03T13:47:46.000Z","checkpoint_id":"6271"}
+mainnet: Envio watermark 110196025, 50 recent indexed events
+testnet: Envio watermark 67845027, 50 recent indexed events
+mainnet: chain progress {"id":143,"ecosystem":"evm","start_block":110192097,"end_block":null,"max_reorg_depth":200,"buffer_block":110196047,"source_block":110196047,"first_event_block":110192097,"ready_at":"2026-10-03T13:35:01.301Z","events_processed":"88797","_is_hyper_sync":false,"progress_block":110196047,"progress_block_time":"2026-10-03T13:47:52.000Z","checkpoint_id":"6301"}
+testnet: chain progress {"id":10143,"ecosystem":"evm","start_block":67841132,"end_block":null,"max_reorg_depth":200,"buffer_block":67845045,"source_block":67845045,"first_event_block":67841132,"ready_at":"2026-10-03T13:35:01.301Z","events_processed":"27937","_is_hyper_sync":false,"progress_block":67845045,"progress_block_time":"2026-10-03T13:47:51.000Z","checkpoint_id":"6306"}
+mainnet: Envio watermark 110196047, 50 recent indexed events
+testnet: Envio watermark 67845045, 50 recent indexed events
+mainnet: chain progress {"id":143,"ecosystem":"evm","start_block":110192097,"end_block":null,"max_reorg_depth":200,"buffer_block":110196069,"source_block":110196069,"first_event_block":110192097,"ready_at":"2026-10-03T13:35:01.301Z","events_processed":"89291","_is_hyper_sync":false,"progress_block":110196069,"progress_block_time":"2026-10-03T13:47:58.000Z","checkpoint_id":"6346"}
+testnet: chain progress {"id":10143,"ecosystem":"evm","start_block":67841132,"end_block":null,"max_reorg_depth":200,"buffer_block":67845068,"source_block":67845068,"first_event_block":67841132,"ready_at":"2026-10-03T13:35:01.301Z","events_processed":"28070","_is_hyper_sync":false,"progress_block":67845068,"progress_block_time":"2026-10-03T13:47:58.000Z","checkpoint_id":"6344"}
+mainnet: Envio watermark 110196069, 50 recent indexed events
+testnet: Envio watermark 67845068, 50 recent indexed events
+mainnet: chain progress {"id":143,"ecosystem":"evm","start_block":110192097,"end_block":null,"max_reorg_depth":200,"buffer_block":110196077,"source_block":110196077,"first_event_block":110192097,"ready_at":"2026-10-03T13:35:01.301Z","events_processed":"89404","_is_hyper_sync":false,"progress_block":110196077,"progress_block_time":"2026-10-03T13:48:01.000Z","checkpoint_id":"6360"}
+testnet: chain progress {"id":10143,"ecosystem":"evm","start_block":67841132,"end_block":null,"max_reorg_depth":200,"buffer_block":67845075,"source_block":67845075,"first_event_block":67841132,"ready_at":"2026-10-03T13:35:01.301Z","events_processed":"28128","_is_hyper_sync":false,"progress_block":67845075,"progress_block_time":"2026-10-03T13:48:00.000Z","checkpoint_id":"6357"}
+mainnet: Envio watermark 110196077, 50 recent indexed events
+testnet: Envio watermark 67845075, 50 recent indexed events
+mainnet: chain progress {"id":143,"ecosystem":"evm","start_block":110192097,"end_block":null,"max_reorg_depth":200,"buffer_block":110196098,"source_block":110196098,"first_event_block":110192097,"ready_at":"2026-10-03T13:35:01.301Z","events_processed":"89747","_is_hyper_sync":false,"progress_block":110196098,"progress_block_time":"2026-10-03T13:48:07.000Z","checkpoint_id":"6395"}
+testnet: chain progress {"id":10143,"ecosystem":"evm","start_block":67841132,"end_block":null,"max_reorg_depth":200,"buffer_block":67845092,"source_block":67845092,"first_event_block":67841132,"ready_at":"2026-10-03T13:35:01.301Z","events_processed":"28274","_is_hyper_sync":false,"progress_block":67845092,"progress_block_time":"2026-10-03T13:48:05.000Z","checkpoint_id":"6388"}
+mainnet: Envio watermark 110196098, 50 recent indexed events
+testnet: Envio watermark 67845092, 50 recent indexed events
+mainnet: chain progress {"id":143,"ecosystem":"evm","start_block":110192097,"end_block":null,"max_reorg_depth":200,"buffer_block":110196120,"source_block":110196120,"first_event_block":110192097,"ready_at":"2026-10-03T13:35:01.301Z","events_processed":"90286","_is_hyper_sync":false,"progress_block":110196120,"progress_block_time":"2026-10-03T13:48:14.000Z","checkpoint_id":"6436"}
+testnet: chain progress {"id":10143,"ecosystem":"evm","start_block":67841132,"end_block":null,"max_reorg_depth":200,"buffer_block":67845118,"source_block":67845118,"first_event_block":67841132,"ready_at":"2026-10-03T13:35:01.301Z","events_processed":"28525","_is_hyper_sync":false,"progress_block":67845118,"progress_block_time":"2026-10-03T13:48:13.000Z","checkpoint_id":"6433"}
+mainnet: Envio watermark 110196120, 50 recent indexed events
+testnet: Envio watermark 67845118, 50 recent indexed events
+mainnet: chain progress {"id":143,"ecosystem":"evm","start_block":110192097,"end_block":null,"max_reorg_depth":200,"buffer_block":110196137,"source_block":110196137,"first_event_block":110192097,"ready_at":"2026-10-03T13:35:01.301Z","events_processed":"90617","_is_hyper_sync":false,"progress_block":110196137,"progress_block_time":"2026-10-03T13:48:19.000Z","checkpoint_id":"6470"}
+testnet: chain progress {"id":10143,"ecosystem":"evm","start_block":67841132,"end_block":null,"max_reorg_depth":200,"buffer_block":67845136,"source_block":67845136,"first_event_block":67841132,"ready_at":"2026-10-03T13:35:01.301Z","events_processed":"28734","_is_hyper_sync":false,"progress_block":67845136,"progress_block_time":"2026-10-03T13:48:18.000Z","checkpoint_id":"6468"}
+mainnet: Envio watermark 110196137, 50 recent indexed events
+testnet: Envio watermark 67845136, 50 recent indexed events
+mainnet: chain progress {"id":143,"ecosystem":"evm","start_block":110192097,"end_block":null,"max_reorg_depth":200,"buffer_block":110196154,"source_block":110196154,"first_event_block":110192097,"ready_at":"2026-10-03T13:35:01.301Z","events_processed":"90994","_is_hyper_sync":false,"progress_block":110196154,"progress_block_time":"2026-10-03T13:48:24.000Z","checkpoint_id":"6498"}
+testnet: chain progress {"id":10143,"ecosystem":"evm","start_block":67841132,"end_block":null,"max_reorg_depth":200,"buffer_block":67845154,"source_block":67845154,"first_event_block":67841132,"ready_at":"2026-10-03T13:35:01.301Z","events_processed":"29030","_is_hyper_sync":false,"progress_block":67845154,"progress_block_time":"2026-10-03T13:48:24.000Z","checkpoint_id":"6502"}
+mainnet: Envio watermark 110196154, 50 recent indexed events
+testnet: Envio watermark 67845154, 50 recent indexed events
+mainnet: chain progress {"id":143,"ecosystem":"evm","start_block":110192097,"end_block":null,"max_reorg_depth":200,"buffer_block":110196171,"source_block":110196171,"first_event_block":110192097,"ready_at":"2026-10-03T13:35:01.301Z","events_processed":"91566","_is_hyper_sync":false,"progress_block":110196171,"progress_block_time":"2026-10-03T13:48:29.000Z","checkpoint_id":"6534"}
+testnet: chain progress {"id":10143,"ecosystem":"evm","start_block":67841132,"end_block":null,"max_reorg_depth":200,"buffer_block":67845170,"source_block":67845170,"first_event_block":67841132,"ready_at":"2026-10-03T13:35:01.301Z","events_processed":"29191","_is_hyper_sync":false,"progress_block":67845170,"progress_block_time":"2026-10-03T13:48:29.000Z","checkpoint_id":"6532"}
+mainnet: Envio watermark 110196171, 50 recent indexed events
+testnet: Envio watermark 67845170, 50 recent indexed events
+mainnet: chain progress {"id":143,"ecosystem":"evm","start_block":110192097,"end_block":null,"max_reorg_depth":200,"buffer_block":110196185,"source_block":110196185,"first_event_block":110192097,"ready_at":"2026-10-03T13:35:01.301Z","events_processed":"91858","_is_hyper_sync":false,"progress_block":110196185,"progress_block_time":"2026-10-03T13:48:33.000Z","checkpoint_id":"6558"}
+testnet: chain progress {"id":10143,"ecosystem":"evm","start_block":67841132,"end_block":null,"max_reorg_depth":200,"buffer_block":67845186,"source_block":67845186,"first_event_block":67841132,"ready_at":"2026-10-03T13:35:01.301Z","events_processed":"29267","_is_hyper_sync":false,"progress_block":67845186,"progress_block_time":"2026-10-03T13:48:33.000Z","checkpoint_id":"6561"}
+mainnet: Envio watermark 110196185, 50 recent indexed events
+testnet: Envio watermark 67845186, 50 recent indexed events

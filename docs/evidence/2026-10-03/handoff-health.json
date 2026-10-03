@@ -1,0 +1,25 @@
+{
+  "checkedAt": "2026-10-03T13:48:35.350Z",
+  "url": "http://127.0.0.1:4100",
+  "frontendStatus": 200,
+  "health": {
+    "data": {
+      "mode": "READ_ONLY",
+      "tradingEnabled": false,
+      "integrations": {
+        "perpl": "live-public-read",
+        "envio": "live",
+        "cre": "login-required",
+        "nansen": "access-required"
+      },
+      "envioNetworks": {
+        "mainnet": "live",
+        "testnet": "live"
+      }
+    },
+    "error": null,
+    "meta": {
+      "receivedAt": "2026-10-03T13:48:35.344Z"
+    }
+  }
+}

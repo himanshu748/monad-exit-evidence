@@ -1,4 +1,5 @@
 import { readFile, writeFile } from 'node:fs/promises';
+import { resolve } from 'node:path';
 import { decodeEventLog } from 'viem';
 import { normalizeExchangeEvent } from '../src/normalize.ts';
 const abi = JSON.parse(await readFile(new URL('../abis/Exchange.json', import.meta.url), 'utf8'));
@@ -22,5 +23,5 @@ for (const [network, rpc] of [['mainnet', 'https://rpc.monad.xyz'], ['testnet', 
   proofs.push({ network, verifiedAt: new Date().toISOString(), chainId: snapshot.chainId, rpc, source:'ENVIO', watermark: snapshot.watermark,
     transactionHash: item.transactionHash, blockNumber: item.blockNumber, logIndex:item.logIndex, kind:item.kind, checks: { contractMatches:true, blockHashMatches:true, decodedValuesMatch:true, chainProvenanceMatches:true }, indexedEvent:item });
 }
-await writeFile(new URL('../evidence/receipt-cross-check.json', import.meta.url), JSON.stringify(proofs,null,2)+'\n');
+await writeFile(process.env.EVIDENCE_DIR ? resolve(process.env.EVIDENCE_DIR, 'receipt-cross-check.json') : new URL('../evidence/receipt-cross-check.json', import.meta.url), JSON.stringify(proofs,null,2)+'\n');
 console.log(JSON.stringify(proofs.map(({network,watermark,transactionHash,kind,checks})=>({network,watermark,transactionHash,kind,checks})),null,2));

@@ -1,0 +1,76 @@
+
+> mandate-workbench@0.1.0 test
+> node --test tests/*.test.ts
+
+✔ exact decimal amounts never pass through floating point (6.749583ms)
+✔ rejects malformed exact quantity 1e-3 (0.797625ms)
+✔ rejects malformed exact quantity -1 (0.283834ms)
+✔ rejects malformed exact quantity 0.000001 (0.713042ms)
+✔ rejects malformed exact quantity NaN (0.347583ms)
+✔ rejects malformed exact quantity Infinity (0.185292ms)
+✔ rejects malformed exact quantity  1 (0.23125ms)
+✔ rejects malformed exact quantity 1. (3.286ms)
+✔ rejects malformed exact quantity 01.2 (0.251708ms)
+✔ valid close preserves fixed quantity and zero real provider writes (18.007792ms)
+✔ unauthorized open is rejected before simulated submission (7.853125ms)
+✔ partial IOC ends partial without retry or held remainder (2.784708ms)
+✔ unknown submission retains allowance and does not retry (1.486667ms)
+✔ duplicate observation counts exactly one fill and submission (55.659542ms)
+✔ editing receipt outcome or policy fails integrity (187.496417ms)
+✔ tampered scenario is explicitly detected (1.922916ms)
+✔ close above original position is rejected (0.437167ms)
+✔ invalid chain input and precision is rejected (0.205166ms)
+✔ direct worker call cannot change account, market, chain, operation or policy (3.466375ms)
+✔ reserved, expired, revoked and stopped permissions deny new dispatch (1.494417ms)
+✔ missing required predicates is structural failure even if digest is recomputed (1.586208ms)
+✔ context converts live precision and marks source without fixture fallback (13.77425ms)
+✔ context fails on wrong chain, absent precision and unsafe integer (0.624333ms)
+✔ stale market is visible (0.676292ms)
+✔ book bounds validate sorting and unsafe quantities (0.586333ms)
+✔ long exit uses bid depth and correctly identifies finite snapshot shortfall (0.408084ms)
+✔ empty book means unknown quote, not zero price or executable fill (0.16675ms)
+✔ collateral scale follows market-instance-token binding (0.4565ms)
+✔ Envio normalization preserves exact quantities and chain/contract/log provenance (239.332583ms)
+✔ Envio rejects malformed event provenance and lossy numbers (0.919208ms)
+✔ Envio taker fills never invent a market/account absent from their ABI (1.712958ms)
+✔ Envio projection dedupes exact log IDs and sorts deterministically (27.260958ms)
+✔ Envio conflicting duplicate logs, wrong network, and event beyond watermark fail closed (2.585958ms)
+✔ Envio empty verified index is live, but stale or unindexed data is unavailable (1.353833ms)
+✔ Missing Envio service returns explicit unavailable with no fabricated events (0.843917ms)
+✔ Envio adapter reads the actual fresh local read model (1.140041ms)
+✔ Envio fill event must have a quantity and maker account/market (0.762792ms)
+✔ Envio position decrease uses exact lot difference and closed quantity stays unknown (1.187458ms)
+✔ Envio projection rejects corrupted normalized quantities and mismatched block provenance (0.575458ms)
+✔ Envio adapter is pinned to network-specific local files and bad data is unavailable (2.279625ms)
+✔ Envio and independent ABI decoders canonicalize safe small integer types identically (0.592458ms)
+(node:58716) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ HTTP replay is durable idempotent and changed body conflicts (253.574333ms)
+✔ HTTP cannot forward arbitrary URLs or mutate provider and rejects bad origin (269.4615ms)
+✔ HTTP rejects precision changes and unknown snapshot (93.536375ms)
+✔ health reports actual per-network Envio availability (37.061292ms)
+(node:58717) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ idempotency survives close and restart with unknown reservation unchanged (133.807833ms)
+✔ same idempotency key with changed amount is conflict and creates no replacement (5.360709ms)
+✔ Nansen portfolio data changes budget outcome with transparent contribution (180.644875ms)
+✔ Nansen stale and wrong-account contexts fail closed (1.054542ms)
+✔ Nansen partial pages, mixed chain/account and missing valuation are rejected (0.55725ms)
+✔ Nansen valid user limits produce within-limits status, never trade authorization (0.673667ms)
+✔ no transport means no live request, no automatic payment or fake data (1.866666ms)
+✔ provider errors propagate unavailable; request uses exact official endpoint (1.080541ms)
+✔ complete portfolio requires the first and only consistently sized page (2.87475ms)
+✔ chain and external API evidence establish only the named reduction observation (9.708042ms)
+✔ wrong chain/exchange/tx and quantity beyond policy contradict result (21.749334ms)
+✔ missing decrease is inconclusive; failed transaction is contradicted (9.927125ms)
+✔ stale API evidence cannot produce verified result (1.307ms)
+✔ duplicate event is counted once and conflicting duplicate is rejected (0.844667ms)
+✔ policy preimage and exact limits bind the observation (0.635958ms)
+ℹ tests 60
+ℹ suites 0
+ℹ pass 60
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3791.379167

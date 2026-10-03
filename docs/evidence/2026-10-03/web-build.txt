@@ -1,0 +1,13 @@
+
+> exit-evidence-web@0.1.0 build
+> tsc -b && vite build
+
+vite v6.4.3 building for production...
+transforming...
+✓ 35 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.43 kB │ gzip:  0.30 kB
+dist/assets/index-BwPlT5Hr.css   12.49 kB │ gzip:  3.42 kB
+dist/assets/index-B-6jiqKc.js   247.17 kB │ gzip: 76.76 kB
+✓ built in 2.86s

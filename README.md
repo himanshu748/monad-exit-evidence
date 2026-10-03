@@ -30,7 +30,7 @@ npm start
 
 Open http://127.0.0.1:4100. The server binds only to loopback by default. For UI development, run the server and `npm --prefix web run dev` together; Vite proxies `/api` to port 4100. Environments with isolated process/network namespaces may need both commands launched in one supervised shell.
 
-For live activity, follow [Envio setup](integrations/envio/README.md). It requires no external token: HyperIndex runs against public Monad RPC with an isolated PostgreSQL instance. It is a temporary foreground development process, not a permanently hosted service.
+For a resumable recent window on this Mac, run `npm --prefix integrations/envio run start:recent` (only one indexer at a time). Public RPC outages can leave the activity panel unavailable. For live activity, follow [Envio setup](integrations/envio/README.md). It requires no external token: HyperIndex runs against public Monad RPC with an isolated PostgreSQL instance. It is a temporary foreground development process, not a permanently hosted service.
 
 ## Verify
 
@@ -50,7 +50,9 @@ See [evidence and limitations](docs/evidence.md), [security boundaries](docs/sec
 
 ## Hackathon scope
 
-Primary track: Onchain Finance & Trading. Envio and CRE are targeted cash bounties, with Nansen an optional additional target. No prize eligibility or payout is guaranteed. The current app is **not submission-ready**: public repository approval, CRE login and genuine simulation, Nansen authorized access, rendered browser QA, user-controlled testnet deployment, and live demo/pitch evidence remain required. No public deployment or financial transaction has been made by this build.
+Primary track: Onchain Finance & Trading. Envio and CRE are targeted cash bounties, with Nansen an optional additional target. No prize eligibility or payout is guaranteed. The current app is **not submission-ready**: verified event rules and deadline, publication approval, CRE login and genuine simulation, refreshed live demo/pitch evidence, and independent release review remain required. Nansen is optional and access-gated; testnet deployment is an unresolved event requirement, not permission to make a transaction. Desktop/mobile browser QA passed locally. No public deployment or financial transaction has been made by this build.
+
+See [current local readiness](docs/local-completion-2026-10-03.md), [demo script](docs/demo-script.md), and [submission draft](docs/submission-draft.md). All materials remain local; the historical source ZIP predates this completion work.
 
 ## Source provenance
 

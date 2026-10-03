@@ -1,0 +1,26 @@
+
+> mandate-cre-verifier@0.1.0 build:wasm
+> bun ./node_modules/@chainlink/cre-sdk/bin/cre-compile.ts workflow/main.ts .runtime/exit-verifier.wasm
+
+🚀 Compiling workflow
+📁 Input:   /Users/himanshujha/Documents/Codex/2026-10-01/task-2/monad-project/integrations/cre/workflow/main.ts
+🧪 JS out:  /Users/himanshujha/Documents/Codex/2026-10-01/task-2/monad-project/integrations/cre/.runtime/exit-verifier.js
+🎯 WASM out:/Users/himanshujha/Documents/Codex/2026-10-01/task-2/monad-project/integrations/cre/.runtime/exit-verifier.wasm
+
+📦 Step 1: Compiling JS...
+📁 Using input file: /Users/himanshujha/Documents/Codex/2026-10-01/task-2/monad-project/integrations/cre/workflow/main.ts
+Bundled 1 module in 135ms
+
+  exit-verifier.js  0.83 MB  (entry point)
+
+✅ Built: /Users/himanshujha/Documents/Codex/2026-10-01/task-2/monad-project/integrations/cre/.runtime/exit-verifier.js
+
+🔨 Step 2: Compiling to WASM...
+🔨 Compiling to WASM
+📁 Input:  /Users/himanshujha/Documents/Codex/2026-10-01/task-2/monad-project/integrations/cre/.runtime/exit-verifier.js
+🎯 Output: /Users/himanshujha/Documents/Codex/2026-10-01/task-2/monad-project/integrations/cre/.runtime/exit-verifier.wasm
+[cre-sdk-javy-plugin] Detected platform: darwin, arch: arm64
+[cre-sdk-javy-plugin] Using cached binary: /Users/himanshujha/.cache/javy/v8.1.0/darwin-arm64/javy
+✅ Compiled: /Users/himanshujha/Documents/Codex/2026-10-01/task-2/monad-project/integrations/cre/.runtime/exit-verifier.wasm
+
+✅ Workflow built: /Users/himanshujha/Documents/Codex/2026-10-01/task-2/monad-project/integrations/cre/.runtime/exit-verifier.wasm

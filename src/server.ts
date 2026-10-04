@@ -4,22 +4,19 @@ import {
   type ServerResponse,
 } from "node:http";
 import { readFile } from "node:fs/promises";
-import { mkdirSync, existsSync } from "node:fs";
 import { resolve, extname, sep } from "node:path";
 import { fileURLToPath } from "node:url";
-import { RehearsalLedger, IdempotencyConflict } from "./core/ledger.ts";
-import { validateInput } from "./core/rehearsal.ts";
-import { verifyReceipt } from "./core/receipt.ts";
-import type { RehearsalInput, Network } from "./core/types.ts";
+import type { Network } from "./core/types.ts";
 import {
   getMarkets,
   getLiquidity,
+  getOrderBook,
   requireNetwork,
-  snapshots,
   type MarketContext,
 } from "./data/perpl.ts";
 import { getEnvioActivity } from "./data/envio.ts";
 import { getNansenStatus } from "./data/nansen.ts";
+import { getTransactionObservation } from "./data/observations.ts";
 class HttpError extends Error {
   status: number;
   code: string;
@@ -31,21 +28,6 @@ class HttpError extends Error {
 }
 const ROOT = resolve(fileURLToPath(new URL("..", import.meta.url)));
 const DIST = resolve(ROOT, "web/dist");
-async function jsonBody(req: IncomingMessage): Promise<any> {
-  if (!req.headers["content-type"]?.startsWith("application/json"))
-    throw new HttpError(415, "JSON_REQUIRED", "Use application/json");
-  let body = "";
-  for await (const chunk of req) {
-    body += chunk;
-    if (Buffer.byteLength(body) > 65536)
-      throw new HttpError(413, "BODY_TOO_LARGE", "Request limit is 64 KB");
-  }
-  try {
-    return JSON.parse(body);
-  } catch {
-    throw new HttpError(400, "INVALID_JSON", "Invalid JSON body");
-  }
-}
 function send(
   res: ServerResponse,
   status: number,
@@ -66,12 +48,12 @@ function send(
   );
 }
 type Dependencies = {
-  ledger: RehearsalLedger;
   markets?: (n: Network) => Promise<MarketContext>;
   liquidity?: typeof getLiquidity;
   activity?: typeof getEnvioActivity;
+  observation?: typeof getTransactionObservation;
 };
-export function createApp(options: Dependencies) {
+export function createApp(options: Dependencies = {}) {
   const markets = options.markets ?? getMarkets,
     liquidity = options.liquidity ?? getLiquidity,
     activity = options.activity ?? getEnvioActivity;
@@ -97,21 +79,30 @@ export function createApp(options: Dependencies) {
             "Cross-origin mutation is disabled",
           );
       }
+      if (path === "/api/rehearsals" || path === "/api/receipts/verify") throw new HttpError(410, "SIMULATION_REMOVED", "Use real public transaction observations. Simulated executions are no longer served.");
+      if (path.startsWith("/api/") && req.method !== "GET") throw new HttpError(405, "READ_ONLY", "Only public read operations are available");
+      if (req.method === "GET" && path === "/api/book") return send(res, 200, await getOrderBook(requireNetwork(url.searchParams.get("network")), Number(url.searchParams.get("marketId"))));
+      if (req.method === "GET" && path === "/api/observations") {
+        const index = url.searchParams.get("logIndex");
+        if (index !== null && !/^(0|[1-9][0-9]*)$/.test(index)) throw new HttpError(400, "INVALID_LOG_INDEX", "Use an exact nonnegative integer log index");
+        return send(res, 200, await (options.observation ?? getTransactionObservation)(requireNetwork(url.searchParams.get("network")), url.searchParams.get("transactionHash") ?? "", index === null ? undefined : Number(index)));
+      }
       if (req.method === "GET" && path === "/api/health") {
         const [mainnet, testnet] = await Promise.all([
           activity("mainnet"),
           activity("testnet"),
         ]);
         return send(res, 200, {
-          mode: "READ_ONLY",
+          mode: "LIVE_READ_ONLY",
+          simulationEnabled: false,
           tradingEnabled: false,
           integrations: {
-            perpl: "live-public-read",
+            perpl: "public-read-configured",
             envio:
               mainnet.status === "live" || testnet.status === "live"
                 ? "live"
                 : "unavailable",
-            cre: "login-required",
+            cre: "omitted-user-choice",
             nansen: "access-required",
           },
           envioNetworks: { mainnet: mainnet.status, testnet: testnet.status },
@@ -142,56 +133,6 @@ export function createApp(options: Dependencies) {
           200,
           await activity(requireNetwork(url.searchParams.get("network"))),
         );
-      if (req.method === "POST" && path === "/api/rehearsals") {
-        const input = (await jsonBody(req)) as RehearsalInput;
-        validateInput(input);
-        const key = req.headers["idempotency-key"];
-        if (typeof key !== "string")
-          throw new HttpError(
-            400,
-            "IDEMPOTENCY_REQUIRED",
-            "Review the request before running a rehearsal",
-          );
-        const old = options.ledger.lookup(key, input);
-        if (old) return send(res, 200, old);
-        const snapshot = input.snapshotRef
-          ? snapshots.get(input.snapshotRef)
-          : undefined;
-        if (
-          !snapshot ||
-          snapshot.data.network !== input.network ||
-          snapshot.data.observedAt !== input.snapshotObservedAt ||
-          Date.now() - snapshot.time > 120000 ||
-          snapshot.data.stale ||
-          Date.now() - Date.parse(snapshot.data.observedAt) > 120000
-        )
-          throw new HttpError(
-            422,
-            "STALE_REVIEW",
-            "Refresh market data and review the limits again",
-          );
-        const market = snapshot.data.markets.find(
-          (m) => m.id === input.marketId,
-        );
-        if (
-          !market ||
-          !market.isOpen ||
-          market.sizeDecimals !== input.sizeDecimals ||
-          market.priceDecimals !== input.priceDecimals
-        )
-          throw new HttpError(
-            422,
-            "MARKET_CONFIG_MISMATCH",
-            "Market configuration changed or is unsupported. Refresh and review again",
-          );
-        return send(res, 200, options.ledger.run(key, input));
-      }
-      if (req.method === "POST" && path === "/api/receipts/verify") {
-        const body = await jsonBody(req);
-        if (!body || !Object.hasOwn(body, "receipt"))
-          throw new HttpError(400, "RECEIPT_REQUIRED", "Provide the receipt");
-        return send(res, 200, verifyReceipt(body.receipt));
-      }
       if (path.startsWith("/api/") || req.method !== "GET")
         throw new HttpError(404, "NOT_FOUND", "This route does not exist");
       const decoded = decodeURIComponent(path);
@@ -230,15 +171,10 @@ export function createApp(options: Dependencies) {
         res.end();
         return;
       }
-      if (e instanceof IdempotencyConflict)
-        return send(res, 409, null, {
-          code: "IDEMPOTENCY_CONFLICT",
-          message: e.message,
-        });
       if (e instanceof HttpError)
         return send(res, e.status, null, { code: e.code, message: e.message });
       const message = e instanceof Error ? e.message : "Unexpected error";
-      const status = /Perpl public data|fetch failed|timeout|aborted/i.test(
+      const status = /Perpl public data|Public Monad RPC unavailable|fetch failed|timeout|aborted/i.test(
         message,
       )
         ? 503
@@ -254,11 +190,8 @@ if (
   process.argv[1] &&
   resolve(process.argv[1]) === fileURLToPath(import.meta.url)
 ) {
-  const dataDir = resolve(ROOT, ".data");
-  if (!existsSync(dataDir)) mkdirSync(dataDir, { recursive: true });
-  const ledger = new RehearsalLedger(resolve(dataDir, "rehearsals.sqlite"));
   const port = Number(process.env.PORT ?? 4100);
-  createApp({ ledger }).listen(port, "127.0.0.1", () =>
+  createApp().listen(port, "127.0.0.1", () =>
     console.log(`Read-only workbench http://127.0.0.1:${port}`),
   );
 }

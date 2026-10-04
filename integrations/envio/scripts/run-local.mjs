@@ -5,12 +5,11 @@ import { existsSync, createWriteStream } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { spawn } from 'node:child_process';
 import { CHAIN_INFO } from '../src/normalize.ts';
+import { selectRuntime } from './runtime-options.ts';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 process.chdir(root);
-const recent = process.argv.includes('--recent');
-const runtime = recent ? '.runtime/recent' : '.runtime';
-const schema = recent ? 'mandate_envio_recent' : 'mandate_envio';
+const { recent, runtime, schema } = selectRuntime(process.argv.slice(2));
 await mkdir(runtime, { recursive: true });
 const configPath = `${runtime}/config.yaml`;
 if (recent && !existsSync(configPath)) {
@@ -63,7 +62,7 @@ async function exportSnapshots() {
       if (!chain || chain.progress_block < 0 || !chain.progress_block_time) continue;
       const events = await transaction`select * from ${transaction(schema)}."ExchangeEvent" where "chainId" = ${info.chainId} order by "blockNumber" desc, "logIndex" desc limit 50`;
       result.push({ network, source: 'ENVIO', chainId: info.chainId, contract: info.contract,
-        watermark: chain.progress_block, sourceBlock: chain.source_block,
+        watermark: chain.progress_block, sourceBlock: chain.source_block, indexWindow: { runtime, startBlock: chain.start_block },
         progressBlockTime: Math.floor(new Date(chain.progress_block_time).getTime() / 1000),
         queriedAt: new Date().toISOString(), events });
     }

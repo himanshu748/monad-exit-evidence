@@ -110,7 +110,7 @@ export function MarketPanel({
           </p>
           {context.stale && (
             <p className="notice warning">
-              This snapshot is stale. Refresh before reviewing limits.
+              This snapshot is stale. Refresh before using it.
             </p>
           )}
           {!market ? (
@@ -139,16 +139,11 @@ export function MarketPanel({
                   symbol={market.symbol}
                 />
               </div>
-              <div className="book-note">
-                <span>
-                  {liquidity.stale ? "Stale order book" : "Snapshot estimate"}
-                </span>
-                <strong>
-                  {liquidity.estimate.estimatedFilledQuantity} {market.symbol}
-                </strong>
-                <span>available for this close</span>
-              </div>
-              <p className="caption">{liquidity.estimate.meaning}</p>
+              <p className="caption">
+                {liquidity.stale
+                  ? "Stale order book. Refresh reads."
+                  : "Actual public quotes. No position quantity or execution outcome is assumed."}
+              </p>
             </>
           )}
           <a

@@ -1,7 +1,7 @@
 import type { Api } from "./types";
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), 12000);
+  const timer = setTimeout(() => controller.abort(), 35000);
   try {
     const response = await fetch(path, {
       ...init,
@@ -17,7 +17,7 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
   } catch (error) {
     if (error instanceof DOMException && error.name === "AbortError")
       throw new Error(
-        "Request timed out. Retry the same request to recover its recorded result.",
+        "Public read timed out. Refresh or retry the transaction read; no order was submitted.",
       );
     throw error;
   } finally {
@@ -31,15 +31,12 @@ export const api: Api = {
       `/api/liquidity?${new URLSearchParams({ network: input.network, marketId: String(input.marketId), quantity: input.quantity, direction: input.direction })}`,
     ),
   activity: (network) => request(`/api/activity?network=${network}`),
-  rehearse: (input, key) =>
-    request("/api/rehearsals", {
-      method: "POST",
-      headers: { "Idempotency-Key": key },
-      body: JSON.stringify(input),
-    }),
-  verify: (receipt) =>
-    request("/api/receipts/verify", {
-      method: "POST",
-      body: JSON.stringify({ receipt }),
-    }),
+  book: (network, marketId) =>
+    request(
+      `/api/book?${new URLSearchParams({ network, marketId: String(marketId) })}`,
+    ),
+  observe: (network, transactionHash, logIndex) =>
+    request(
+      `/api/observations?${new URLSearchParams({ network, transactionHash, ...(logIndex ? { logIndex } : {}) })}`,
+    ),
 };

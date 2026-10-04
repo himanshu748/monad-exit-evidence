@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { RehearsalLedger } from "../src/core/ledger.ts";
+import { RehearsalLedger } from "./legacy/ledger.ts";
 import type { RehearsalInput } from "../src/core/types.ts";
 const input: RehearsalInput = {
   network: "testnet",

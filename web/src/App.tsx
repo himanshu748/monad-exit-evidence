@@ -1,53 +1,18 @@
 import { useEffect, useRef, useState } from "react";
 import { api as defaultApi } from "./api";
-import { resolveLimits } from "./form";
 import { MarketPanel } from "./MarketPanel";
-import { PermissionPanel } from "./PermissionPanel";
-import { OutcomePanel } from "./OutcomePanel";
 import { ActivityPanel } from "./ActivityPanel";
 import type {
   Activity,
   Api,
-  FormValues,
   Liquidity,
   Markets,
   Network,
-  Receipt,
-  Resolved,
-  Review,
-  Scenario,
-  Verification,
+  Observation,
 } from "./types";
-const storageKey = "exit-evidence.review.v1";
-const defaults: FormValues = {
-  positionQuantity: "0.04",
-  closeQuantity: "0.02",
-  priceLimit: "",
-  direction: "long",
-};
-function loadReview(): { review: Review; attempted: boolean } | null {
-  try {
-    const value = JSON.parse(sessionStorage.getItem(storageKey) || "null");
-    if (
-      value?.review?.input &&
-      typeof value.review.key === "string" &&
-      ["mainnet", "testnet"].includes(value.review.input.network)
-    )
-      return value;
-  } catch {}
-  return null;
-}
-function persist(review: Review | null, attempted = false) {
-  try {
-    if (review)
-      sessionStorage.setItem(storageKey, JSON.stringify({ review, attempted }));
-    else sessionStorage.removeItem(storageKey);
-  } catch {}
-}
-function message(error: unknown) {
-  return error instanceof Error
-    ? error.message
-    : "The request could not be completed.";
+
+function errorMessage(error: unknown) {
+  return error instanceof Error ? error.message : "Public read unavailable.";
 }
 function NavIcon({ type }: { type: "grid" | "file" | "list" }) {
   return (
@@ -85,58 +50,30 @@ function NavIcon({ type }: { type: "grid" | "file" | "list" }) {
   );
 }
 export default function App({ api = defaultApi }: { api?: Api }) {
-  const initial = useRef(loadReview()).current;
-  const [clock, setClock] = useState(() => Date.now());
-  useEffect(() => {
-    const tick = () => setClock(Date.now());
-    const timer = window.setInterval(tick, 5000);
-    window.addEventListener("focus", tick);
-    document.addEventListener("visibilitychange", tick);
-    return () => {
-      window.clearInterval(timer);
-      window.removeEventListener("focus", tick);
-      document.removeEventListener("visibilitychange", tick);
-    };
-  }, []);
-  const [network, setNetwork] = useState<Network>(
-    initial?.review.input.network ?? "mainnet",
-  );
+  const [network, setNetwork] = useState<Network>("mainnet");
   const [context, setContext] = useState<Markets | null>(null),
-    [marketId, setMarketId] = useState(initial?.review.input.marketId ?? 0),
-    [marketError, setMarketError] = useState(""),
-    [refresh, setRefresh] = useState(0),
-    [loading, setLoading] = useState(false);
-  const [values, setValues] = useState<FormValues>(
-    initial
-      ? {
-          positionQuantity: initial.review.input.positionQuantity,
-          closeQuantity: initial.review.input.closeQuantity,
-          priceLimit: initial.review.input.priceLimit,
-          direction: initial.review.input.direction,
-        }
-      : defaults,
-  );
-  const [scenario, setScenario] = useState<Scenario>(
-      initial?.review.input.scenario ?? "valid",
-    ),
-    [review, setReview] = useState<Review | null>(initial?.review ?? null),
-    [errors, setErrors] = useState<Resolved["errors"]>({});
-  const [liquidity, setLiquidity] = useState<Liquidity | null>(null),
-    [liquidityError, setLiquidityError] = useState(""),
-    [activity, setActivity] = useState<Activity | null>(null),
+    [marketId, setMarketId] = useState(0);
+  const [book, setBook] = useState<Liquidity | null>(null),
+    [activity, setActivity] = useState<Activity | null>(null);
+  const [marketError, setMarketError] = useState(""),
+    [bookError, setBookError] = useState(""),
     [activityError, setActivityError] = useState("");
-  const [receipt, setReceipt] = useState<Receipt | null>(null),
-    [pending, setPending] = useState(false),
-    [runError, setRunError] = useState(""),
-    [retry, setRetry] = useState(initial?.attempted ?? false);
-  const [json, setJson] = useState(""),
-    [verification, setVerification] = useState<Verification | null>(null),
-    [verificationError, setVerificationError] = useState(""),
+  const [loading, setLoading] = useState(false),
+    [refresh, setRefresh] = useState(0),
+    [clock, setClock] = useState(Date.now());
+  const [quantity, setQuantity] = useState(""),
+    [side, setSide] = useState<"long" | "short">("long"),
+    [depth, setDepth] = useState<Liquidity | null>(null),
+    [depthError, setDepthError] = useState(""),
+    [estimating, setEstimating] = useState(false);
+  const [hash, setHash] = useState(""),
+    [logIndex, setLogIndex] = useState(""),
+    [observation, setObservation] = useState<Observation | null>(null),
+    [observationError, setObservationError] = useState(""),
     [verifying, setVerifying] = useState(false);
-  const busy = useRef(false),
-    generation = useRef(0),
-    verificationGeneration = useRef(0);
-  const market = context?.markets.find((item) => item.id === marketId);
+  const generation = useRef(0),
+    depthGeneration = useRef(0);
+  const market = context?.markets.find((m) => m.id === marketId);
   const expired = (timestamp: string) =>
     !Number.isFinite(Date.parse(timestamp)) ||
     clock - Date.parse(timestamp) > 120000 ||
@@ -144,59 +81,43 @@ export default function App({ api = defaultApi }: { api?: Api }) {
   const visibleContext = context
     ? { ...context, stale: context.stale || expired(context.observedAt) }
     : null;
-  const visibleLiquidity = liquidity
-    ? { ...liquidity, stale: liquidity.stale || expired(liquidity.observedAt) }
+  const visibleBook = book
+    ? { ...book, stale: book.stale || expired(book.observedAt) }
     : null;
   const visibleActivity: Activity | null =
-    activity && activity.status === "live" && expired(activity.receivedAt)
+    activity?.status === "live" && expired(activity.receivedAt)
       ? {
           ...activity,
           status: "unavailable",
           watermark: null,
           events: [],
           error:
-            "Indexed activity has aged out. Refresh reads to check the current pipeline.",
+            "Indexed activity has aged out. Refresh reads to check the pipeline.",
         }
       : activity;
-  const unresolved = retry || receipt?.execution.status === "UNKNOWN";
-  function invalidate() {
-    generation.current++;
-    verificationGeneration.current++;
-    setVerifying(false);
-    setReview(null);
-    persist(null);
-    setReceipt(null);
-    setRunError("");
-    setRetry(false);
-    setVerification(null);
-    setVerificationError("");
-    setErrors({});
-    setJson("");
-  }
+  useEffect(() => {
+    const timer = window.setInterval(() => setClock(Date.now()), 5000);
+    return () => window.clearInterval(timer);
+  }, []);
   useEffect(() => {
     let active = true;
     setLoading(true);
-    setMarketError("");
     setContext(null);
-    setLiquidity(null);
+    setMarketError("");
     api
       .markets(network)
       .then((result) => {
-        if (!active) return;
-        setContext(result);
-        setMarketId((old) =>
-          result.markets.some((item) => item.id === old)
-            ? old
-            : (result.markets[0]?.id ?? 0),
-        );
-        setValues((old) =>
-          old.priceLimit
-            ? old
-            : { ...old, priceLimit: result.markets[0]?.bidPrice ?? "" },
-        );
+        if (active) {
+          setContext(result);
+          setMarketId((old) =>
+            result.markets.some((m) => m.id === old)
+              ? old
+              : (result.markets[0]?.id ?? 0),
+          );
+        }
       })
       .catch((error) => {
-        if (active) setMarketError(message(error));
+        if (active) setMarketError(errorMessage(error));
       })
       .finally(() => {
         if (active) setLoading(false);
@@ -215,7 +136,7 @@ export default function App({ api = defaultApi }: { api?: Api }) {
         if (active) setActivity(result);
       })
       .catch((error) => {
-        if (active) setActivityError(message(error));
+        if (active) setActivityError(errorMessage(error));
       });
     return () => {
       active = false;
@@ -223,141 +144,95 @@ export default function App({ api = defaultApi }: { api?: Api }) {
   }, [api, network, refresh]);
   useEffect(() => {
     let active = true;
-    setLiquidity(null);
-    setLiquidityError("");
-    if (!market || !/^\d+(?:\.\d+)?$/.test(values.closeQuantity)) return;
-    api
-      .liquidity({
-        network,
-        marketId: market.id,
-        quantity: values.closeQuantity,
-        direction: values.direction,
-      })
-      .then((result) => {
-        if (active) setLiquidity(result);
-      })
-      .catch((error) => {
-        if (active) setLiquidityError(message(error));
-      });
+    setBook(null);
+    setBookError("");
+    if (market)
+      api
+        .book(network, market.id)
+        .then((result) => {
+          if (active) setBook(result);
+        })
+        .catch((error) => {
+          if (active) setBookError(errorMessage(error));
+        });
     return () => {
       active = false;
     };
-  }, [api, network, market, values.closeQuantity, values.direction, refresh]);
-  function changeField(key: keyof FormValues, value: string) {
-    if (unresolved) return;
-    invalidate();
-    setValues((old) => ({ ...old, [key]: value }));
+  }, [api, network, market, refresh]);
+  function clearDepth() {
+    depthGeneration.current++;
+    setDepth(null);
+    setDepthError("");
+    setEstimating(false);
+  }
+  function clearObservation() {
+    generation.current++;
+    setObservation(null);
+    setObservationError("");
+    setVerifying(false);
   }
   function changeNetwork(next: Network) {
-    if (unresolved) return;
-    invalidate();
+    clearDepth();
+    clearObservation();
     setNetwork(next);
     setMarketId(0);
-    setValues({ ...defaults });
     setContext(null);
+    setBook(null);
     setActivity(null);
+    setQuantity("");
+    setHash("");
+    setLogIndex("");
   }
-  function changeMarket(id: number) {
-    if (unresolved) return;
-    invalidate();
-    setMarketId(id);
-    const next = context?.markets.find((item) => item.id === id);
-    setValues((old) => ({
-      ...old,
-      priceLimit:
-        (old.direction === "long" ? next?.bidPrice : next?.askPrice) ?? "",
-    }));
-  }
-  function makeReview() {
-    if (!market || !context || visibleContext?.stale || unresolved) return;
-    const resolved = resolveLimits(values, market);
-    setErrors(resolved.errors);
-    if (Object.keys(resolved.errors).length) return;
-    const input = {
-      network,
-      marketId: market.id,
-      ...values,
-      sizeDecimals: market.sizeDecimals,
-      priceDecimals: market.priceDecimals,
-      scenario,
-      ...(context.snapshotRef
-        ? {
-            snapshotRef: context.snapshotRef,
-            snapshotObservedAt: context.observedAt,
-          }
-        : {}),
-    };
-    if (review && JSON.stringify(review.input) === JSON.stringify(input))
-      return;
-    invalidate();
-    const next = {
-      input,
-      key: crypto.randomUUID(),
-      symbol: market.symbol,
-      resolved,
-    };
-    setReview(next);
-    persist(next);
-  }
-  async function run() {
-    if (!review || busy.current || receipt) return;
-    busy.current = true;
-    setPending(true);
-    setRunError("");
-    persist(review, true);
-    const version = generation.current;
+  async function estimate() {
+    if (!market || visibleContext?.stale) return;
+    const version = ++depthGeneration.current;
+    setEstimating(true);
+    setDepth(null);
+    setDepthError("");
     try {
-      const result = await api.rehearse(review.input, review.key);
-      if (version !== generation.current) return;
-      verificationGeneration.current++;
-      setVerification(null);
-      setVerifying(false);
-      setReceipt(result);
-      setJson(JSON.stringify(result, null, 2));
-      setRetry(false);
-      persist(review, true);
+      const result = await api.liquidity({
+        network,
+        marketId,
+        quantity,
+        direction: side,
+      });
+      if (version === depthGeneration.current) setDepth(result);
     } catch (error) {
-      if (version === generation.current) {
-        setRunError(message(error));
-        setRetry(true);
-      }
+      if (version === depthGeneration.current)
+        setDepthError(errorMessage(error));
     } finally {
-      busy.current = false;
-      setPending(false);
+      if (version === depthGeneration.current) setEstimating(false);
     }
   }
-  async function verify() {
-    const version = ++verificationGeneration.current;
+  async function inspect(transactionHash = hash, index = logIndex) {
+    const version = ++generation.current;
+    setHash(transactionHash);
+    setLogIndex(index);
     setVerifying(true);
-    setVerification(null);
-    setVerificationError("");
+    setObservation(null);
+    setObservationError("");
     try {
-      const parsed = JSON.parse(json);
-      const result = await api.verify(parsed);
-      if (version === verificationGeneration.current) setVerification(result);
+      const result = await api.observe(network, transactionHash, index);
+      if (version === generation.current) setObservation(result);
     } catch (error) {
-      if (version === verificationGeneration.current)
-        setVerificationError(
-          error instanceof SyntaxError
-            ? "Receipt JSON is not valid JSON."
-            : message(error),
-        );
+      if (version === generation.current)
+        setObservationError(errorMessage(error));
     } finally {
-      if (version === verificationGeneration.current) setVerifying(false);
+      if (version === generation.current) setVerifying(false);
     }
   }
-  function exportJson() {
-    if (!receipt) return;
+  function exportObservation() {
+    if (!observation) return;
     const url = URL.createObjectURL(
-      new Blob([JSON.stringify(receipt, null, 2)], {
+      new Blob([JSON.stringify(observation, null, 2)], {
         type: "application/json",
       }),
     );
     const anchor = document.createElement("a");
     anchor.href = url;
-    anchor.download = `exit-evidence-${receipt.id}.json`;
+    anchor.download = `exit-evidence-${observation.observation.transactionHash}-${observation.observation.logIndex}.json`;
     anchor.click();
-    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    window.setTimeout(() => URL.revokeObjectURL(url), 1000);
   }
   return (
     <div className="app-shell">
@@ -389,14 +264,13 @@ export default function App({ api = defaultApi }: { api?: Api }) {
         <header className="page-header">
           <div>
             <h1>Exit evidence</h1>
-            <p>Review a reduction. Know what the evidence proves.</p>
+            <p>Inspect real market data and public exchange transactions.</p>
           </div>
           <label className="network-control">
             <span className="sr-only">Network</span>
             <select
               value={network}
               onChange={(e) => changeNetwork(e.target.value as Network)}
-              disabled={pending || unresolved}
             >
               <option value="mainnet">Monad mainnet</option>
               <option value="testnet">Monad testnet</option>
@@ -408,88 +282,254 @@ export default function App({ api = defaultApi }: { api?: Api }) {
             <MarketPanel
               context={visibleContext}
               market={market}
-              liquidity={visibleLiquidity}
+              liquidity={visibleBook}
               error={marketError}
-              liquidityError={liquidityError}
+              liquidityError={bookError}
               loading={loading}
-              locked={pending || unresolved}
-              refreshLocked={pending}
-              onMarket={changeMarket}
+              locked={false}
+              onMarket={(id) => {
+                clearDepth();
+                setMarketId(id);
+                setBook(null);
+                setQuantity("");
+              }}
               onRefresh={() => {
-                if (!unresolved) invalidate();
-                setRefresh((value) => value + 1);
+                clearDepth();
+                clearObservation();
+                setRefresh((n) => n + 1);
               }}
             />
-            <PermissionPanel
-              values={values}
-              market={market}
-              review={review}
-              errors={errors}
-              disabled={
-                !market ||
-                !!visibleContext?.stale ||
-                pending ||
-                unresolved ||
-                !market.isOpen
-              }
-              locked={pending || unresolved}
-              onChange={changeField}
-              onReview={makeReview}
-            />
-            {unresolved && (
-              <div className="notice warning" role="alert">
-                <p>
-                  This rehearsal still has an unresolved response or outcome.
-                  Refreshing reads keeps its recovery record. Starting a
-                  separate rehearsal deliberately stops tracking that record in
-                  this view; no real transaction exists.
+            <section className="panel" aria-labelledby="depth-heading">
+              <h2 id="depth-heading">Book depth analysis</h2>
+              <p className="muted compact">
+                Calculate against current public quotes.
+              </p>
+              <div className="form-grid">
+                <label className="field">
+                  Requested quantity
+                  <input
+                    inputMode="decimal"
+                    value={quantity}
+                    onChange={(e) => {
+                      clearDepth();
+                      setQuantity(e.target.value);
+                    }}
+                  />
+                </label>
+                <label className="field">
+                  Book side
+                  <select
+                    value={side}
+                    onChange={(e) => {
+                      clearDepth();
+                      setSide(e.target.value as "long" | "short");
+                    }}
+                  >
+                    <option value="long">Sell into bids</option>
+                    <option value="short">Buy from asks</option>
+                  </select>
+                </label>
+              </div>
+              <button
+                className="primary full"
+                disabled={
+                  !market || !!visibleContext?.stale || !quantity || estimating
+                }
+                onClick={() => void estimate()}
+              >
+                {estimating ? "Reading depth…" : "Calculate depth"}
+              </button>
+              {depthError && (
+                <p className="notice error" role="alert">
+                  {depthError}
                 </p>
-                <button
-                  className="text-button"
-                  disabled={pending}
-                  onClick={() => invalidate()}
-                >
-                  Start a separate rehearsal
-                </button>
+              )}
+              {depth?.estimate && (
+                <div className="review-summary">
+                  <p>
+                    {depth.stale || expired(depth.observedAt)
+                      ? "Stale depth — refresh before relying on it"
+                      : "Current book estimate"}
+                  </p>
+                  <dl>
+                    <div>
+                      <dt>Available quantity</dt>
+                      <dd>
+                        {depth.estimate.availableQuantity} {market?.symbol}
+                      </dd>
+                    </div>
+                    <div>
+                      <dt>Estimated quantity</dt>
+                      <dd>
+                        {depth.estimate.estimatedFilledQuantity}{" "}
+                        {market?.symbol}
+                      </dd>
+                    </div>
+                    <div>
+                      <dt>Average price</dt>
+                      <dd>
+                        {depth.estimate.estimatedAveragePrice ?? "Not quoted"}
+                      </dd>
+                    </div>
+                  </dl>
+                  <p className="caption">{depth.estimate.meaning}</p>
+                </div>
+              )}
+              <p className="caption footnote">
+                No position or holdings are assumed. This analysis does not
+                submit an order or guarantee a fill.
+              </p>
+            </section>
+          </div>
+          <section
+            className="panel outcome-panel"
+            id="evidence"
+            aria-labelledby="observation-heading"
+          >
+            <h2 id="observation-heading">Transaction evidence</h2>
+            <p className="muted compact">
+              Decode a real public Perpl Exchange event.
+            </p>
+            <label className="field">
+              Transaction hash
+              <input
+                className="mono"
+                value={hash}
+                placeholder="Paste a Monad transaction hash"
+                onChange={(e) => {
+                  clearObservation();
+                  setHash(e.target.value);
+                }}
+              />
+            </label>
+            <label className="field">
+              Log index (optional)
+              <input
+                inputMode="numeric"
+                value={logIndex}
+                onChange={(e) => {
+                  clearObservation();
+                  setLogIndex(e.target.value);
+                }}
+              />
+            </label>
+            <button
+              className="primary full run-button"
+              disabled={
+                !/^0x[0-9a-f]{64}$/i.test(hash) ||
+                verifying ||
+                (logIndex !== "" && !/^(0|[1-9][0-9]*)$/.test(logIndex))
+              }
+              onClick={() => void inspect()}
+            >
+              {verifying ? "Reading transaction…" : "Read transaction"}
+            </button>
+            {observationError && (
+              <p className="notice error" role="alert">
+                {observationError}
+              </p>
+            )}
+            {!observation && !verifying && !observationError && (
+              <div className="outcome-empty">
+                <h3>Select a real transaction</h3>
+                <p>
+                  Choose an indexed event below or paste a transaction hash. No
+                  example transaction or execution outcome is prefilled.
+                </p>
               </div>
             )}
-          </div>
-          <OutcomePanel
-            scenario={scenario}
-            review={review}
-            receipt={receipt}
-            pending={pending}
-            error={runError}
-            retry={retry}
-            verification={verification}
-            verificationError={verificationError}
-            verifying={verifying}
-            json={json}
-            onScenario={(next) => {
-              if (unresolved) return;
-              invalidate();
-              setScenario(next);
-            }}
-            onRun={run}
-            onVerify={verify}
-            onJson={(value) => {
-              verificationGeneration.current++;
-              setVerifying(false);
-              setJson(value);
-              setVerification(null);
-              setVerificationError("");
-            }}
-            onExport={exportJson}
-          />
+            {observation && (
+              <>
+                <div
+                  className={`notice ${observation.outcome === "SOURCE_MISMATCH" ? "error" : "success"}`}
+                  role="status"
+                >
+                  <strong>
+                    {observation.outcome === "INDEX_AND_CHAIN_MATCH"
+                      ? "Envio and chain values match"
+                      : observation.outcome === "SOURCE_MISMATCH"
+                        ? "Indexed values differ from chain"
+                        : "Public chain event decoded"}
+                  </strong>
+                  <p>Envio comparison: {observation.envio.status}</p>
+                </div>
+                <table className="comparison">
+                  <tbody>
+                    {[
+                      ["Event", observation.observation.kind],
+                      ["Block", String(observation.observation.blockNumber)],
+                      ["Log index", String(observation.observation.logIndex)],
+                      [
+                        "Market ID",
+                        observation.observation.marketId ?? "Not in this event",
+                      ],
+                      [
+                        "Account ID",
+                        observation.observation.accountId ??
+                          "Not in this event",
+                      ],
+                      [
+                        "Quantity (lot units)",
+                        observation.observation.quantity ?? "Not in this event",
+                      ],
+                      ["Observed at", observation.observation.observedAt],
+                    ].map(([label, value]) => (
+                      <tr key={label}>
+                        <td>{label}</td>
+                        <td>{value}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                <ul className="checks">
+                  {observation.checks.map((check) => (
+                    <li key={check.name}>
+                      <div>
+                        {check.name}
+                        <small style={{ overflowWrap: "anywhere" }}>
+                          {check.observed}
+                        </small>
+                      </div>
+                      <strong className={check.result.toLowerCase()}>
+                        {check.result}
+                      </strong>
+                    </li>
+                  ))}
+                </ul>
+                <button className="secondary full" onClick={exportObservation}>
+                  Export observation JSON
+                </button>
+                <details className="receipt-inspector">
+                  <summary>Inspect decoded event</summary>
+                  <pre
+                    style={{ whiteSpace: "pre-wrap", overflowWrap: "anywhere" }}
+                  >
+                    {JSON.stringify(observation.observation.decoded, null, 2)}
+                  </pre>
+                </details>
+                {observation.limitations.map((text) => (
+                  <p className="caption integrity-note" key={text}>
+                    {text}
+                  </p>
+                ))}
+              </>
+            )}
+          </section>
           <ActivityPanel
             activity={visibleActivity}
             error={activityError}
             network={network}
+            onInspect={(event) => {
+              void inspect(event.transactionHash, String(event.logIndex));
+              document
+                .getElementById("evidence")
+                ?.scrollIntoView({ behavior: "smooth" });
+            }}
           />
         </div>
         <footer className="page-footer">
-          Public observations and replay evidence are separate. This workbench
-          cannot submit transactions.
+          Public events describe their participants. No wallet ownership,
+          position, approval or execution by this app is inferred.
         </footer>
       </main>
     </div>

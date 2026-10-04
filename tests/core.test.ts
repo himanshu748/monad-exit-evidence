@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { parseUnits, formatUnits } from "../src/core/quantity.ts";
-import { runRehearsal } from "../src/core/rehearsal.ts";
+import { runRehearsal } from "./legacy/rehearsal.ts";
 import { verifyReceipt, sealReceipt, digest } from "../src/core/receipt.ts";
 import type { RehearsalInput } from "../src/core/types.ts";
 const now = 1790844800000;

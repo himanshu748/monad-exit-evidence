@@ -1,4 +1,6 @@
-# Local recorded media — October 3, 2026
+# Historical recorded media — October 3, 2026
+
+These rehearsal recordings describe the earlier product. They are superseded by the real-only runtime and new footage referenced in `real-integration-validation-2026-10-04.md`; do not use them as current integration proof.
 
 Actual continuous recording of the production loopback workbench, with real public Perpl reads and live Envio public events. No staged UI mock, slides or code walkthrough appears in the technical recording. Playwright Chromium was used because the inspected in-app browser did not offer supported local frame export. Raw capture is 25 fps; final H.264 presentation is 1600×1200 at 60 fps. Voice uses local macOS Samantha speech synthesis, no paid/external service or music.
 

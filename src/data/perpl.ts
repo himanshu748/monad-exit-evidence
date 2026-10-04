@@ -280,6 +280,7 @@ export async function getLiquidity(
     receivedAt: new Date().toISOString(),
     observedAt: book.observedAt,
     stale:
+      context.stale ||
       Date.now() - Date.parse(book.observedAt) > 120000 ||
       Date.parse(book.observedAt) > Date.now() + 15000,
     sizeDecimals: market.sizeDecimals,
@@ -293,4 +294,19 @@ export async function getLiquidity(
       market.priceDecimals,
     ),
   };
+}
+
+/** Actual book levels without inventing a default position or requested quantity. */
+export async function getOrderBook(network: Network, marketId: number) {
+  if (!Number.isSafeInteger(marketId) || marketId <= 0) throw new Error("Invalid market");
+  const context = await getMarkets(network);
+  const market = context.markets.find(m => m.id === marketId);
+  if (!market) throw new Error("Unknown market");
+  const path = `/v1/market-data/${marketId}/book?levels=100`;
+  const book = normalizeBook(await publicRead(network, path), market.priceDecimals, market.sizeDecimals);
+  const display = (level: RawLevel) => ({ price: formatUnits(level.p, market.priceDecimals), quantity: formatUnits(level.s, market.sizeDecimals) });
+  return { network, chainId: context.chainId, marketId, source: "PERPL_PUBLIC_API", sourceUrl: ORIGINS[network] + path,
+    receivedAt: new Date().toISOString(), observedAt: book.observedAt,
+    stale: context.stale || Date.now() - Date.parse(book.observedAt) > 120000 || Date.parse(book.observedAt) > Date.now() + 15000,
+    sizeDecimals: market.sizeDecimals, priceDecimals: market.priceDecimals, bids: book.bid.map(display), asks: book.ask.map(display) };
 }

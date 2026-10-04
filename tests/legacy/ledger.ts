@@ -1,7 +1,8 @@
+// Historical offline regression support; never imported by the production app.
 import { DatabaseSync } from "node:sqlite";
-import type { Receipt, RehearsalInput } from "./types.ts";
+import type { Receipt, RehearsalInput } from "../../src/core/types.ts";
 import { runRehearsal, validateInput } from "./rehearsal.ts";
-import { digest } from "./receipt.ts";
+import { digest } from "../../src/core/receipt.ts";
 export class IdempotencyConflict extends Error {}
 export class RehearsalLedger {
   private db: DatabaseSync;

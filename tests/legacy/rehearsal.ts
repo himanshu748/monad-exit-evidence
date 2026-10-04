@@ -1,13 +1,14 @@
+// Historical offline regression support; never imported by the production app.
 import type {
   RehearsalInput,
   Receipt,
   Policy,
   ReceiptBody,
   Action,
-} from "./types.ts";
-import { parseUnits, precision } from "./quantity.ts";
-import { digest, sealReceipt } from "./receipt.ts";
-import { evaluatePolicy } from "./policy.ts";
+} from "../../src/core/types.ts";
+import { parseUnits, precision } from "../../src/core/quantity.ts";
+import { digest, sealReceipt } from "../../src/core/receipt.ts";
+import { evaluatePolicy } from "../../src/core/policy.ts";
 const scenarios = [
   "valid",
   "unauthorized",

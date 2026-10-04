@@ -1,161 +1,59 @@
-import test from "node:test";
-import assert from "node:assert/strict";
-import { createApp } from "../src/server.ts";
-import { RehearsalLedger } from "../src/core/ledger.ts";
-import { normalizeContext, snapshots } from "../src/data/perpl.ts";
-async function setup() {
-  const now = Date.now();
-  const data = normalizeContext(
-    {
-      chain: { chain_id: 143 },
-      tokens: [{ id: 1, decimals: 6 }],
-      instances: [{ id: 1, collateral_token_id: 1 }],
-      markets: [
-        {
-          id: 1,
-          instance_id: 1,
-          name: "BTC",
-          symbol: "BTC",
-          config: { price_decimals: 1, size_decimals: 5, is_open: true },
-          state: {
-            at: { t: now },
-            mrk: 830000,
-            bid: 829990,
-            ask: 830010,
-            oi: 100,
-            dva: "1000",
-          },
-          funding: { rate: 0 },
-        },
-      ],
-    },
-    "mainnet",
-    now,
-  );
-  snapshots.set(data.snapshotRef, { time: now, data });
-  const ledger = new RehearsalLedger(":memory:");
-  const server = createApp({ ledger, markets: async () => data });
-  await new Promise<void>((r) => server.listen(0, "127.0.0.1", r));
-  const addr = server.address() as { port: number };
-  const base = `http://127.0.0.1:${addr.port}`;
-  const input = {
-    network: "mainnet",
-    marketId: 1,
-    direction: "long",
-    positionQuantity: "0.04",
-    closeQuantity: "0.02",
-    priceLimit: "83000",
-    sizeDecimals: 5,
-    priceDecimals: 1,
-    scenario: "interrupted",
-    snapshotRef: data.snapshotRef,
-    snapshotObservedAt: data.observedAt,
-  };
-  return { server, ledger, base, input };
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { createApp } from '../src/server.ts';
+import { readFile } from 'node:fs/promises';
+async function withApp(run: (base: string) => Promise<void>) {
+  const server = createApp();
+  await new Promise<void>(resolve => server.listen(0, '127.0.0.1', resolve));
+  try { await run(`http://127.0.0.1:${(server.address() as { port: number }).port}`); }
+  finally { await new Promise<void>(resolve => server.close(() => resolve())); }
 }
-test("HTTP replay is durable idempotent and changed body conflicts", async () => {
-  const { server, ledger, base, input } = await setup();
-  try {
-    const options = (body: unknown) => ({
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-        "idempotency-key": "http-request-01",
-      },
-      body: JSON.stringify(body),
-    });
-    const a = await fetch(base + "/api/rehearsals", options(input));
-    assert.equal(a.status, 200);
-    const first = (await a.json()) as any;
-    const b = await fetch(base + "/api/rehearsals", options(input));
-    assert.deepEqual(((await b.json()) as any).data, first.data);
-    assert.equal(first.data.execution.status, "UNKNOWN");
-    assert.equal(
-      (
-        await fetch(
-          base + "/api/rehearsals",
-          options({ ...input, closeQuantity: "0.01" }),
-        )
-      ).status,
-      409,
-    );
-  } finally {
-    await new Promise<void>((r) => server.close(() => r()));
-    ledger.close();
+test('runtime rejects simulated execution and legacy receipt routes', async () => withApp(async base => {
+  for (const path of ['/api/rehearsals', '/api/receipts/verify']) {
+    const response = await fetch(base + path, { method: 'POST' });
+    assert.equal(response.status, 410);
+    const body = await response.json() as any;
+    assert.equal(body.data, null); assert.equal(body.error.code, 'SIMULATION_REMOVED');
   }
-});
-test("HTTP cannot forward arbitrary URLs or mutate provider and rejects bad origin", async () => {
-  const { server, ledger, base, input } = await setup();
-  try {
-    assert.equal(
-      (await fetch(base + "/api/trading/orders", { method: "POST" })).status,
-      404,
-    );
-    assert.equal(
-      (await fetch(base + "/api/markets?network=http://evil.invalid")).status,
-      400,
-    );
-    const res = await fetch(base + "/api/rehearsals", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-        origin: "https://evil.invalid",
-        "idempotency-key": "http-request-01",
-      },
-      body: JSON.stringify(input),
-    });
-    assert.equal(res.status, 403);
-    assert.equal((await fetch(base + "/api/health")).status, 200);
-  } finally {
-    await new Promise<void>((r) => server.close(() => r()));
-    ledger.close();
+}));
+test('runtime permits no trading writes or arbitrary upstream URLs', async () => withApp(async base => {
+  assert.equal((await fetch(base + '/api/trading/orders', { method: 'POST' })).status, 405);
+  assert.equal((await fetch(base + '/api/markets?network=http://evil.invalid')).status, 400);
+  assert.equal((await fetch(base + '/api/rehearsals', { method: 'POST', headers: { origin: 'https://evil.invalid' } })).status, 403);
+}));
+test('malformed transaction identifiers fail before RPC access', async () => withApp(async base => {
+  for (const query of ['network=mainnet&transactionHash=bad', 'network=mainnet&transactionHash=bad&logIndex=-1', 'network=other&transactionHash=bad'])
+    assert.equal((await fetch(base + '/api/observations?' + query)).status, 400);
+}));
+test('actual public Perpl market and book routes return real provider provenance', async () => withApp(async base => {
+  for (const network of ['mainnet','testnet']) {
+    const markets = await (await fetch(base + '/api/markets?network=' + network)).json() as any;
+    assert.equal(markets.error, null); assert.ok(markets.data.markets.length > 0);
+    assert.equal(markets.data.chainId, network === 'mainnet' ? 143 : 10143);
+    assert.equal(markets.data.source, 'PERPL_PUBLIC_API');
+    const book = await (await fetch(`${base}/api/book?network=${network}&marketId=${markets.data.markets[0].id}`)).json() as any;
+    assert.equal(book.error, null); assert.equal(book.data.source, 'PERPL_PUBLIC_API');
+    assert.ok(Array.isArray(book.data.bids)); assert.equal(book.data.estimate, undefined);
   }
-});
-test("HTTP rejects precision changes and unknown snapshot", async () => {
-  const { server, ledger, base, input } = await setup();
-  try {
-    for (const patch of [{ sizeDecimals: 4 }, { snapshotRef: "untrusted" }]) {
-      const res = await fetch(base + "/api/rehearsals", {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-          "idempotency-key": "http-request-02",
-        },
-        body: JSON.stringify({ ...input, ...patch }),
-      });
-      assert.equal(res.status, 422);
-    }
-  } finally {
-    await new Promise<void>((r) => server.close(() => r()));
-    ledger.close();
+}));
+test('real public receipt is decoded independently of saved evidence', async () => withApp(async base => {
+  const proofs = JSON.parse(await readFile(new URL('../integrations/envio/evidence/receipt-cross-check.json', import.meta.url), 'utf8'));
+  for (const proof of proofs) {
+    // Only a real historical transaction identifier is read from the proof;
+    // all values must be fetched again from public RPC, never returned from this file.
+    const response = await fetch(`${base}/api/observations?network=${proof.network}&transactionHash=${proof.transactionHash}&logIndex=${proof.logIndex ?? proof.indexedEvent.logIndex}`);
+    const body = await response.json() as any;
+    assert.equal(response.status, 200, JSON.stringify(body.error));
+    assert.equal(body.data.observation.source, 'MONAD_PUBLIC_RPC');
+    assert.equal(body.data.observation.transactionHash, proof.transactionHash);
+    assert.equal(body.data.observation.kind, proof.kind);
+    assert.ok(body.data.checks.slice(0,4).every((c: any) => c.result === 'PASS'));
+    assert.ok(body.data.integrity.digest);
   }
-});
-
-test("health reports actual per-network Envio availability", async () => {
-  const ledger = new RehearsalLedger(":memory:");
-  const server = createApp({
-    ledger,
-    activity: async (n) => ({
-      status: n === "mainnet" ? "live" : "unavailable",
-      source: "ENVIO",
-      chainId: n === "mainnet" ? 143 : 10143,
-      watermark: n === "mainnet" ? 1 : null,
-      receivedAt: new Date().toISOString(),
-      events: [],
-    }),
-  });
-  await new Promise<void>((r) => server.listen(0, "127.0.0.1", r));
-  try {
-    const port = (server.address() as any).port;
-    const r = await fetch(`http://127.0.0.1:${port}/api/health`);
-    const b = (await r.json()) as any;
-    assert.equal(b.data.integrations.envio, "live");
-    assert.deepEqual(b.data.envioNetworks, {
-      mainnet: "live",
-      testnet: "unavailable",
-    });
-  } finally {
-    await new Promise<void>((r) => server.close(() => r()));
-    ledger.close();
-  }
-});
+}));
+test('health describes real-only runtime and leaves unconnected integrations gated', async () => withApp(async base => {
+  const body = await (await fetch(base + '/api/health')).json() as any;
+  assert.equal(body.data.mode, 'LIVE_READ_ONLY'); assert.equal(body.data.simulationEnabled, false);
+  assert.equal(body.data.tradingEnabled, false); assert.equal(body.data.integrations.cre, 'omitted-user-choice');
+  assert.equal(body.data.integrations.nansen, 'access-required');
+}));

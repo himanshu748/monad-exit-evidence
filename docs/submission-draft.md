@@ -2,36 +2,37 @@
 
 Title: Exit Evidence Workbench
 
-Short description: A read-only Monad workbench that combines public liquidity, exact hypothetical position-reduction limits, durable rehearsal outcomes and inspectable evidence.
+Short description: A real-data Monad workbench for Perpl quotes, Envio exchange activity and independently decoded public transaction evidence.
 
-Problem: A successful order request does not establish a fill. Partial outcomes, retries and lost responses can obscure what a system actually observed. Users need quantities, scope and uncertainty shown together.
+Problem: A request is not a fill, and an indexed summary needs its source checked. Integrators need actual quantities, transaction provenance and source uncertainty together.
 
-Implementation: Node 24/TypeScript, SQLite idempotency and reservations, React/Vite, viem, public Perpl market/depth reads, Envio HyperIndex events and committed SQL snapshots, a real Chainlink CRE SDK read-only workflow, and an optional typed Nansen adapter with no live transport configured.
+Solution: Read current public Perpl market configuration and books, calculate quoted depth only for a quantity the user enters, select a real indexed event, independently fetch its public transaction receipt/canonical block, and compare the complete normalized event. Export an exact observation with its timestamps and limitations.
 
-What is demonstrated: exact integer policy/reconciliation, six labeled rehearsal cases, receipt tampering detection, unchanged exports, reload identity, network review reset, real public Perpl reads, and genuine Envio ingestion. Current freshness must be verified at demo time.
+Implementation: Node 24/TypeScript, React/Vite, viem strict ABI decoding, real Envio HyperIndex/PostgreSQL ingestion, atomic committed-watermark read models, and allowlisted public Perpl/Monad reads. No signing key, wallet, trading dispatch, paid-provider fallback or live Nansen transport is configured. CRE is omitted by user choice.
 
-What is not claimed: wallet signatures, ownership, trade dispatch/fills attributable to this app, owner-authenticated receipts, successful CRE CLI simulation, live Nansen data, hosted deployment, sponsor eligibility or prize entitlement.
+Current runtime: real public data or explicit unavailable/error. No sample positions, prefilled transactions, rehearsal controls or generated execution outcomes. Legacy simulation routes return HTTP 410. Offline regression inputs and historical recordings are not presented as live integration evidence.
 
-## Verified portal requirements and completion gates
+Boundaries: Public participant activity is not viewer ownership or execution by this app. Quantity can remain unknown when an event's ABI omits it. Book estimates are not executable prices or guaranteed fills. Canonical-block checks are point-in-time provider observations; export digests detect changes without authenticating an owner.
 
-Event: [Monad Metropolis portal](https://hackathon.monad.xyz/). Submission deadline: October 13, 2026 at 11:59 PM ET, equivalent to October 14 03:59 UTC / 09:29 IST. Detailed portal requirements below come from the authorized October 3 review. The official public page was rechecked October 4; the anonymous catalog returned authentication-required, so current detailed Perpl rules and any changes remain unverified. Generic FAQ wording must not override detailed track rules.
+## Candidates and completion gates
 
-| Item | Local state | Remaining gate |
+| Item | Current local implementation | Remaining gate |
 | --- | --- | --- |
-| Primary track | Onchain Finance is the historical target, not certified eligible | Its mechanism/settlement criterion is not demonstrated by public reads and replay. Confirm fit with organizers or review a useful onchain extension before committing to the track |
-| Deployed product | Local loopback product only | Mainnet OR testnet deployment qualifies under portal wording; hosting alone does not establish an app-owned onchain mechanism |
-| Public GitHub | Complete reviewed source/archive local; origin is `himanshu748/monad-exit-evidence` | Direct approval for blocked push/upload, public visibility, organizer access `metropolis@hackathon.monad.xyz` |
-| Envio bounty | Genuine self-hosted ingestion, configuration/schema/handlers/client, SQL exports, independent receipt cross-checks and actual product demo | Keep the pipeline caught up at demo time; publish required sources and accessible evidence after approval. Historical ingestion does not prove current freshness |
-| Perpl API bounty | Real public market configuration and order books drive the workbench | Candidate pending signed-in rules, including whether read-only use qualifies, track/network limits and required proof |
-| Perpl Analytics / Risk Tool bounty | Exact hypothetical close/depth estimates and partial/unknown outcome inspection | Candidate pending sponsor criteria; no real connected-account exposure or app-attributable trade analytics are demonstrated |
-| CRE bounty | OMIT — user chose proceed without CRE | Do not claim SDK compilation/local predicates as successful CLI simulation |
-| Nansen bounty | OMIT — no meaningful live data integration | Do not claim fixture tests as live integration |
-| Technical video | Local actual-product recording <=3 minutes | Inspect final local media, then approve hosting/upload; no slides or code walkthrough in product recording |
-| Pitch video | Local actual-product footage with pitch narration <=2 minutes | Approve hosting/upload |
-| Name / description / logo | Exit Evidence Workbench; descriptions above; local SVG logo | Review approved public fields |
-| GTM / acquisition | Prepared in `go-to-market.md` | Proposed plan, not existing users or traction |
-| Team / contact / agreements | Not submitted | Participant supplies accurate details and personally accepts agreements |
+| Best Use of Envio | Real handlers, complete normalized events, committed SQL/window provenance, current activity, independent receipt comparison | Keep genuine pipeline fresh and sustained; approved accessible source/product/proof |
+| Best use of Perpl's API | Real public configuration and quotes power the UI; no sample quantity needed to display a book | Detailed signed-in eligibility, network/track restrictions, whether read-only use qualifies, and sponsor proof requirements |
+| Best Analytics / Risk Tool | Actual quoted depth for user-entered amounts plus transaction/index provenance inspection | Detailed sponsor criteria; no account exposure, liquidation/portfolio analysis or real user execution quality is demonstrated |
+| CRE | OMIT — user choice | No successful CLI simulation claim |
+| Nansen | Access-required | Authorized live access and meaningful core product integration; no fixture portfolio claim |
+| Primary track | Historical target Onchain Finance & Trading; not certified eligible | Confirm current criteria; the app has no owned onchain settlement mechanism |
+| Deployed product | Local real-provider product only | Approved durable hosting and deployment security review; verify current Monad network requirement |
+| Source | Reviewed local source and archive | Direct approval resolving prior publication hold; organizer access requirements from current form |
+| Video and pitch | Current real-data footage; see validation/media manifest | Inspect and approve hosting; verify sponsor-specific limits. Old rehearsal footage is historical |
+| Name, logo, descriptions | Local name/description and SVG logo | Accurate approved public fields; no name clearance claimed |
+| GTM / acquisition | Proposed experiments in `go-to-market.md` | No existing users, partnerships or traction claimed |
+| Team/contact/agreements | Not entered in portal | Accurate participant input and personal agreement acceptance |
 
-Proposed candidate set: **Best Use of Envio**, **Best use of Perpl's API**, and **Best Analytics / Risk Tool**. Envio is the strongest demonstrated integration; both Perpl candidates require exact-rule confirmation before selection. Exactly one primary track and any restrictions on combining bounties remain unresolved. No prize entitlement is asserted. The [bounty proof packet](bounty-evidence.md) contains truthful draft sponsor descriptions, source references, current-data checks and the demo proof sequence.
+The [bounty proof packet](bounty-evidence.md) contains draft sponsor descriptions and testing/recording instructions. Exactly one primary track and the ability to combine candidates must be confirmed before selection. No eligibility, prize entitlement or completed entry is asserted.
 
-Official detailed sources: [Onchain Finance](https://hackathon.monad.xyz/tracks/onchain-finance), [Envio](https://hackathon.monad.xyz/tracks/best-use-of-envio), [CRE](https://hackathon.monad.xyz/tracks/best-workflow-with-cre), [Nansen](https://hackathon.monad.xyz/tracks/best-use-of-nansen). Public web extraction failed for the client-rendered portal in this local task; the authorized portal session review supplied the requirements. No project or submission was created by this task.
+Sources: [official public event page](https://monad.xyz/developers/hackathons/metropolis) was checked October 4; it names these awards. Detailed Envio/general requirements came from the authorized October 3 [portal](https://hackathon.monad.xyz/) review. The October 4 anonymous catalog returned authentication-required, so Perpl details/current changes remain unverified. The earlier deadline was October 13 11:59 PM ET = October 14 09:29 IST. Recheck the signed-in form.
+
+Public repo URL: pending approved publication. Live demo URL: pending approved hosting. Technical/pitch video URLs: pending approved hosting. This task has not created or changed a portal entry.

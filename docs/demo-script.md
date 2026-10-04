@@ -1,28 +1,24 @@
-# Local technical demo — rehearsal script (target under 3 minutes)
+# Real integration demo — actual product only
 
-This script accompanies the local recorded demo; inspect the media manifest before approved upload. Keep the read-only and hypothetical-position labels visible. Use fresh public data, or show the real unavailable state and explain the interruption. Do not replace missing data with fixtures.
+Use the current product and actual provider responses. Old rehearsal recordings are historical and must not be used to describe this release. No screenshots/slides, fake responses, prefilled positions or generated execution outcomes should appear.
 
-Before recording: run `npm --silent run bounty:evidence` and inspect `demoDataReadyNetworks` (data proof only; no eligibility claim). Run `npm start`, open http://127.0.0.1:4100, and start the documented recent Envio supervisor in a second terminal if the RPC is healthy. Refresh reads. Confirm source timestamps; never show historical JSON as current data.
+Before recording, keep one Envio supervisor running with a recorded window. Run `npm --silent run bounty:evidence`; check fresh market/book and Envio states. Build/start the product. The technical demo should remain below the previously reviewed general 3-minute limit; the pitch below 2 minutes. Detailed Perpl clip requirements still need portal confirmation.
 
-| Time | Action | Narration |
-| --- | --- | --- |
-| 0:00–0:20 | Show network and live BTC liquidity | “Exit Evidence helps review a position reduction and distinguish a request, a fill, and an unknown outcome. These are public Perpl reads; no holdings or wallet are connected.” |
-| 0:20–0:45 | Enter a hypothetical existing position and a smaller close quantity; review limits | “Review freezes the network, market, snapshot and exact integer limits. Changing a field invalidates review. This is a hypothetical limit review, not an owner signature.” |
-| 0:45–1:10 | Select Partial fill; review and run | “The observed rehearsal quantity is below the authorized amount. Partial is not completion; the panel explains how much filled and the remaining reservation.” |
-| 1:10–1:35 | Select Interrupted response; review and run, then reload and retry the same request | “An unknown outcome keeps its reservation and original request identity. Retrying recovers the recorded receipt instead of creating a second attempt.” |
-| 1:35–2:00 | Export JSON; change a quantity in the inspector and verify | “The exported receipt is unchanged. Editing it breaks integrity. Even a valid digest cannot prove owner authorization or a real trade.” |
-| 2:00–2:25 | Show indexed activity, watermark and source status | “Envio ingests public Monad events into SQL. This is arbitrary public participant activity, separate from our simulated executions. Missing or stale indexer data is unavailable.” |
-| 2:25–2:45 | Show integration gates and brief architecture | “Envio supplies real public exchange activity. CRE and Nansen bounty claims are omitted. This local build makes zero provider writes.” |
-| 2:45–2:55 | End on the workbench | “The useful boundary is knowing what the evidence proves, including what remains unknown.” |
+1. Show the network, current public Perpl market and actual quoted book. Quantity and transaction inputs begin empty.
+2. Enter a quantity deliberately and calculate against current quotes. Explain that this is quote analysis, with no inferred holdings, order dispatch or guaranteed fill.
+3. Refresh activity and select a real Envio event. Show the explicit recent-window start and committed watermark.
+4. Decode its real public transaction receipt and canonical block. Show the full index/chain comparison, including block hash, timestamp and every decoded parameter. If the event left the current exported page, keep the real page-absence status rather than claiming a match.
+5. Export the unchanged observation JSON and inspect its actual ABI fields. Null account/market/quantity values remain unknown.
+6. Switch network. Inputs/evidence clear; repeat with a real testnet observation. Show mobile readability.
 
-Use Start a separate rehearsal when abandoning an unknown result for a new demonstration. Keep the explicit action visible. Final sponsor/demo clips require actual validated live results; remove any completion claim for a gated integration. For the Envio and two Perpl candidates, use the [sponsor proof sequence](bounty-evidence.md). Perpl eligibility and sponsor-specific clip limits remain pending authenticated rules; do not narrate real trading or account-wide risk from rehearsals.
+Suggested narration: “Exit Evidence Workbench makes actual exchange data inspectable. These are current public Perpl quotes on Monad. Quantity is entered by the user; no wallet or position is assumed. Envio independently indexes selected real Exchange events into SQL. We select one public participant transaction, fetch its actual receipt and canonical block, decode the official ABI and compare the complete indexed record. The export preserves the observed values and source times. Public events are not proof of viewer ownership or execution by this app. Missing providers remain unavailable, and no sample outcome is substituted.”
 
-## Pitch script (target under 2 minutes)
+## Pitch
 
-A trading request is not a fill, and a missing response is not success. Exit Evidence Workbench makes those distinctions visible before people trust automation around a position reduction.
+Integrators need to distinguish a market quote, a request event and an observed fill. Exit Evidence Workbench puts actual public data and source checks in one readable place.
 
-The workbench combines public Perpl liquidity on Monad with exact hypothetical limits. It resolves decimals into integer units, freezes reviewed scope, and shows partial, rejected, duplicate and unknown rehearsal outcomes. The durable ledger preserves request identity across reload and restart. Receipts make changes detectable while stating the limits of hash verification.
+The current product combines public Perpl markets and books on Monad with real Envio-indexed exchange activity. A user can analyze quoted depth for an amount they enter, then inspect a real transaction against its receipt and canonical block. Every normalized indexed field is checked, and observations export with their timestamps and limitations.
 
-Envio supplies selected real public exchange activity through committed SQL watermarks. Its events describe public participants, not the viewer's holdings. The read-only CRE workflow is designed to compare a bounded claim with independently fetched chain and HTTP evidence; simulation has not been performed and its bounty is omitted by user choice. Optional Nansen portfolio context requires a user-authorized transport and is not live in this build.
+Initial users are Monad trading-tool builders and protocol integration teams checking event adapters and data provenance. Proposed acquisition begins with reproducible tutorials and hands-on walkthroughs after approved release, then measures accurate interpretation of sources and repeat use on real integration issues. No existing traction is claimed.
 
-The current product is a local read-only prototype. Its next milestone is confirming the primary track mechanism requirement and approving a durable hosted demo. We are not presenting a trading bot or claiming a live financial execution.
+The app reads data and does not trade, sign or infer wallet ownership. Envio is the strongest bounty integration; Perpl API and Analytics / Risk Tool eligibility need exact criteria. CRE is omitted, Nansen is unavailable without authorized access, and primary-track fit/public deployment remain completion gates.

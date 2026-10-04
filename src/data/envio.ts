@@ -1,8 +1,8 @@
 import { readFile } from 'node:fs/promises';
-import { CHAIN_INFO, EVENT_NAMES, normalizeExchangeEvent, record, safeInteger, uintString, hex, type Network } from '../../integrations/envio/src/normalize.ts';
+import { CHAIN_INFO, EVENT_NAMES, normalizeExchangeEvent, record, safeInteger, uintString, hex, type Network, type IndexedEvent } from '../../integrations/envio/src/normalize.ts';
 
-export type ActivityEvent = { id: string; transactionHash: string; blockNumber: number; logIndex: number; kind: string; marketId: string | null; accountId: string | null; quantity: string | null; source: 'ENVIO' };
-export type EnvioActivity = { status: 'live' | 'unavailable'; source: 'ENVIO'; chainId: number; watermark: number | null; receivedAt: string; events: ActivityEvent[]; error?: string };
+export type ActivityEvent = IndexedEvent;
+export type EnvioActivity = { status: 'live' | 'unavailable'; source: 'ENVIO'; chainId: number; watermark: number | null; windowStartBlock?: number; receivedAt: string; events: ActivityEvent[]; error?: string };
 const SNAPSHOT_ROOT = new URL('../../integrations/envio/.runtime/', import.meta.url);
 function timestamp(value: unknown): number {
   if (typeof value !== 'string' || !Number.isFinite(Date.parse(value))) throw new Error('Missing source timestamp');
@@ -33,13 +33,14 @@ export function parseEnvioSnapshot(input: unknown, network: Network, now = Date.
     const fingerprint = JSON.stringify(normalized);
     if (fingerprints.has(id) && fingerprints.get(id) !== fingerprint) throw new Error('Conflicting duplicate Envio provenance');
     fingerprints.set(id, fingerprint);
-    const item: ActivityEvent = { id, transactionHash, blockNumber, logIndex, kind: event.kind,
-      marketId: uintString(event.marketId), accountId: uintString(event.accountId), quantity: uintString(event.quantity), source: 'ENVIO' };
+    const item: ActivityEvent = normalized;
     const previous = seen.get(id);
     if (previous && JSON.stringify(previous) !== JSON.stringify(item)) throw new Error('Conflicting duplicate Envio log');
     seen.set(id, item);
   }
-  return { status: 'live', source: 'ENVIO', chainId: info.chainId, watermark, receivedAt: new Date(now).toISOString(),
+  const windowStartBlock = page.indexWindow === undefined ? undefined : safeInteger(record(page.indexWindow).startBlock);
+  if (windowStartBlock !== undefined && windowStartBlock > watermark) throw new Error('Invalid index window');
+  return { status: 'live', source: 'ENVIO', chainId: info.chainId, watermark, ...(windowStartBlock === undefined ? {} : { windowStartBlock }), receivedAt: new Date(now).toISOString(),
     events: [...seen.values()].sort((a,b) => b.blockNumber - a.blockNumber || b.logIndex - a.logIndex || a.id.localeCompare(b.id)).slice(0, 50) };
 }
 /** Atomic local Envio SQL snapshots only: no RPC fallback, replay data, or static evidence fixtures. */

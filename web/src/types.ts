@@ -43,7 +43,7 @@ export type Liquidity = {
   priceDecimals: number;
   bids: Level[];
   asks: Level[];
-  estimate: {
+  estimate?: {
     requestedQuantity: string;
     availableQuantity: string;
     estimatedFilledQuantity: string;
@@ -58,6 +58,7 @@ export type Activity = {
   source: "ENVIO";
   chainId: number;
   watermark: number | null;
+  windowStartBlock?: number;
   receivedAt: string;
   events: {
     id: string;
@@ -144,8 +145,12 @@ export type Api = {
     direction: "long" | "short";
   }) => Promise<Liquidity>;
   activity: (network: Network) => Promise<Activity>;
-  rehearse: (input: RehearsalInput, key: string) => Promise<Receipt>;
-  verify: (receipt: unknown) => Promise<Verification>;
+  book: (network: Network, marketId: number) => Promise<Liquidity>;
+  observe: (
+    network: Network,
+    transactionHash: string,
+    logIndex: string,
+  ) => Promise<Observation>;
 };
 export type FormValues = Pick<
   RehearsalInput,
@@ -162,4 +167,39 @@ export type Review = {
   key: string;
   symbol: string;
   resolved: Resolved;
+};
+
+export type Observation = {
+  schema: string;
+  network: Network;
+  chainId: number;
+  verifiedAt: string;
+  sourceUrl: string;
+  outcome: "INDEX_AND_CHAIN_MATCH" | "SOURCE_MISMATCH" | "CHAIN_OBSERVED";
+  observation: {
+    id: string;
+    transactionHash: string;
+    blockHash: string;
+    blockNumber: number;
+    logIndex: number;
+    kind: string;
+    marketId: string | null;
+    accountId: string | null;
+    quantity: string | null;
+    observedAt: string;
+    source: "MONAD_PUBLIC_RPC";
+    decoded: unknown;
+  };
+  envio: {
+    status: "MATCH" | "MISMATCH" | "UNAVAILABLE" | "NOT_IN_CURRENT_PAGE";
+    watermark: number | null;
+    checkedAt: string;
+  };
+  checks: {
+    name: string;
+    result: "PASS" | "FAIL" | "UNKNOWN";
+    observed: string;
+  }[];
+  limitations: string[];
+  integrity: { algorithm: string; digest: string };
 };

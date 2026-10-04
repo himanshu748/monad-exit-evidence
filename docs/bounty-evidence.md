@@ -12,7 +12,7 @@ The [official public Metropolis page](https://monad.xyz/developers/hackathons/me
 
 Exit Evidence Workbench uses Envio HyperIndex to ingest selected real Perpl Exchange events on Monad mainnet and testnet. Idempotent handlers normalize event provenance and exact integer quantities into PostgreSQL entities. The app consumes atomic read-model exports from a repeatable-read transaction that captures events and Envio's committed chain watermark together. Source timestamps, progress age, chain/contract binding, duplicate consistency and decoded quantities are checked before activity is shown. A stopped or lagging pipeline yields an explicit unavailable state. An independent public receipt decoder checks indexed fields without modifying the read model.
 
-Useful result: public request, fill and position-decrease observations have inspectable provenance, while uncertain or stale data remains visible. These events describe public participants and are separate from the app's hypothetical rehearsals.
+Useful result: public request, fill and position-decrease observations have inspectable provenance. The transaction inspector compares complete normalized indexed records with independently fetched receipts/canonical blocks, including block hash, timestamp and every decoded parameter. Missing or stale data remains unavailable. These are public participant events, not viewer ownership or app execution.
 
 Proof references: [config](../integrations/envio/config.yaml), [schema](../integrations/envio/schema.graphql), [handlers](../integrations/envio/src/EventHandlers.ts), [supervisor](../integrations/envio/scripts/run-local.mjs), [client adapter](../src/data/envio.ts), [independent decoder](../integrations/envio/scripts/verify-evidence.mjs), and [event tests](../tests/envio.test.ts).
 
@@ -20,7 +20,7 @@ Remaining: sustain a fresh pipeline, expose the approved live product and requir
 
 ### Best use of Perpl's API — eligibility pending
 
-The workbench reads Perpl's public market configuration and order books on Monad mainnet and testnet. These reads drive market selection, exact price/quantity display and visible book-depth estimates for a hypothetical position reduction. The reviewed scope binds network, market, provider snapshot and exact integer limits. Provider failure, stale timestamps and changed inputs invalidate usable context instead of silently reusing an unverified price. All provider operations are public GET requests; no account credentials, orders or trading writes are used.
+The workbench reads actual Perpl public market configuration and order books on Monad mainnet and testnet. These reads drive market selection, exact price/quantity display and quoted-depth analysis only for amounts entered by the user. Quote display needs no sample position or default quantity. Stale market configuration or book timestamps invalidate usable context. All provider operations are public reads; no account credentials, orders or trading writes are used.
 
 Proof references: [API adapter](../src/data/perpl.ts), [adapter tests](../tests/data.test.ts), [browser smoke](../web/tests/browser-smoke.mjs), and the actual-product technical recording described in [recorded media](recorded-media-2026-10-03.md).
 
@@ -28,11 +28,11 @@ Remaining rules questions: are public read-only API features sufficient, must th
 
 ### Best Analytics / Risk Tool — Perpl, eligibility pending
 
-The product exposes how much of a hypothetical close is visible in the current public order book, then separately checks exact quantity limits and partial/unknown rehearsal outcomes. Deterministic receipt checks explain which constraints passed and whether the full hypothetical target was observed. Durable request identity and retained reservations make a lost response inspectable without automatically creating another attempt. Receipts export unchanged, and edits can be detected by integrity verification.
+The product calculates visible book depth for a user-entered amount using actual public quotes. It then independently decodes real public exchange transactions and compares the complete normalized receipt/log record with Envio. Exact lot quantities, unknown ABI fields, block hashes and timestamps remain inspectable. A transaction missing from the current exported page is distinguished from a source mismatch, and stale providers remain unavailable. Observations export unchanged with a change-detection digest.
 
-Proof references: [depth/policy adapter](../src/data/perpl.ts), [core](../src/core/), [reconciliation tests](../tests/), and six-scenario [browser smoke](../web/tests/browser-smoke.mjs).
+Proof references: [public book/depth adapter](../src/data/perpl.ts), [real receipt reader](../src/data/observations.ts), [complete indexed-event adapter](../src/data/envio.ts), and [real integration browser checks](../web/tests/browser-smoke.mjs).
 
-Limits: this is an execution-evidence and debugging tool. It does not measure a connected wallet's real exposure, liquidations, portfolio-wide risk, execution quality from real user trades, or authenticate a receipt owner. A book snapshot does not establish executable prices or guaranteed fills. The sponsor's definition of analytics/risk must be checked before selecting this award.
+Limits: no connected-account exposure, liquidation/portfolio risk, owner-authenticated approval or app execution is established. Public quotes are not guaranteed fills. Legacy simulated execution routes are disabled; historical rehearsal footage is not current proof. The sponsor's definition of analytics/risk must be checked before selecting this award.
 
 ## Gather current data proof
 
@@ -42,7 +42,7 @@ Run from the repository root with Node 24 or newer:
 npm --silent run bounty:evidence > /tmp/monad-bounty-evidence.json
 ```
 
-The command reads real public Perpl APIs and current local Envio snapshots. It needs no application server, token, wallet or paid service and never starts/resets an indexer. It writes JSON to stdout only; the shell redirection chooses a local destination. Errors remain unavailable rather than becoming fixture results. `demoDataReadyNetworks` lists networks where **both** Perpl reads and the validated Envio activity are currently live. Exit code 1 means no such network is ready; exit code 0 concerns current data only. `submissionReady` remains false because hosting, rules, publication and participant fields are not established by this command.
+The command reads real public Perpl APIs and current local Envio snapshots. It needs no application server, sample quantity, token, wallet or paid service and never starts/resets an indexer. It writes JSON to stdout only; the shell redirection chooses a local destination. Errors remain unavailable rather than becoming fixture results. `demoDataReadyNetworks` lists networks where **both** Perpl reads and the validated Envio activity are currently live. Exit code 1 means no such network is ready; exit code 0 concerns current data only. `submissionReady` remains false because hosting, rules, publication and participant fields are not established by this command.
 
 For Envio, run one documented [recent supervisor](../integrations/envio/README.md) and allow it to catch up. Do not start a second supervisor on the same ports/database. The recorded beginning of the index window remains unchanged on restart. For independent receipt proof, from the repository root:
 
@@ -55,13 +55,13 @@ This separate receipt cross-check verifies indexed entities, including historica
 
 ## Actual-product proof sequence
 
-1. Show the network, public Perpl source and current timestamps; select BTC and explain quantity/price precision.
-2. Show visible order-book depth and a hypothetical close estimate. State the snapshot limitation.
-3. Review exact limits; show partial and interrupted rehearsal outcomes. Keep the hypothetical and simulated labels visible.
-4. Reload the unknown outcome; recover the same request identity. Export unchanged JSON and show that a deliberate inspector edit fails integrity.
-5. Show fresh Envio activity and committed watermark on a ready network. Identify one indexed transaction and its independent receipt check; explain that it belongs to a public participant.
+1. Show actual Perpl quotes and source times. Quantity and transaction fields start empty.
+2. Enter a quantity deliberately and calculate quoted depth. Explain no holdings, order or fill is inferred.
+3. Select a real Envio event; show the explicit recent-window start and committed watermark.
+4. Independently fetch/decode its actual receipt and canonical block, comparing complete indexed values. Export the unchanged observation and inspect real ABI fields.
+5. Switch networks; inputs/evidence clear. Repeat with a real testnet event and check mobile readability.
 
-The existing 123-second technical video and approximately 79.8-second pitch meet the previously reviewed general limits. Sponsor-specific limits remain pending for Perpl. Refresh only evidence that no longer represents the actual product/runtime. No successful CRE CLI simulation or live Nansen feature should be narrated.
+Use the new real-integration recording described in [current validation](real-integration-validation-2026-10-04.md). October 1–3 rehearsal videos are historical. General and sponsor-specific duration limits still need the current portal check; no successful CRE CLI simulation or live Nansen feature should be narrated.
 
 ## Before selecting candidates in the portal
 

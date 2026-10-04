@@ -3,10 +3,12 @@ export function ActivityPanel({
   activity,
   error,
   network,
+  onInspect,
 }: {
   activity: Activity | null;
   error: string;
   network: Network;
+  onInspect: (event: Activity["events"][number]) => void;
 }) {
   return (
     <section
@@ -34,6 +36,12 @@ export function ActivityPanel({
           <p className="caption">
             Observed chain watermark: {activity.watermark ?? "not reported"}
           </p>
+          {activity.windowStartBlock !== undefined && (
+            <p className="caption">
+              Recent index window starts at block {activity.windowStartBlock}.
+              Earlier activity is outside this window.
+            </p>
+          )}
           {activity.events.length ? (
             <div className="activity-table-wrap">
               <table className="activity-table">
@@ -43,6 +51,7 @@ export function ActivityPanel({
                     <th>Block</th>
                     <th>Market</th>
                     <th>Transaction</th>
+                    <th>Evidence</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -54,6 +63,15 @@ export function ActivityPanel({
                       <td className="mono">
                         {event.transactionHash.slice(0, 12)}…
                         {event.transactionHash.slice(-6)}
+                      </td>
+                      <td>
+                        <button
+                          className="text-button"
+                          onClick={() => onInspect(event)}
+                          aria-label={`Inspect ${event.id}`}
+                        >
+                          Inspect
+                        </button>
                       </td>
                     </tr>
                   ))}
@@ -68,9 +86,6 @@ export function ActivityPanel({
         </>
       )}
       <div className="integration-gates">
-        <span>
-          CRE verification <strong>Login required</strong>
-        </span>
         <span>
           Nansen context <strong>Access required</strong>
         </span>

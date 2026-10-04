@@ -1,4 +1,4 @@
-import { getMarkets, getLiquidity } from '../src/data/perpl.ts';
+import { getMarkets, getOrderBook } from '../src/data/perpl.ts';
 import { getEnvioActivity } from '../src/data/envio.ts';
 import { getNansenStatus } from '../src/data/nansen.ts';
 
@@ -11,8 +11,7 @@ async function inspectNetwork(network) {
     const context = await getMarkets(network);
     const market = context.markets.find(m => m.symbol === 'BTC') ?? context.markets[0];
     if (!market) throw new Error('No supported market returned');
-    const quantity = market.sizeDecimals >= 2 ? '0.01' : '1';
-    const book = await getLiquidity(network, market.id, quantity, 'long');
+    const book = await getOrderBook(network, market.id);
     perpl = {
       status: context.stale || book.stale ? 'unavailable' : 'live',
       chainId: context.chainId,
@@ -27,10 +26,8 @@ async function inspectNetwork(network) {
         receivedAt: book.receivedAt, observedAt: book.observedAt, stale: book.stale,
         marketId: market.id, symbol: market.symbol,
         sizeDecimals: book.sizeDecimals, priceDecimals: book.priceDecimals,
-        hypotheticalCloseQuantity: quantity, positionSide: 'long',
         returnedBidLevels: book.bids.length, returnedAskLevels: book.asks.length,
         bidPreview: book.bids.slice(0, 5), askPreview: book.asks.slice(0, 5),
-        estimate: book.estimate,
       },
     };
   } catch (error) {

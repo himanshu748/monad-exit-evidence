@@ -66,3 +66,7 @@ Stop recent mode with `touch .runtime/recent/stop`; resume with `rm -f .runtime/
 The nested config resolves schema and ABI relative to its own directory, while Envio resolves the handler relative to the project directory. The supervisor preloads `scripts/loopback-only.mjs` only in its Envio child because 3.12.1 ignores `ENVIO_INDEXER_HOST` and otherwise binds its health listener on all interfaces. No OS firewall or dependency source is changed. `lsof -nP -iTCP:9899 -sTCP:LISTEN` verifies the actual binding.
 
 For cross-check output without replacing historical artifacts: set `EVIDENCE_DIR` to an existing absolute directory before running `node scripts/verify-evidence.mjs`. RPC timeouts and stale source blocks remain unavailable, never success.
+
+## Explicit named recent windows
+
+To create or resume a distinct real recent window, run `npm run start:recent -- --window oct04-live`. The short validated tag selects `.runtime/recent-oct04-live` and its own PostgreSQL schema/database. The original `.runtime/recent` and its checkpoint are preserved. Creation records real public RPC heads and head-minus-200 start blocks; the same name resumes those blocks instead of resetting history. Stop that window with `touch .runtime/recent-oct04-live/stop`; remove only that stop marker before resuming. Only one supervisor may bind ports 5439/9899. Atomic snapshots include the actual window start, and the UI exposes that bound rather than implying complete history.

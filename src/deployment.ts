@@ -1,6 +1,6 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
 import { createApp } from "./server.ts";
-const app = createApp({ publicMode: true });
+const app = createApp({ publicMode: true, trustVercelProxy: process.env.VERCEL === "1" });
 export default function handler(req: IncomingMessage, res: ServerResponse) {
   const url = new URL(req.url ?? "/", "http://localhost");
   const route = url.searchParams.get("route") ?? "";

@@ -7,6 +7,7 @@ import { readFile } from "node:fs/promises";
 import { resolve, extname, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 import type { Network } from "./core/types.ts";
+import { createReadLimiter, readClientIdentity } from "./read-limiter.ts";
 import {
   getMarkets,
   getLiquidity,
@@ -50,6 +51,7 @@ function send(
 type Dependencies = {
   publicMode?: boolean;
   bridgeOnly?: boolean;
+  trustVercelProxy?: boolean;
   markets?: (n: Network) => Promise<MarketContext>;
   liquidity?: typeof getLiquidity;
   activity?: typeof getEnvioActivity;
@@ -61,9 +63,10 @@ export function createApp(options: Dependencies = {}) {
     activity = options.activity ?? getEnvioActivity;
   const publicMode = options.publicMode ?? process.env.PUBLIC_DEMO === "1";
   const bridgeOnly = options.bridgeOnly ?? process.env.ENVIO_BRIDGE_ONLY === "1";
-  let windowAt = Date.now(), requests = 0, active = 0;
+  const limiter = createReadLimiter();
+  const trustVercelProxy = options.trustVercelProxy === true;
   return createServer(async (req, res) => {
-    let admitted = false;
+    let release: (() => void) | undefined;
     res.setHeader("referrer-policy", "no-referrer");
     res.setHeader("permissions-policy", "camera=(), microphone=(), geolocation=()");
     try {
@@ -72,12 +75,14 @@ export function createApp(options: Dependencies = {}) {
       const path = url.pathname;
       if (bridgeOnly && path !== "/api/indexer-snapshot") throw new HttpError(404, "NOT_FOUND", "This route does not exist");
       if (publicMode && path.startsWith("/api/")) {
-        if (Date.now() - windowAt >= 60_000) { windowAt = Date.now(); requests = 0; }
-        if (++requests > 120 || active >= 6) {
-          res.setHeader("retry-after", "10");
-          throw new HttpError(429, "READ_LIMIT", "Public read capacity reached; retry shortly");
+        const admission = limiter.admit(readClientIdentity(req, trustVercelProxy), path === "/api/observations" ? "observation" : "read");
+        if (!admission.allowed) {
+          res.setHeader("retry-after", String(admission.retryAfter));
+          throw new HttpError(429, "READ_LIMIT", admission.reason.startsWith("client-")
+            ? "Public read limit reached for this client; retry shortly"
+            : "Public read capacity reached; retry shortly");
         }
-        active++; admitted = true;
+        release = admission.release;
       }
       if (req.method === "POST") {
         const origin = req.headers.origin;
@@ -206,7 +211,7 @@ export function createApp(options: Dependencies = {}) {
         code: status === 503 ? "UPSTREAM_UNAVAILABLE" : "INVALID_REQUEST",
         message: publicMode ? (/^(Use a plain nonnegative decimal, without spaces or exponent notation|Maximum \d+ decimal places|Quantity exceeds supported integer range|Quantity must be positive)$/.test(message) ? message : status === 503 ? "Public provider unavailable; retry later" : "The requested public read is invalid or unsupported") : message.slice(0, 300),
       });
-    } finally { if (admitted) active--; }
+    } finally { release?.(); }
   });
 }
 if (

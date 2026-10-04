@@ -22,9 +22,9 @@ test('public API capacity is bounded and raw snapshot bridge is disabled by defa
     const first = await fetch(base + '/api/indexer-snapshot?network=mainnet');
     assert.equal(first.status, 404);
     assert.equal(first.headers.get('referrer-policy'), 'no-referrer');
-    for (let i = 0; i < 119; i++) { const r = await fetch(base + '/api/not-found'); assert.equal(r.status, 404); await r.text(); }
+    for (let i = 0; i < 39; i++) { const r = await fetch(base + '/api/not-found'); assert.equal(r.status, 404); await r.text(); }
     const limited = await fetch(base + '/api/health');
-    assert.equal(limited.status, 429); assert.equal(limited.headers.get('retry-after'), '10');
+    assert.equal(limited.status, 429); assert(Number(limited.headers.get('retry-after')) >= 1 && Number(limited.headers.get('retry-after')) <= 60);
     assert.equal((await limited.json() as any).error.code, 'READ_LIMIT');
   } finally { await new Promise<void>(resolve => server.close(() => resolve())); }
 });

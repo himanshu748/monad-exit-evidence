@@ -72,7 +72,8 @@ export default function App({ api = defaultApi }: { api?: Api }) {
     [observationError, setObservationError] = useState(""),
     [verifying, setVerifying] = useState(false);
   const generation = useRef(0),
-    depthGeneration = useRef(0);
+    depthGeneration = useRef(0),
+    observationInFlight = useRef<Promise<Observation> | null>(null);
   const market = context?.markets.find((m) => m.id === marketId);
   const expired = (timestamp: string) =>
     !Number.isFinite(Date.parse(timestamp)) ||
@@ -169,7 +170,6 @@ export default function App({ api = defaultApi }: { api?: Api }) {
     generation.current++;
     setObservation(null);
     setObservationError("");
-    setVerifying(false);
   }
   function changeNetwork(next: Network) {
     clearDepth();
@@ -205,20 +205,27 @@ export default function App({ api = defaultApi }: { api?: Api }) {
     }
   }
   async function inspect(transactionHash = hash, index = logIndex) {
+    if (observationInFlight.current) return;
     const version = ++generation.current;
     setHash(transactionHash);
     setLogIndex(index);
     setVerifying(true);
     setObservation(null);
     setObservationError("");
+    // Result invalidation must not release the lock on ongoing provider work.
+    const request = Promise.resolve().then(() =>
+      api.observe(network, transactionHash, index),
+    );
+    observationInFlight.current = request;
     try {
-      const result = await api.observe(network, transactionHash, index);
+      const result = await request;
       if (version === generation.current) setObservation(result);
     } catch (error) {
       if (version === generation.current)
         setObservationError(errorMessage(error));
     } finally {
-      if (version === generation.current) setVerifying(false);
+      observationInFlight.current = null;
+      setVerifying(false);
     }
   }
   function exportObservation() {
@@ -256,6 +263,9 @@ export default function App({ api = defaultApi }: { api?: Api }) {
           <a href="#activity">
             <NavIcon type="list" />
             Activity
+          </a>
+          <a className="overview-link" href="#overview">
+            Overview
           </a>
         </nav>
         <p className="rail-footnote">Read-only · No transactions</p>
@@ -447,11 +457,20 @@ export default function App({ api = defaultApi }: { api?: Api }) {
                   <strong>
                     {observation.outcome === "INDEX_AND_CHAIN_MATCH"
                       ? "Envio and chain values match"
-                      : observation.outcome === "SOURCE_MISMATCH"
-                        ? "Indexed values differ from chain"
-                        : "Public chain event decoded"}
+                      : observation.envio.status === "MISSING_IN_INDEX"
+                        ? "Chain event missing from Envio query"
+                        : observation.outcome === "SOURCE_MISMATCH"
+                          ? "Indexed values differ from chain"
+                          : "Public chain event decoded"}
                   </strong>
                   <p>Envio comparison: {observation.envio.status}</p>
+                  {observation.envio.status === "MISSING_IN_INDEX" && (
+                    <p>
+                      Envio completed a query covering this exact block but did
+                      not return the event observed in the canonical Monad
+                      receipt. The sources disagree.
+                    </p>
+                  )}
                   {observation.envio.status === "NOT_IN_CURRENT_PAGE" && (
                     <p>
                       No matching entity was returned from the current index
@@ -532,6 +551,7 @@ export default function App({ api = defaultApi }: { api?: Api }) {
             activity={visibleActivity}
             error={activityError}
             network={network}
+            busy={verifying}
             onInspect={(event) => {
               void inspect(event.transactionHash, String(event.logIndex));
               document

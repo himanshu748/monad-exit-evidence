@@ -2,7 +2,7 @@ import { boundedText } from "./http.ts";
 import abi from '../../integrations/envio/abis/Exchange.json' with { type: 'json' };
 import { decodeEventLog, type Hex, type Abi } from 'viem';
 import { CHAIN_INFO, EVENT_NAMES, normalizeExchangeEvent, record, safeInteger, hex, type IndexedEvent } from '../../integrations/envio/src/normalize.ts';
-import { getEnvioActivity, getEnvioIndexedTransaction } from './envio.ts';
+import { getEnvioActivity, getEnvioIndexedTransaction, type EnvioActivity } from './envio.ts';
 import { requireNetwork } from './perpl.ts';
 import { digest } from '../core/receipt.ts';
 import type { Network } from '../core/types.ts';
@@ -26,16 +26,25 @@ export function sameIndexedObservation(indexed: IndexedEvent, observed: IndexedE
   return Object.keys(observed).every(key => indexed[key as keyof IndexedEvent] === observed[key as keyof IndexedEvent]);
 }
 
+/** A covered exact-block omission is a source disagreement, not a missing preview page. */
+export function compareIndexedObservation(indexed: EnvioActivity, observed: IndexedEvent) {
+  const match = indexed.events.find(e => e.id === observed.id);
+  const exactBlock = indexed.engine === 'HYPERSYNC' && indexed.windowStartBlock === observed.blockNumber && indexed.watermark === observed.blockNumber && Number.isSafeInteger(indexed.providerHead) && indexed.providerHead! >= observed.blockNumber;
+  const indexStatus = indexed.status !== 'live' ? 'UNAVAILABLE' : !match ? exactBlock ? 'MISSING_IN_INDEX' : 'NOT_IN_CURRENT_PAGE' : sameIndexedObservation(match, observed) ? 'MATCH' : 'MISMATCH';
+  const disagreement = indexStatus === 'MISMATCH' || indexStatus === 'MISSING_IN_INDEX';
+  return { indexStatus, outcome: indexStatus === 'MATCH' ? 'INDEX_AND_CHAIN_MATCH' : disagreement ? 'SOURCE_MISMATCH' : 'CHAIN_OBSERVED', result: indexStatus === 'MATCH' ? 'PASS' : disagreement ? 'FAIL' : 'UNKNOWN' };
+}
+
 /** Independently decode a real public exchange log. No execution, fixture or RPC activity fallback. */
 export async function getTransactionObservation(network: Network, transactionHash: string, logIndex?: number) {
   requireNetwork(network);
   const hash = hex(transactionHash, 64);
   if (logIndex !== undefined) safeInteger(logIndex);
   const info = CHAIN_INFO[network];
-  let indexed = await getEnvioActivity(network);
-  const [chain, receiptValue] = await Promise.all([
-    call(network, 'eth_chainId', []), call(network, 'eth_getTransactionReceipt', [hash]),
+  const [initialIndexed, chain, receiptValue] = await Promise.all([
+    getEnvioActivity(network), call(network, 'eth_chainId', []), call(network, 'eth_getTransactionReceipt', [hash]),
   ]);
+  let indexed = initialIndexed;
   if (rpcInteger(chain) !== info.chainId) throw new Error('Public RPC network mismatch');
   if (receiptValue === null) throw new Error('Transaction receipt is not available on this network');
   const receipt = record(receiptValue);
@@ -60,22 +69,21 @@ export async function getTransactionObservation(network: Network, transactionHas
     break;
   }
   if (!observed) throw new Error('No supported Perpl Exchange event found for this transaction/log');
-  if (indexed.status === 'live' && !indexed.events.some(e => e.id === observed.id)) indexed = await getEnvioIndexedTransaction(network, hash, observed.logIndex);
-  const match = indexed.events.find(e => e.id === observed.id);
-  const matches = !!match && sameIndexedObservation(match, observed);
-  const indexStatus = indexed.status !== 'live' ? 'UNAVAILABLE' : !match ? 'NOT_IN_CURRENT_PAGE' : matches ? 'MATCH' : 'MISMATCH';
+  if (indexed.status === 'live' && !indexed.events.some(e => e.id === observed.id)) indexed = await getEnvioIndexedTransaction(network, hash, observed.logIndex, observed.blockNumber);
+  const comparison = compareIndexedObservation(indexed, observed), indexStatus = comparison.indexStatus;
   const checks = [
     { name: 'RPC network', result: 'PASS', observed: String(info.chainId) },
     { name: 'Successful transaction receipt', result: 'PASS', observed: hash },
     { name: 'Canonical block and exchange log', result: 'PASS', observed: `${blockHash} · ${info.contract}` },
     { name: 'Strict ABI decode', result: 'PASS', observed: observed.kind },
-    { name: 'Envio indexed values', result: indexStatus === 'MATCH' ? 'PASS' : indexStatus === 'MISMATCH' ? 'FAIL' : 'UNKNOWN', observed: indexStatus },
+    { name: 'Envio indexed values', result: comparison.result, observed: indexStatus },
   ];
   const body = {
     schema: 'exit-evidence-observation/v1', network, chainId: info.chainId, verifiedAt: new Date().toISOString(),
-    outcome: indexStatus === 'MATCH' ? 'INDEX_AND_CHAIN_MATCH' : indexStatus === 'MISMATCH' ? 'SOURCE_MISMATCH' : 'CHAIN_OBSERVED',
+    outcome: comparison.outcome,
     sourceUrl: RPC[network], observation: { ...observed, source: 'MONAD_PUBLIC_RPC', decoded: JSON.parse(observed.decoded) },
-    envio: { status: indexStatus, watermark: indexed.watermark, checkedAt: indexed.receivedAt }, checks,
+    envio: { status: indexStatus, watermark: indexed.watermark, checkedAt: indexed.receivedAt,
+      ...(indexed.engine === undefined ? {} : { engine: indexed.engine, sourceUrl: indexed.sourceUrl, providerHead: indexed.providerHead, providerHeadObservedAt: indexed.providerHeadObservedAt, windowStartBlock: indexed.windowStartBlock }) }, checks,
     limitations: [
       'This is a public participant event, not proof of viewer ownership or execution by this app.',
       'OrderRequest is a request observation, not a fill. Null account/market/quantity fields are not inferred.',

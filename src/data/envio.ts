@@ -5,7 +5,7 @@ import { pathToFileURL } from 'node:url';
 import { CHAIN_INFO, EVENT_NAMES, normalizeExchangeEvent, record, safeInteger, uintString, hex, type Network, type IndexedEvent } from '../../integrations/envio/src/normalize.ts';
 
 export type ActivityEvent = IndexedEvent;
-export type EnvioActivity = { status: 'live' | 'unavailable'; source: 'ENVIO'; chainId: number; watermark: number | null; windowStartBlock?: number; receivedAt: string; events: ActivityEvent[]; error?: string };
+export type EnvioActivity = { status: 'live' | 'unavailable'; source: 'ENVIO'; chainId: number; watermark: number | null; windowStartBlock?: number; engine?: 'HYPERINDEX' | 'HYPERSYNC'; sourceUrl?: string; providerHead?: number; providerHeadObservedAt?: string; receivedAt: string; events: ActivityEvent[]; error?: string };
 const SNAPSHOT_ROOT = pathToFileURL(resolve(process.cwd(), 'integrations/envio/.runtime') + sep);
 function timestamp(value: unknown): number {
   if (typeof value !== 'string' || !Number.isFinite(Date.parse(value))) throw new Error('Missing source timestamp');
@@ -86,24 +86,40 @@ async function readSnapshot(path: URL): Promise<string> {
   remote.set(network, { at: Date.now(), page: envelope.data });
   return JSON.stringify(envelope.data);
 }
-/** Actual SQL snapshots only, local or configured bridge: no RPC/replay/static data fallback. */
+function configuredSource(): 'hyperindex' | 'hypersync' {
+  const source = process.env.ENVIO_DATA_SOURCE ?? 'hyperindex';
+  if (source !== 'hyperindex' && source !== 'hypersync') throw new Error('Unsupported Envio data source');
+  return source;
+}
+/** Explicitly configured genuine Envio source only. No RPC, replay or static fallback. */
 export async function getEnvioActivity(network: Network, reader: (path: URL) => Promise<string> = readSnapshot, now = Date.now()): Promise<EnvioActivity> {
   const info = CHAIN_INFO[network];
   if (!info) throw new Error('Unsupported network');
   try {
+    if (reader === readSnapshot && configuredSource() === 'hypersync') {
+      const { hyperSync } = await import('./envio-hypersync.ts');
+      return await hyperSync.activity(network);
+    }
     const body = await reader(new URL(`${network}.json`, SNAPSHOT_ROOT));
     if (body.length > 1_000_000) throw new Error('Indexer response too large');
     return parseEnvioSnapshot(JSON.parse(body), network, now);
   } catch {
     return { status: 'unavailable', source: 'ENVIO', chainId: info.chainId, watermark: null, receivedAt: new Date(now).toISOString(), events: [],
-      error: 'Envio activity unavailable: its genuine indexer must be running with a fresh verified chain watermark' };
+      error: process.env.ENVIO_DATA_SOURCE === 'hypersync'
+        ? 'Envio HyperSync unavailable: authorized access and a fresh complete query are required'
+        : 'Envio activity unavailable: its genuine indexer must be running with a fresh verified chain watermark' };
   }
 }
 
-/** Read one genuine SQL entity with its committed watermark; never infer a match from a receipt. */
-export async function getEnvioIndexedTransaction(network: Network, transactionHash: string, logIndex: number): Promise<EnvioActivity> {
+/** Read one genuine Envio event. The independent receipt supplies only the block locator, never the indexed values. */
+export async function getEnvioIndexedTransaction(network: Network, transactionHash: string, logIndex: number, blockNumber?: number): Promise<EnvioActivity> {
   const hash = hex(transactionHash, 64), index = safeInteger(logIndex);
   try {
+    if (configuredSource() === 'hypersync') {
+      if (blockNumber === undefined) throw new Error('Missing independently observed block locator');
+      const { hyperSync } = await import('./envio-hypersync.ts');
+      return await hyperSync.transaction(network, hash, index, safeInteger(blockNumber));
+    }
     const origin = process.env.ENVIO_SNAPSHOT_ORIGIN;
     if (!origin) return parseEnvioSnapshot(await getLocalEnvioSnapshot(network, hash, index), network);
     const response = await fetch(`${snapshotOrigin(origin)}/api/indexer-snapshot?network=${network}&transactionHash=${hash}&logIndex=${index}`, {

@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { resolveLimits, formatUnits } from "../src/form";
+import { formatUnits } from "../src/form";
+import { resolveLimits } from "./legacy/limits";
 const market = { sizeDecimals: 5, priceDecimals: 2 };
 const values = {
   positionQuantity: "0.04",

@@ -3,11 +3,13 @@ export function ActivityPanel({
   activity,
   error,
   network,
+  busy = false,
   onInspect,
 }: {
   activity: Activity | null;
   error: string;
   network: Network;
+  busy?: boolean;
   onInspect: (event: Activity["events"][number]) => void;
 }) {
   return (
@@ -18,7 +20,10 @@ export function ActivityPanel({
     >
       <div className="section-heading">
         <h2 id="activity-heading">Indexed activity</h2>
-        <span className="caption">Envio · {network}</span>
+        <span className="caption">
+          Envio{activity?.engine === "HYPERSYNC" ? " HyperSync" : ""} ·{" "}
+          {network}
+        </span>
       </div>
       {error ? (
         <p className="empty-state">{error}</p>
@@ -34,14 +39,20 @@ export function ActivityPanel({
       ) : (
         <>
           <p className="caption">
-            Latest 50 events shown; transaction inspection also queries the full
-            current index window. Observed chain watermark:{" "}
+            {activity.engine === "HYPERSYNC"
+              ? "Up to 50 events from a finite 16-block Envio HyperSync preview. Empty previews are possible. Transaction inspection queries the independently observed block. Queried through block: "
+              : "Latest 50 events shown; transaction inspection also queries the full current index window. Observed chain watermark: "}
             {activity.watermark ?? "not reported"}
           </p>
           {activity.windowStartBlock !== undefined && (
             <p className="caption">
-              Recent index window starts at block {activity.windowStartBlock}.
-              Earlier activity is outside this window.
+              {activity.engine === "HYPERSYNC"
+                ? "This query"
+                : "Recent index window"}{" "}
+              starts at block {activity.windowStartBlock}.{" "}
+              {activity.engine === "HYPERSYNC"
+                ? "This preview does not claim complete history."
+                : "Earlier activity is outside this window."}
             </p>
           )}
           {activity.events.length ? (
@@ -69,6 +80,7 @@ export function ActivityPanel({
                       <td>
                         <button
                           className="text-button"
+                          disabled={busy}
                           onClick={() => onInspect(event)}
                           aria-label={`Inspect ${event.id}`}
                         >
@@ -82,7 +94,9 @@ export function ActivityPanel({
             </div>
           ) : (
             <p className="empty-state">
-              No events returned by the live indexer.
+              {activity.engine === "HYPERSYNC"
+                ? "No events in this finite HyperSync preview. Refresh to check a newer window."
+                : "No events returned by the live indexer."}
             </p>
           )}
         </>

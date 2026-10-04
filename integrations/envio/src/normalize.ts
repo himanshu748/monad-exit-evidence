@@ -35,7 +35,7 @@ function canonical(value: unknown): unknown {
   if (Array.isArray(value)) return value.map(canonical);
   return Object.fromEntries(Object.entries(record(value)).sort(([a], [b]) => a < b ? -1 : a > b ? 1 : 0).map(([key, val]) => [key, canonical(val)]));
 }
-/** Only called by Envio handlers. This projection does not imply account ownership or successful execution. */
+/** Shared exact projection for Envio handlers, HyperSync rows and independent receipt comparison; it implies neither ownership nor app execution. */
 export function normalizeExchangeEvent(input: unknown): IndexedEvent {
   const raw = record(input), block = record(raw.block), transaction = record(raw.transaction), params = record(raw.params);
   const chainId = safeInteger(raw.chainId), contract = hex(raw.srcAddress, 40);

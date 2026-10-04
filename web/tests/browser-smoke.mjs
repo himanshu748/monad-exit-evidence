@@ -49,7 +49,7 @@ try {
     scenes.push({ name: scene, atSeconds: (Date.now() - started) / 1000 });
     if (recording) await page.waitForTimeout(seconds * 1000);
   }
-  await page.goto(base);
+  await page.goto(`${base}/#workbench`);
   await page
     .getByRole("option", { name: "BTC", exact: true })
     .waitFor({ state: "attached", timeout: 30000 });
@@ -146,7 +146,7 @@ try {
       viewport: { width: 390, height: 844 },
     }),
     small = await mobile.newPage();
-  await small.goto(base);
+  await small.goto(`${base}/#workbench`);
   await small
     .getByRole("option", { name: "BTC", exact: true })
     .waitFor({ state: "attached", timeout: 30000 });

@@ -1,5 +1,6 @@
-import { readFile } from 'node:fs/promises';
-import { decodeEventLog, type Hex } from 'viem';
+import { boundedText } from "./http.ts";
+import abi from '../../integrations/envio/abis/Exchange.json' with { type: 'json' };
+import { decodeEventLog, type Hex, type Abi } from 'viem';
 import { CHAIN_INFO, EVENT_NAMES, normalizeExchangeEvent, record, safeInteger, hex, type IndexedEvent } from '../../integrations/envio/src/normalize.ts';
 import { getEnvioActivity } from './envio.ts';
 import { requireNetwork } from './perpl.ts';
@@ -7,15 +8,14 @@ import { digest } from '../core/receipt.ts';
 import type { Network } from '../core/types.ts';
 
 const RPC = { mainnet: 'https://rpc.monad.xyz', testnet: 'https://testnet-rpc.monad.xyz' } as const;
-const abi = JSON.parse(await readFile(new URL('../../integrations/envio/abis/Exchange.json', import.meta.url), 'utf8'));
 function rpcInteger(value: unknown): number {
   if (typeof value !== 'string' || !/^0x[0-9a-f]+$/i.test(value)) throw new Error('Malformed RPC integer');
   return safeInteger(Number(BigInt(value)));
 }
 async function call(network: Network, method: string, params: unknown[]) {
-  const response = await fetch(RPC[network], { method: 'POST', headers: { 'content-type': 'application/json' },
+  const response = await fetch(RPC[network], { method: 'POST', redirect: 'error', headers: { 'content-type': 'application/json' },
     body: JSON.stringify({ jsonrpc: '2.0', id: 1, method, params }), signal: AbortSignal.timeout(12_000) });
-  const text = await response.text();
+  const text = await boundedText(response, 2_000_000);
   if (!response.ok || text.length > 2_000_000) throw new Error('Public Monad RPC unavailable');
   const body = record(JSON.parse(text));
   if (body.error || !Object.hasOwn(body, 'result')) throw new Error('Public Monad RPC unavailable');
@@ -51,7 +51,7 @@ export async function getTransactionObservation(network: Network, transactionHas
     if (log.removed === true || hex(log.transactionHash, 64) !== hash || hex(log.blockHash, 64) !== blockHash || rpcInteger(log.blockNumber) !== blockNumber) throw new Error('Log provenance mismatch');
     if (typeof log.data !== 'string' || !/^0x(?:[0-9a-f]{2})*$/i.test(log.data) || !Array.isArray(log.topics) || log.topics.length > 4) throw new Error('Malformed public log');
     let decoded: Record<string, unknown>;
-    try { decoded = record(decodeEventLog({ abi, data: log.data as Hex, topics: log.topics.map(t => hex(t, 64)) as [Hex, ...Hex[]], strict: true })); }
+    try { decoded = record(decodeEventLog({ abi: abi as unknown as Abi, data: log.data as Hex, topics: log.topics.map(t => hex(t, 64)) as [Hex, ...Hex[]], strict: true })); }
     catch { continue; }
     if (typeof decoded.eventName !== 'string' || !(EVENT_NAMES as readonly string[]).includes(decoded.eventName)) continue;
     observed = normalizeExchangeEvent({ chainId: info.chainId, srcAddress: info.contract, eventName: decoded.eventName,

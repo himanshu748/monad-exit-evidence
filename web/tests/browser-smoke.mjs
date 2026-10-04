@@ -8,12 +8,14 @@ const evidence =
   process.env.EVIDENCE_DIR ?? resolve(root, "web/design/real-integration");
 await mkdir(evidence, { recursive: true });
 const port = process.env.SMOKE_PORT ?? "4180",
-  base = `http://127.0.0.1:${port}`;
-const server = spawn(process.execPath, ["src/server.ts"], {
-  cwd: root,
-  env: { ...process.env, PORT: port },
-  stdio: "ignore",
-});
+  base = process.env.SMOKE_BASE_URL ?? `http://127.0.0.1:${port}`;
+const server = process.env.SMOKE_BASE_URL
+  ? undefined
+  : spawn(process.execPath, ["src/server.ts"], {
+      cwd: root,
+      env: { ...process.env, PORT: port },
+      stdio: "ignore",
+    });
 let browser;
 try {
   for (let i = 0; i < 80; i++) {
@@ -205,5 +207,5 @@ try {
   );
 } finally {
   await browser?.close();
-  server.kill("SIGTERM");
+  server?.kill("SIGTERM");
 }

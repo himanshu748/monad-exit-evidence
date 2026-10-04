@@ -14,7 +14,7 @@ import {
   requireNetwork,
   type MarketContext,
 } from "./data/perpl.ts";
-import { getEnvioActivity } from "./data/envio.ts";
+import { getEnvioActivity, getLocalEnvioSnapshot } from "./data/envio.ts";
 import { getNansenStatus } from "./data/nansen.ts";
 import { getTransactionObservation } from "./data/observations.ts";
 class HttpError extends Error {
@@ -48,6 +48,7 @@ function send(
   );
 }
 type Dependencies = {
+  publicMode?: boolean;
   markets?: (n: Network) => Promise<MarketContext>;
   liquidity?: typeof getLiquidity;
   activity?: typeof getEnvioActivity;
@@ -57,10 +58,24 @@ export function createApp(options: Dependencies = {}) {
   const markets = options.markets ?? getMarkets,
     liquidity = options.liquidity ?? getLiquidity,
     activity = options.activity ?? getEnvioActivity;
+  const publicMode = options.publicMode ?? process.env.PUBLIC_DEMO === "1";
+  let windowAt = Date.now(), requests = 0, active = 0;
   return createServer(async (req, res) => {
+    let admitted = false;
+    res.setHeader("referrer-policy", "no-referrer");
+    res.setHeader("permissions-policy", "camera=(), microphone=(), geolocation=()");
     try {
+      if ((req.url ?? "").length > 4096) throw new HttpError(414, "URI_TOO_LONG", "Request URL is too long");
       const url = new URL(req.url ?? "/", "http://localhost");
       const path = url.pathname;
+      if (publicMode && path.startsWith("/api/")) {
+        if (Date.now() - windowAt >= 60_000) { windowAt = Date.now(); requests = 0; }
+        if (++requests > 120 || active >= 6) {
+          res.setHeader("retry-after", "10");
+          throw new HttpError(429, "READ_LIMIT", "Public read capacity reached; retry shortly");
+        }
+        active++; admitted = true;
+      }
       if (req.method === "POST") {
         const origin = req.headers.origin;
         const own = new Set([
@@ -81,6 +96,11 @@ export function createApp(options: Dependencies = {}) {
       }
       if (path === "/api/rehearsals" || path === "/api/receipts/verify") throw new HttpError(410, "SIMULATION_REMOVED", "Use real public transaction observations. Simulated executions are no longer served.");
       if (path.startsWith("/api/") && req.method !== "GET") throw new HttpError(405, "READ_ONLY", "Only public read operations are available");
+      if (req.method === "GET" && path === "/api/indexer-snapshot") {
+        if (process.env.SERVE_ENVIO_SNAPSHOT !== "1" || process.env.VERCEL === "1") throw new HttpError(404, "NOT_FOUND", "This route does not exist");
+        try { return send(res, 200, await getLocalEnvioSnapshot(requireNetwork(url.searchParams.get("network")))); }
+        catch { throw new HttpError(503, "INDEXER_UNAVAILABLE", "The genuine Envio indexer has no fresh validated snapshot"); }
+      }
       if (req.method === "GET" && path === "/api/book") return send(res, 200, await getOrderBook(requireNetwork(url.searchParams.get("network")), Number(url.searchParams.get("marketId"))));
       if (req.method === "GET" && path === "/api/observations") {
         const index = url.searchParams.get("logIndex");
@@ -181,9 +201,9 @@ export function createApp(options: Dependencies = {}) {
         : 400;
       send(res, status, null, {
         code: status === 503 ? "UPSTREAM_UNAVAILABLE" : "INVALID_REQUEST",
-        message: message.slice(0, 300),
+        message: publicMode ? (status === 503 ? "Public provider unavailable; retry later" : "The requested public read is invalid or unsupported") : message.slice(0, 300),
       });
-    }
+    } finally { if (admitted) active--; }
   });
 }
 if (

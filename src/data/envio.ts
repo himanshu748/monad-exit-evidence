@@ -1,9 +1,12 @@
+import { boundedText } from "./http.ts";
 import { readFile } from 'node:fs/promises';
+import { resolve, sep } from 'node:path';
+import { pathToFileURL } from 'node:url';
 import { CHAIN_INFO, EVENT_NAMES, normalizeExchangeEvent, record, safeInteger, uintString, hex, type Network, type IndexedEvent } from '../../integrations/envio/src/normalize.ts';
 
 export type ActivityEvent = IndexedEvent;
 export type EnvioActivity = { status: 'live' | 'unavailable'; source: 'ENVIO'; chainId: number; watermark: number | null; windowStartBlock?: number; receivedAt: string; events: ActivityEvent[]; error?: string };
-const SNAPSHOT_ROOT = new URL('../../integrations/envio/.runtime/', import.meta.url);
+const SNAPSHOT_ROOT = pathToFileURL(resolve(process.cwd(), 'integrations/envio/.runtime') + sep);
 function timestamp(value: unknown): number {
   if (typeof value !== 'string' || !Number.isFinite(Date.parse(value))) throw new Error('Missing source timestamp');
   return Date.parse(value);
@@ -43,8 +46,43 @@ export function parseEnvioSnapshot(input: unknown, network: Network, now = Date.
   return { status: 'live', source: 'ENVIO', chainId: info.chainId, watermark, ...(windowStartBlock === undefined ? {} : { windowStartBlock }), receivedAt: new Date(now).toISOString(),
     events: [...seen.values()].sort((a,b) => b.blockNumber - a.blockNumber || b.logIndex - a.logIndex || a.id.localeCompare(b.id)).slice(0, 50) };
 }
-/** Atomic local Envio SQL snapshots only: no RPC fallback, replay data, or static evidence fixtures. */
-export async function getEnvioActivity(network: Network, reader: (path: URL) => Promise<string> = path => readFile(path, 'utf8'), now = Date.now()): Promise<EnvioActivity> {
+/** A configured deployment bridge can read only a known HTTPS tunnel, never a client-supplied URL. */
+export function snapshotOrigin(value: string): string {
+  const url = new URL(value);
+  if (url.protocol !== 'https:' || url.username || url.password || url.port || url.pathname !== '/' || url.search || url.hash || !/^[a-z0-9]+(?:-[a-z0-9]+)*\.trycloudflare\.com$/.test(url.hostname)) throw new Error('Invalid configured Envio snapshot origin');
+  return url.origin;
+}
+export async function getLocalEnvioSnapshot(network: Network) {
+  if (!CHAIN_INFO[network]) throw new Error('Unsupported network');
+  const body = await readFile(new URL(`${network}.json`, SNAPSHOT_ROOT), 'utf8');
+  if (body.length > 1_000_000) throw new Error('Indexer response too large');
+  const page = record(JSON.parse(body));
+  const validated = parseEnvioSnapshot(page, network);
+  // Publish only actual public exchange fields and progress metadata, never a DB/runtime path.
+  return { source: page.source, chainId: page.chainId, contract: page.contract,
+    watermark: page.watermark, sourceBlock: page.sourceBlock, progressBlockTime: page.progressBlockTime,
+    queriedAt: page.queriedAt, events: validated.events,
+    ...(validated.windowStartBlock === undefined ? {} : { indexWindow: { startBlock: validated.windowStartBlock } }) };
+}
+const remote = new Map<Network, { at: number; page: unknown }>();
+async function readSnapshot(path: URL): Promise<string> {
+  const configured = process.env.ENVIO_SNAPSHOT_ORIGIN;
+  if (!configured) return readFile(path, 'utf8');
+  const network = path.pathname.endsWith('/mainnet.json') ? 'mainnet' : 'testnet';
+  const cached = remote.get(network);
+  if (cached && Date.now() - cached.at < 5_000) return JSON.stringify(cached.page);
+  const response = await fetch(`${snapshotOrigin(configured)}/api/indexer-snapshot?network=${network}`, {
+    redirect: 'error', signal: AbortSignal.timeout(5_000), headers: { accept: 'application/json' },
+  });
+  if (!response.ok) throw new Error('Envio bridge unavailable');
+  const envelope = record(JSON.parse(await boundedText(response, 1_000_000)));
+  if (envelope.error || !envelope.data) throw new Error('Envio bridge unavailable');
+  parseEnvioSnapshot(envelope.data, network);
+  remote.set(network, { at: Date.now(), page: envelope.data });
+  return JSON.stringify(envelope.data);
+}
+/** Actual SQL snapshots only, local or configured bridge: no RPC/replay/static data fallback. */
+export async function getEnvioActivity(network: Network, reader: (path: URL) => Promise<string> = readSnapshot, now = Date.now()): Promise<EnvioActivity> {
   const info = CHAIN_INFO[network];
   if (!info) throw new Error('Unsupported network');
   try {
@@ -53,6 +91,6 @@ export async function getEnvioActivity(network: Network, reader: (path: URL) => 
     return parseEnvioSnapshot(JSON.parse(body), network, now);
   } catch {
     return { status: 'unavailable', source: 'ENVIO', chainId: info.chainId, watermark: null, receivedAt: new Date(now).toISOString(), events: [],
-      error: 'Envio activity unavailable: the local indexer must be running with a fresh verified chain watermark' };
+      error: 'Envio activity unavailable: its genuine indexer must be running with a fresh verified chain watermark' };
   }
 }

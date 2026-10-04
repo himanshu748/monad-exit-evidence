@@ -1,3 +1,4 @@
+import { boundedText } from "./http.ts";
 import type { Network } from "../core/types.ts";
 import {
   parseUnits,
@@ -218,8 +219,7 @@ export async function publicRead(
   });
   if (!response.ok)
     throw new Error(`Perpl public data unavailable (HTTP ${response.status})`);
-  const text = await response.text();
-  if (text.length > 2000000) throw new Error("Provider response too large");
+  const text = await boundedText(response, 2_000_000);
   return JSON.parse(text);
 }
 export async function getMarkets(network: Network): Promise<MarketContext> {

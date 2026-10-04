@@ -1,10 +1,6 @@
 # Bounty candidates and proof packet
 
-This packet covers **Best Use of Envio**, **Best use of Perpl's API**, and **Best Analytics / Risk Tool**. Envio is the strongest demonstrated integration. Both Perpl awards are candidates pending their detailed signed-in requirements; no sponsor eligibility or completed entry is claimed. CRE is omitted by user choice. Nansen remains access-required and has no meaningful live product integration.
-
-## Rules provenance
-
-The [official public Metropolis page](https://monad.xyz/developers/hackathons/metropolis) was checked on October 4, 2026. It lists these three awards and associates both Perpl candidates with Perpl. Detailed Envio and shared submission requirements below come from the authorized October 3 portal review. An anonymous October 4 read of the portal's normal catalog endpoint returned HTTP 401; the exact Perpl criteria, full current catalog, selection restrictions and changes remain unresolved. Public descriptions are not substitutes for detailed eligibility rules.
+Envio is the demonstrated target. The authenticated October 4 [catalog](https://hackathon.monad.xyz/api/v1/catalog) resolved the detailed criteria: the current product does not satisfy either Perpl bounty. [Current rules and fit](hackathon-rules-2026-10-04.md) records the exact deliverable gaps. CRE is omitted; Nansen has no authorized live integration.
 
 ## Draft sponsor descriptions
 
@@ -16,27 +12,27 @@ Useful result: public request, fill and position-decrease observations have insp
 
 Proof references: [config](../integrations/envio/config.yaml), [schema](../integrations/envio/schema.graphql), [handlers](../integrations/envio/src/EventHandlers.ts), [supervisor](../integrations/envio/scripts/run-local.mjs), [client adapter](../src/data/envio.ts), [independent decoder](../integrations/envio/scripts/verify-evidence.mjs), and [event tests](../tests/envio.test.ts).
 
-Remaining: sustain a fresh pipeline, expose the approved live product and required source/evidence, and verify the current bounty form. Historical examples establish prior ingestion; they are not a live data fallback.
+Remaining: sustain a fresh pipeline, expose the approved live product and required source/evidence, and supply the required Envio explanation in the current bounty form. Historical examples establish prior ingestion; they are not a live data fallback.
 
-### Best use of Perpl's API — eligibility pending
+### Best use of Perpl's API — requirements not satisfied
 
 The workbench reads actual Perpl public market configuration and order books on Monad mainnet and testnet. These reads drive market selection, exact price/quantity display and quoted-depth analysis only for amounts entered by the user. Quote display needs no sample position or default quantity. Stale market configuration or book timestamps invalidate usable context. All provider operations are public reads; no account credentials, orders or trading writes are used.
 
 Proof references: [API adapter](../src/data/perpl.ts), [adapter tests](../tests/data.test.ts), [browser smoke](../web/tests/browser-smoke.mjs), and the actual-product technical recording described in [recorded media](recorded-media-2026-10-03.md).
 
-Remaining rules questions: are public read-only API features sufficient, must the app execute real orders, which network/primary track qualifies, and what sponsor-specific proof or video is required? Do not assume answers or add trading to satisfy an unknown rule.
+The authenticated criteria require a production-ready bot/automation system with real execution, risk management and profitability. Current public reads do not satisfy this. Third-party events are not execution by this app; no trading may be added without separate authorization.
 
-### Best Analytics / Risk Tool — Perpl, eligibility pending
+### Best Analytics / Risk Tool — requirements not satisfied
 
 The product calculates visible book depth for a user-entered amount using actual public quotes. It then independently decodes real public exchange transactions and compares the complete normalized receipt/log record with Envio. Exact lot quantities, unknown ABI fields, block hashes and timestamps remain inspectable. A transaction missing from the current exported page is distinguished from a source mismatch, and stale providers remain unavailable. Observations export unchanged with a change-detection digest.
 
 Proof references: [public book/depth adapter](../src/data/perpl.ts), [real receipt reader](../src/data/observations.ts), [complete indexed-event adapter](../src/data/envio.ts), and [real integration browser checks](../web/tests/browser-smoke.mjs).
 
-Limits: no connected-account exposure, liquidation/portfolio risk, owner-authenticated approval or app execution is established. Public quotes are not guaranteed fills. Legacy simulated execution routes are disabled; historical rehearsal footage is not current proof. The sponsor's definition of analytics/risk must be checked before selecting this award.
+Limits: no connected-account exposure, liquidation/portfolio risk, owner-authenticated approval or app execution is established. Public quotes are not guaranteed fills. Legacy simulated execution routes are disabled; historical rehearsal footage is not current proof. The current criteria require extensive protocol metrics and wallet position/history/statistics/margin/watch views. These are absent; do not select this award for the current inspector.
 
 ## Gather current data proof
 
-Run from the repository root with Node 24 or newer:
+Run from the repository root with Node 24.x:
 
 ```sh
 npm --silent run bounty:evidence > /tmp/monad-bounty-evidence.json
@@ -61,15 +57,15 @@ This separate receipt cross-check verifies indexed entities, including historica
 4. Independently fetch/decode its actual receipt and canonical block, comparing complete indexed values. Export the unchanged observation and inspect real ABI fields.
 5. Switch networks; inputs/evidence clear. Repeat with a real testnet event and check mobile readability.
 
-Use the new real-integration recording described in [current validation](real-integration-validation-2026-10-04.md). October 1–3 rehearsal videos are historical. General and sponsor-specific duration limits still need the current portal check; no successful CRE CLI simulation or live Nansen feature should be narrated.
+Use the new real-integration recording described in [current validation](real-integration-validation-2026-10-04.md). October 1–3 rehearsal videos are historical. The technical recording is 98.44 seconds and pitch 66.15 seconds; both fit the current limits. Qualifying hosted video links remain needed; no successful CRE CLI simulation or live Nansen feature should be narrated.
 
 ## Before selecting candidates in the portal
 
 - [ ] Confirm exactly one primary track and its current eligibility criteria.
-- [ ] Read the two Perpl bounty descriptions, requirements, deliverables and track/network restrictions from the signed-in portal.
-- [ ] Check whether these bounties can be combined in one entry.
+- [x] Read the current signed-in sponsor descriptions: neither Perpl deliverable is satisfied.
+- [x] Envio explicitly allows stacking; the Perpl deliverable gaps still exclude those targets.
 - [ ] Keep current Perpl/Envio proof and a sustained accessible product available to judges.
-- [ ] Resolve the prior publication approval hold before public source, hosting or video uploads.
+- [x] User explicitly approved the named GitHub/Vercel/temporary bridge destinations after correcting an accidental keep-local response.
 - [ ] Supply accurate team/contact/ownership information and personally accept the agreements.
 
 All descriptions above are local draft copy. This packet does not create or alter a portal entry.

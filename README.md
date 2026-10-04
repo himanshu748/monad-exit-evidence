@@ -16,7 +16,7 @@ Public events describe their participants, not the viewer or an execution perfor
 
 ## Run
 
-Use Node 24 or newer:
+Use Node 24.x (the `.nvmrc` and `.node-version` files select that major):
 
 ```sh
 npm ci
@@ -41,13 +41,13 @@ npm --prefix web run test:browser
 npm --silent run bounty:evidence
 ```
 
-HTTP/UI checks use actual public providers. Browser smoke additionally requires fresh Envio activity and verifies real indexed transactions on both networks, exact export, network reset and mobile layout. Use `EVIDENCE_DIR` to save new browser proof separately from previous/user screenshots. The bounty command gathers real quotes and current Envio data without any sample quantity; its data readiness is not submission eligibility. See [bounty proof packet](docs/bounty-evidence.md).
+Backend tests use an explicit `tsx` loader, which avoids unknown `.ts` extensions in independent Node 22 review shells. Node 24.x remains the verified app/indexer and deployment runtime. HTTP/UI checks use actual public providers. Browser smoke additionally requires fresh Envio activity and verifies real indexed transactions on both networks, exact export, network reset and mobile layout. Use `EVIDENCE_DIR` to save new browser proof separately from previous/user screenshots. The bounty command gathers real quotes and current Envio data without any sample quantity; its data readiness is not submission eligibility. See [bounty proof packet](docs/bounty-evidence.md).
 
 ## Bounty and submission scope
 
-Candidates: **Best Use of Envio**, **Best use of Perpl's API**, and **Best Analytics / Risk Tool**. Both Perpl awards need their detailed signed-in criteria checked. Primary-track eligibility, any restrictions on combining awards, durable approved deployment and public source/video links remain unresolved. CRE is omitted by user choice. Nansen has no authorized live transport and remains access-required; no mock portfolio is substituted.
+The strongest demonstrated target is **Best Use of Envio**. The current signed-in rules require real bot execution for Perpl's API bounty and combined protocol/wallet portfolio dashboards for its Analytics / Risk bounty. This product does not satisfy those Perpl deliverables. See [current rules and fit](docs/hackathon-rules-2026-10-04.md). CRE is omitted by user choice; Nansen has no authorized live transport.
 
-The prior authorized portal review gave October 13, 2026 at 11:59 PM ET / October 14 at 09:29 IST as the deadline. Recheck the current signed-in form before acting. Previously blocked publication still requires direct approval. No public push, deployment, submission or financial transaction has been performed.
+Live app: https://monad-exit-evidence.vercel.app. The Envio bridge depends on this Mac's running worker and a temporary tunnel; unavailable sources fail closed. Continued hosting, primary-track eligibility, qualifying hosted video URLs and participant agreements remain final-submission gates. The signed-in dashboard gives October 14, 2026 at 09:29 GMT+5:30 / October 13 at 23:59 Eastern as the deadline. Public source/app publication was explicitly approved after an accidental keep-local response. No completed hackathon submission or financial transaction is claimed.
 
 Current materials: [submission draft](docs/submission-draft.md), [demo script](docs/demo-script.md), [GTM proposal](docs/go-to-market.md), and [real integration validation](docs/real-integration-validation-2026-10-04.md). October 1–3 rehearsal recordings and validation notes are historical and do not represent the current real-only product.
 

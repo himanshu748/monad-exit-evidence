@@ -23,6 +23,7 @@ export type Market = {
   openInterest: string;
   dailyVolume: string;
   fundingRate: string;
+  fundingRateUnit: "fraction";
   isOpen: boolean;
   observedAt: string;
 };
@@ -108,7 +109,8 @@ export function normalizeContext(
       askPrice: formatUnits(raw(s.ask), pd),
       openInterest: formatUnits(raw(s.oi), sd),
       dailyVolume: formatUnits(raw(s.dva), collateralDecimals),
-      fundingRate: formatUnits(BigInt(f.rate), 4),
+      fundingRate: formatUnits(BigInt(f.rate), 6),
+      fundingRateUnit: "fraction",
       isOpen: c.is_open,
       observedAt: timestamp(object(s.at).t),
     };
@@ -127,7 +129,7 @@ export function normalizeContext(
     observedAt,
     snapshotRef,
     snapshotObservedAt: observedAt,
-    stale: times.some((t) => now - t > 120000 || t > now + 15000),
+    stale: !markets.length || times.some((t) => now - t > 120000 || t > now + 15000),
     markets,
   };
 }

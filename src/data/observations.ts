@@ -2,7 +2,7 @@ import { boundedText } from "./http.ts";
 import abi from '../../integrations/envio/abis/Exchange.json' with { type: 'json' };
 import { decodeEventLog, type Hex, type Abi } from 'viem';
 import { CHAIN_INFO, EVENT_NAMES, normalizeExchangeEvent, record, safeInteger, hex, type IndexedEvent } from '../../integrations/envio/src/normalize.ts';
-import { getEnvioActivity } from './envio.ts';
+import { getEnvioActivity, getEnvioIndexedTransaction } from './envio.ts';
 import { requireNetwork } from './perpl.ts';
 import { digest } from '../core/receipt.ts';
 import type { Network } from '../core/types.ts';
@@ -32,7 +32,7 @@ export async function getTransactionObservation(network: Network, transactionHas
   const hash = hex(transactionHash, 64);
   if (logIndex !== undefined) safeInteger(logIndex);
   const info = CHAIN_INFO[network];
-  const indexed = await getEnvioActivity(network);
+  let indexed = await getEnvioActivity(network);
   const [chain, receiptValue] = await Promise.all([
     call(network, 'eth_chainId', []), call(network, 'eth_getTransactionReceipt', [hash]),
   ]);
@@ -60,6 +60,7 @@ export async function getTransactionObservation(network: Network, transactionHas
     break;
   }
   if (!observed) throw new Error('No supported Perpl Exchange event found for this transaction/log');
+  if (indexed.status === 'live' && !indexed.events.some(e => e.id === observed.id)) indexed = await getEnvioIndexedTransaction(network, hash, observed.logIndex);
   const match = indexed.events.find(e => e.id === observed.id);
   const matches = !!match && sameIndexedObservation(match, observed);
   const indexStatus = indexed.status !== 'live' ? 'UNAVAILABLE' : !match ? 'NOT_IN_CURRENT_PAGE' : matches ? 'MATCH' : 'MISMATCH';

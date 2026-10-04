@@ -34,7 +34,9 @@ export function ActivityPanel({
       ) : (
         <>
           <p className="caption">
-            Observed chain watermark: {activity.watermark ?? "not reported"}
+            Latest 50 events shown; transaction inspection also queries the full
+            current index window. Observed chain watermark:{" "}
+            {activity.watermark ?? "not reported"}
           </p>
           {activity.windowStartBlock !== undefined && (
             <p className="caption">

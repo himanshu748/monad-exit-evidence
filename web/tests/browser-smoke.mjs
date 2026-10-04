@@ -89,6 +89,7 @@ try {
         })
         .first();
       await button.waitFor({ timeout: 30000 });
+      await page.waitForTimeout(7000); // A human-scale delay must not lose the genuine indexed comparison.
       const response = page.waitForResponse((r) =>
         r.url().includes("/api/observations?"),
       );

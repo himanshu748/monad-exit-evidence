@@ -441,7 +441,7 @@ export default function App({ api = defaultApi }: { api?: Api }) {
             {observation && (
               <>
                 <div
-                  className={`notice ${observation.outcome === "SOURCE_MISMATCH" ? "error" : "success"}`}
+                  className={`notice ${observation.outcome === "SOURCE_MISMATCH" ? "error" : observation.outcome === "INDEX_AND_CHAIN_MATCH" ? "success" : "warning"}`}
                   role="status"
                 >
                   <strong>
@@ -452,6 +452,19 @@ export default function App({ api = defaultApi }: { api?: Api }) {
                         : "Public chain event decoded"}
                   </strong>
                   <p>Envio comparison: {observation.envio.status}</p>
+                  {observation.envio.status === "NOT_IN_CURRENT_PAGE" && (
+                    <p>
+                      No matching entity was returned from the current index
+                      window. This does not prove the transaction was never
+                      indexed; only the public chain observation is confirmed.
+                    </p>
+                  )}
+                  {observation.envio.status === "UNAVAILABLE" && (
+                    <p>
+                      The indexer could not be checked. Only the public chain
+                      observation is confirmed.
+                    </p>
+                  )}
                 </div>
                 <table className="comparison">
                   <tbody>

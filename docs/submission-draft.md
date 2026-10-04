@@ -25,7 +25,7 @@ Boundaries: Public participant activity is not viewer ownership or execution by 
 | Nansen | Access-required | Authorized live access and meaningful core product integration; no fixture portfolio claim |
 | Primary track | Historical target Onchain Finance & Trading; not certified eligible | Confirm current criteria; the app has no owned onchain settlement mechanism |
 | Deployed product | Published real-provider app at https://monad-exit-evidence.vercel.app | Sustain genuine Envio worker/bridge; temporary Mac hosting is not durable |
-| Source | Reviewed local source and archive | Named-destination publication approved by explicit user correction; verify public source availability |
+| Source | Public complete source and reviewed local archive | Named-destination publication approved by explicit user correction; verify public source availability |
 | Video and pitch | Current real-data footage; see validation/media manifest | Inspect and approve hosting; verify sponsor-specific limits. Old rehearsal footage is historical |
 | Name, logo, descriptions | Name/description and SVG logo; portal requires raster logo <=3 MB | Accurate approved public fields; no name clearance claimed |
 | GTM / acquisition | Proposed experiments in `go-to-market.md` | No existing users, partnerships or traction claimed |
@@ -35,4 +35,4 @@ The [bounty proof packet](bounty-evidence.md) contains draft sponsor description
 
 Rules and exact gaps: [authenticated October 4 catalog review](hackathon-rules-2026-10-04.md). Envio explicitly allows stacking; the current Perpl targets do not meet deliverables. The dashboard deadline is October 14 at 09:29 GMT+5:30 / October 13 at 23:59 Eastern.
 
-Live demo: https://monad-exit-evidence.vercel.app. Source destination: https://github.com/himanshu748/monad-exit-evidence (verify public visibility after publication). Technical/pitch MP4 durations fit, but final video URLs must use YouTube, Loom or Vimeo. This task has not created or submitted a portal entry. Do not select a primary track or attest personal agreements without accurate participant input.
+Live demo: https://monad-exit-evidence.vercel.app. Public source: https://github.com/himanshu748/monad-exit-evidence (anonymous access verified). Technical/pitch MP4 durations fit, but final video URLs must use YouTube, Loom or Vimeo. This task has not created or submitted a portal entry. Do not select a primary track or attest personal agreements without accurate participant input.

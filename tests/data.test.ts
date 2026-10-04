@@ -35,7 +35,8 @@ test("context converts live precision and marks source without fixture fallback"
   assert.equal(r.chainId, 143);
   assert.equal(r.markets[0].markPrice, "83000");
   assert.equal(r.markets[0].sizeDecimals, 5);
-  assert.equal(r.markets[0].fundingRate, "0.002");
+  assert.equal(r.markets[0].fundingRate, "0.00002");
+  assert.equal(r.markets[0].fundingRateUnit, "fraction");
   assert.equal(r.stale, false);
 });
 test("context fails on wrong chain, absent precision and unsafe integer", () => {

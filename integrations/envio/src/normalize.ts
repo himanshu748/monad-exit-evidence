@@ -33,7 +33,7 @@ function canonical(value: unknown): unknown {
   if (typeof value === 'number') { if (!Number.isSafeInteger(value)) throw new Error('Unsafe decoded number'); return value.toString(); }
   if (typeof value === 'boolean' || typeof value === 'string' || value === null) return value;
   if (Array.isArray(value)) return value.map(canonical);
-  return Object.fromEntries(Object.entries(record(value)).sort(([a], [b]) => a.localeCompare(b)).map(([key, val]) => [key, canonical(val)]));
+  return Object.fromEntries(Object.entries(record(value)).sort(([a], [b]) => a < b ? -1 : a > b ? 1 : 0).map(([key, val]) => [key, canonical(val)]));
 }
 /** Only called by Envio handlers. This projection does not imply account ownership or successful execution. */
 export function normalizeExchangeEvent(input: unknown): IndexedEvent {

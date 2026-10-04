@@ -49,6 +49,7 @@ function send(
 }
 type Dependencies = {
   publicMode?: boolean;
+  bridgeOnly?: boolean;
   markets?: (n: Network) => Promise<MarketContext>;
   liquidity?: typeof getLiquidity;
   activity?: typeof getEnvioActivity;
@@ -59,6 +60,7 @@ export function createApp(options: Dependencies = {}) {
     liquidity = options.liquidity ?? getLiquidity,
     activity = options.activity ?? getEnvioActivity;
   const publicMode = options.publicMode ?? process.env.PUBLIC_DEMO === "1";
+  const bridgeOnly = options.bridgeOnly ?? process.env.ENVIO_BRIDGE_ONLY === "1";
   let windowAt = Date.now(), requests = 0, active = 0;
   return createServer(async (req, res) => {
     let admitted = false;
@@ -68,6 +70,7 @@ export function createApp(options: Dependencies = {}) {
       if ((req.url ?? "").length > 4096) throw new HttpError(414, "URI_TOO_LONG", "Request URL is too long");
       const url = new URL(req.url ?? "/", "http://localhost");
       const path = url.pathname;
+      if (bridgeOnly && path !== "/api/indexer-snapshot") throw new HttpError(404, "NOT_FOUND", "This route does not exist");
       if (publicMode && path.startsWith("/api/")) {
         if (Date.now() - windowAt >= 60_000) { windowAt = Date.now(); requests = 0; }
         if (++requests > 120 || active >= 6) {
@@ -98,7 +101,7 @@ export function createApp(options: Dependencies = {}) {
       if (path.startsWith("/api/") && req.method !== "GET") throw new HttpError(405, "READ_ONLY", "Only public read operations are available");
       if (req.method === "GET" && path === "/api/indexer-snapshot") {
         if (process.env.SERVE_ENVIO_SNAPSHOT !== "1" || process.env.VERCEL === "1") throw new HttpError(404, "NOT_FOUND", "This route does not exist");
-        try { return send(res, 200, await getLocalEnvioSnapshot(requireNetwork(url.searchParams.get("network")))); }
+        try { return send(res, 200, await getLocalEnvioSnapshot(requireNetwork(url.searchParams.get("network")), url.searchParams.get("transactionHash") ?? undefined, url.searchParams.has("logIndex") ? Number(url.searchParams.get("logIndex")) : undefined)); }
         catch { throw new HttpError(503, "INDEXER_UNAVAILABLE", "The genuine Envio indexer has no fresh validated snapshot"); }
       }
       if (req.method === "GET" && path === "/api/book") return send(res, 200, await getOrderBook(requireNetwork(url.searchParams.get("network")), Number(url.searchParams.get("marketId"))));
@@ -201,7 +204,7 @@ export function createApp(options: Dependencies = {}) {
         : 400;
       send(res, status, null, {
         code: status === 503 ? "UPSTREAM_UNAVAILABLE" : "INVALID_REQUEST",
-        message: publicMode ? (status === 503 ? "Public provider unavailable; retry later" : "The requested public read is invalid or unsupported") : message.slice(0, 300),
+        message: publicMode ? (/^(Use a plain nonnegative decimal, without spaces or exponent notation|Maximum \d+ decimal places|Quantity exceeds supported integer range|Quantity must be positive)$/.test(message) ? message : status === 503 ? "Public provider unavailable; retry later" : "The requested public read is invalid or unsupported") : message.slice(0, 300),
       });
     } finally { if (admitted) active--; }
   });

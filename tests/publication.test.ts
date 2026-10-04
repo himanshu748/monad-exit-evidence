@@ -28,3 +28,16 @@ test('public API capacity is bounded and raw snapshot bridge is disabled by defa
     assert.equal((await limited.json() as any).error.code, 'READ_LIMIT');
   } finally { await new Promise<void>(resolve => server.close(() => resolve())); }
 });
+
+test('isolated bridge cannot serve frontend, provider proxy or general health routes', async () => {
+  const server = createApp({ publicMode: true, bridgeOnly: true });
+  await new Promise<void>(resolve => server.listen(0, '127.0.0.1', resolve));
+  const base = `http://127.0.0.1:${(server.address() as {port:number}).port}`;
+  try {
+    for (const path of ['/', '/api/health', '/api/markets?network=mainnet', '/api/observations', '/api/nansen/status']) {
+      const response = await fetch(base + path);
+      assert.equal(response.status, 404);
+      assert.equal((await response.json() as any).error.code, 'NOT_FOUND');
+    }
+  } finally { await new Promise<void>(resolve => server.close(() => resolve())); }
+});

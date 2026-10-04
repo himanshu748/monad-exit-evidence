@@ -52,11 +52,16 @@ export function snapshotOrigin(value: string): string {
   if (url.protocol !== 'https:' || url.username || url.password || url.port || url.pathname !== '/' || url.search || url.hash || !/^[a-z0-9]+(?:-[a-z0-9]+)*\.trycloudflare\.com$/.test(url.hostname)) throw new Error('Invalid configured Envio snapshot origin');
   return url.origin;
 }
-export async function getLocalEnvioSnapshot(network: Network) {
+export async function getLocalEnvioSnapshot(network: Network, transactionHash?: string, logIndex?: number) {
   if (!CHAIN_INFO[network]) throw new Error('Unsupported network');
   const body = await readFile(new URL(`${network}.json`, SNAPSHOT_ROOT), 'utf8');
   if (body.length > 1_000_000) throw new Error('Indexer response too large');
   const page = record(JSON.parse(body));
+  if (transactionHash !== undefined) {
+    if (logIndex === undefined) throw new Error('Missing log index');
+    const { readIndexedTransaction } = await import('./envio-local.ts');
+    return readIndexedTransaction(network, transactionHash, logIndex, page.indexWindow === undefined ? undefined : String(record(page.indexWindow).runtime));
+  }
   const validated = parseEnvioSnapshot(page, network);
   // Publish only actual public exchange fields and progress metadata, never a DB/runtime path.
   return { source: page.source, chainId: page.chainId, contract: page.contract,
@@ -74,7 +79,7 @@ async function readSnapshot(path: URL): Promise<string> {
   const response = await fetch(`${snapshotOrigin(configured)}/api/indexer-snapshot?network=${network}`, {
     redirect: 'error', signal: AbortSignal.timeout(5_000), headers: { accept: 'application/json' },
   });
-  if (!response.ok) throw new Error('Envio bridge unavailable');
+  if (!response.ok) { await response.body?.cancel(); throw new Error('Envio bridge unavailable'); }
   const envelope = record(JSON.parse(await boundedText(response, 1_000_000)));
   if (envelope.error || !envelope.data) throw new Error('Envio bridge unavailable');
   parseEnvioSnapshot(envelope.data, network);
@@ -92,5 +97,26 @@ export async function getEnvioActivity(network: Network, reader: (path: URL) => 
   } catch {
     return { status: 'unavailable', source: 'ENVIO', chainId: info.chainId, watermark: null, receivedAt: new Date(now).toISOString(), events: [],
       error: 'Envio activity unavailable: its genuine indexer must be running with a fresh verified chain watermark' };
+  }
+}
+
+/** Read one genuine SQL entity with its committed watermark; never infer a match from a receipt. */
+export async function getEnvioIndexedTransaction(network: Network, transactionHash: string, logIndex: number): Promise<EnvioActivity> {
+  const hash = hex(transactionHash, 64), index = safeInteger(logIndex);
+  try {
+    const origin = process.env.ENVIO_SNAPSHOT_ORIGIN;
+    if (!origin) return parseEnvioSnapshot(await getLocalEnvioSnapshot(network, hash, index), network);
+    const response = await fetch(`${snapshotOrigin(origin)}/api/indexer-snapshot?network=${network}&transactionHash=${hash}&logIndex=${index}`, {
+      redirect: 'error', signal: AbortSignal.timeout(5_000), headers: { accept: 'application/json' },
+    });
+    if (!response.ok) { await response.body?.cancel(); throw new Error('Envio bridge unavailable'); }
+    const envelope = record(JSON.parse(await boundedText(response, 1_000_000)));
+    if (envelope.error || !envelope.data) throw new Error('Envio bridge unavailable');
+    const activity = parseEnvioSnapshot(envelope.data, network);
+    if (activity.events.length > 1 || activity.events.some(event => event.transactionHash !== hash || event.logIndex !== index)) throw new Error('Mismatched indexed lookup');
+    return activity;
+  } catch {
+    return { status: 'unavailable', source: 'ENVIO', chainId: CHAIN_INFO[network].chainId, watermark: null,
+      receivedAt: new Date().toISOString(), events: [], error: 'Indexed transaction lookup unavailable' };
   }
 }

@@ -2,7 +2,7 @@
 
 This script accompanies the local recorded demo; inspect the media manifest before approved upload. Keep the read-only and hypothetical-position labels visible. Use fresh public data, or show the real unavailable state and explain the interruption. Do not replace missing data with fixtures.
 
-Before recording: run `npm start`, open http://127.0.0.1:4100, and start the documented recent Envio supervisor in a second terminal if the RPC is healthy. Refresh reads. Confirm source timestamps; never show historical JSON as current data.
+Before recording: run `npm --silent run bounty:evidence` and inspect `demoDataReadyNetworks` (data proof only; no eligibility claim). Run `npm start`, open http://127.0.0.1:4100, and start the documented recent Envio supervisor in a second terminal if the RPC is healthy. Refresh reads. Confirm source timestamps; never show historical JSON as current data.
 
 | Time | Action | Narration |
 | --- | --- | --- |
@@ -15,7 +15,7 @@ Before recording: run `npm start`, open http://127.0.0.1:4100, and start the doc
 | 2:25–2:45 | Show integration gates and brief architecture | “Envio supplies real public exchange activity. CRE and Nansen bounty claims are omitted. This local build makes zero provider writes.” |
 | 2:45–2:55 | End on the workbench | “The useful boundary is knowing what the evidence proves, including what remains unknown.” |
 
-Use Start a separate rehearsal when abandoning an unknown result for a new demonstration. Keep the explicit action visible. Final sponsor/demo clips require actual validated live results; remove any completion claim for a gated integration.
+Use Start a separate rehearsal when abandoning an unknown result for a new demonstration. Keep the explicit action visible. Final sponsor/demo clips require actual validated live results; remove any completion claim for a gated integration. For the Envio and two Perpl candidates, use the [sponsor proof sequence](bounty-evidence.md). Perpl eligibility and sponsor-specific clip limits remain pending authenticated rules; do not narrate real trading or account-wide risk from rehearsals.
 
 ## Pitch script (target under 2 minutes)
 

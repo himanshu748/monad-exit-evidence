@@ -1,5 +1,7 @@
 # Publication checkpoint — October 5, 2026
 
+Historical pre-deployment checkpoint: publication, deployment and media status below are superseded by [later October 5 publication validation](publication-validation-2026-10-05.md). The original checkpoint and its bounded review evidence are retained unchanged below.
+
 This is a documentation update from saved release evidence. No new provider, rendered-browser or deployment verification was performed for this update. Earlier dated validation documents retain their historical observations; their publication holds were resolved by subsequent named-destination authorization and publication.
 
 ## Reviewed source and validation

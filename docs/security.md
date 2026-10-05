@@ -14,7 +14,7 @@ The current production app is a public read-only data inspector. Legacy rehearsa
 
 ## Hosting limits and threat model
 
-The local Envio worker, database and bridge must keep running. A quick tunnel is temporary and can stop or change URL; it is not a durable hosted indexer. A disconnected bridge fails closed. Before final submission, confirm a sustained worker/bridge or approve a proper persistent worker/database host. The app does not install a daemon, open a database port, create a persistent token or authorize spending.
+In default HyperIndex mode, the Envio worker, database and bridge must keep running. A quick tunnel is temporary and can stop or change URL; it is not a durable hosted indexer. A disconnected bridge fails closed. Optional HyperSync mode reads directly from the provider and requires authenticated integration verification before activation. Both modes depend on provider availability and hosting quotas. Final submission requires sustained source availability; the [dated publication checkpoint](publication-checkpoint-2026-10-05.md) records the October 4 saved status. The app does not install a daemon, open a database port, create a persistent token or authorize spending.
 
 Public provider responses, the deployment configuration and indexer host are trusted observations. Independent receipt comparisons narrow consistency uncertainty, not provider collusion or finality. A digest detects export changes but does not establish owner identity or app execution. Book depth is a quote calculation, never a guaranteed fill. A request event remains a request.
 

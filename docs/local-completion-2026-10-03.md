@@ -1,5 +1,7 @@
 # Local completion checkpoint — October 3, 2026
 
+Historical checkpoint: the publication hold and process status below describe October 3. Named-destination publication was subsequently authorized and performed, as recorded in [October 4 public-product validation](publication-validation-2026-10-04.md). The [October 5 publication checkpoint](publication-checkpoint-2026-10-05.md) supersedes the remaining release-status statements; historical observations are retained below.
+
 Status: locally validated read-only workbench. Publication and submission are blocked. No push, upload, public deployment, PR, wallet operation, paid service, new account or authentication credential was performed.
 
 ## Workspace and preservation

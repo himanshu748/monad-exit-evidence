@@ -1,5 +1,7 @@
 # Real integration validation — October 4, 2026
 
+Historical validation before publication: its publication hold and pending-rules statements were superseded by [later October 4 public-product validation](publication-validation-2026-10-04.md). The [October 5 publication checkpoint](publication-checkpoint-2026-10-05.md) records subsequent review and source-availability limits. These successful HyperIndex observations do not establish live HyperSync integration.
+
 User requirement: use real integrations, without mock/sample runtime outcomes. The production rehearsal UI, default sample position quantities, simulated execution routes and legacy receipt-verification route are removed or blocked. The app now reads public Perpl quotes, actual Envio SQL activity and independently fetched public Monad receipts/canonical blocks. Transaction and quantity inputs begin empty. Missing data stays unavailable; no static evidence or fixture is returned as live data.
 
 ## Verified behavior

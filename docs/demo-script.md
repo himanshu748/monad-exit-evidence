@@ -1,8 +1,10 @@
 # Real integration demo — actual product only
 
+This is a recording plan, not a completed live demonstration. The [publication checkpoint](publication-checkpoint-2026-10-05.md) records the saved October 4 unavailable activity check and historical HyperIndex footage. HyperSync is unactivated and unverified. Record only after fresh real reads and receipt comparisons pass; unavailable sources remain unavailable.
+
 Use the current product and actual provider responses. Old rehearsal recordings are historical and must not be used to describe this release. No screenshots/slides, fake responses, prefilled positions or generated execution outcomes should appear.
 
-Before recording, keep one Envio supervisor running with a recorded window. Run `npm --silent run bounty:evidence`; check fresh market/book and Envio states. Build/start the product. The technical demo should remain below the previously reviewed general 3-minute limit; the pitch below 2 minutes. Detailed Perpl clip requirements still need portal confirmation.
+Before recording, keep one Envio supervisor running with a recorded window. Run `npm --silent run bounty:evidence`; check fresh market/book and Envio states. Build/start the product. The technical demo should remain below the previously reviewed general 3-minute limit; the pitch below 2 minutes. The saved October 4 Perpl criteria require trading-bot or portfolio-risk deliverables this product does not implement.
 
 1. Show the network, current public Perpl market and actual quoted book. Quantity and transaction inputs begin empty.
 2. Enter a quantity deliberately and calculate against current quotes. Explain that this is quote analysis, with no inferred holdings, order dispatch or guaranteed fill.
@@ -21,4 +23,4 @@ The current product combines public Perpl markets and books on Monad with real E
 
 Initial users are Monad trading-tool builders and protocol integration teams checking event adapters and data provenance. Proposed acquisition begins with reproducible tutorials and hands-on walkthroughs after approved release, then measures accurate interpretation of sources and repeat use on real integration issues. No existing traction is claimed.
 
-The app reads data and does not trade, sign or infer wallet ownership. Envio is the strongest bounty integration; Perpl API and Analytics / Risk Tool eligibility need exact criteria. CRE is omitted, Nansen is unavailable without authorized access, and primary-track fit/public deployment remain completion gates.
+The app reads data and does not trade, sign or infer wallet ownership. Envio is the strongest bounty fit, supported by historical HyperIndex evidence; a new live demonstration remains required. The saved October 4 Perpl API and Analytics / Risk Tool deliverables are not satisfied. CRE is omitted, Nansen is unavailable without authorized access, and primary-track fit and sustained source availability remain completion requirements.

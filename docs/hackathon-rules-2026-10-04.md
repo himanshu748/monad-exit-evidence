@@ -10,9 +10,9 @@ Public GitHub source accessible to the organizer; a working mainnet/testnet prod
 
 ## Best Use of Envio
 
-Catalog ID: 176e7163-7297-477f-8d1a-663df835fa46. Track agnostic; the description explicitly permits stacking with other awards. Meaningful HyperIndex/HyperSync/HyperRPC use must drive a core feature. Judges consider integration depth, live correctness, originality and craft. Deliver a working deployed pipeline (Envio Cloud or self hosted), public config/schema/handlers, a useful consuming interface/API and an end-to-end demonstration. The optional bounty demo field specifies at most two minutes.
+Catalog ID: 176e7163-7297-477f-8d1a-663df835fa46. Track agnostic; the description explicitly permits stacking with other awards. Meaningful HyperIndex/HyperSync/HyperRPC use must drive a core feature. Judges consider integration depth, live correctness, originality and craft. Deliver a working deployed pipeline (Envio Cloud or self hosted), public config/schema/handlers or HyperSync client code, a useful consuming interface/API and an end-to-end demonstration. The optional bounty demo field specifies at most two minutes.
 
-Current fit: genuine HyperIndex ingestion on both Monad networks, normalized integer quantities, atomic committed-watermark exports and independent complete receipt comparisons. The 98.44-second current technical recording fits the duration. Continued pipeline availability and the general submission requirements remain gates. A temporary Mac worker/tunnel is not durable hosting.
+Current October 7 fit: hosted HyperSync drives real event discovery and independent complete receipt comparisons on both Monad networks. Its watermark is the last completely queried block. HyperIndex and atomic PostgreSQL exports remain historical/local paths. The fresh technical video is 107.24 seconds and pitch is 67.96 seconds; final YouTube links and general submission requirements remain gates. The deployed hosted path passed with this project's Mac services stopped; provider quotas still limit availability. See [October 7 validation](publication-validation-2026-10-07.md).
 
 ## Best use of Perpl's API
 

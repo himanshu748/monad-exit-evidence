@@ -1,5 +1,7 @@
 # Envio exchange activity
 
+This directory documents the retained local HyperIndex path. The current public deployment uses hosted HyperSync; see [hosted integration](../../docs/mac-independent-hypersync.md). Local worker instructions below are not required for that deployment.
+
 Real Envio HyperIndex 3.12.1 handlers ingest selected Perpl Exchange events from Monad public RPC into PostgreSQL 17.9. This module contains no signing keys, wallet connection, account creation, trade dispatch, paid service or hosted deployment.
 
 ## Data flow

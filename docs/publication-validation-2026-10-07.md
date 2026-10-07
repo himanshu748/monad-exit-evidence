@@ -92,3 +92,7 @@ The operator's October 7 signed-in catalog check still permits HyperSync client 
 The final deployed build passed the dated checks above. Remaining manual deliverables are fresh footage of **that build**, a technical demonstration and pitch with Deepgram narration, review of the actual outputs, and working public or unlisted YouTube, Loom or Vimeo links. Historical October 4 HyperIndex footage does not demonstrate the new deployed mode.
 
 Complete the existing project's `?tab=submission` form, including eligibility, participant declarations and required deliverables, before **October 13, 2026 at 23:59 ET / October 14 at 09:29 IST**. The release operator freshly verified that deadline in the signed-in dashboard on October 7; it also matches the [saved October 4 rules](hackathon-rules-2026-10-04.md). Recheck the portal deadline before submitting. Data readiness and a saved draft do not establish organizer eligibility or submission completion.
+
+## Fresh media preparation, later October 7
+
+The [fresh media review](hosted-media-review-2026-10-07.md) records current hosted footage, 107.24-second technical and 67.96-second pitch, synthetic Deepgram narration and bounded Sonnet 5.5 reviews. Both uploads remain private drafts pending publication confirmation. The actual submission form's logo limit is 2 MB, stricter than the general catalog's 3 MB. No completed entry, listening review or qualifying unlisted links are claimed.

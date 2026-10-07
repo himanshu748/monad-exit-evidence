@@ -108,6 +108,6 @@ export async function main() {
   if (evidenceDirectory) {
     console.log(`Saved public proof: ${await writePublicProof(result, evidenceDirectory)}`);
   }
-  console.log('Both networks independently verified against genuine Envio HyperSync. Local service shutdown must be recorded separately.');
+  console.log('Both networks passed checks of server-reported HyperSync labels and server-side RPC comparisons. Local service shutdown must be recorded separately.');
 }
 if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) await main();

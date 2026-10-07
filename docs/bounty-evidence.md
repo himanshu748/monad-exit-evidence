@@ -57,7 +57,7 @@ This separate receipt cross-check verifies indexed entities, including historica
 4. Independently fetch/decode its actual receipt and canonical block, comparing complete indexed values. Export the unchanged observation and inspect real ABI fields.
 5. Switch networks; inputs/evidence clear. Repeat with a real testnet event and check mobile readability.
 
-Use the new real-integration recording described in [current validation](real-integration-validation-2026-10-04.md). October 1–3 rehearsal videos are historical. The technical recording is 98.44 seconds and pitch 66.15 seconds; both fit the current limits. Qualifying hosted video links remain needed; no successful CRE CLI simulation or live Nansen feature should be narrated.
+The [October 4 integration recording](real-integration-validation-2026-10-04.md) is historical HyperIndex evidence, not proof of the final deployed build or hosted HyperSync. October 1–3 rehearsal videos are also historical. The prepared technical recording is 98.44 seconds and pitch 66.15 seconds; their duration alone does not complete media requirements. After hosted verification, record the actual final deployed build and provide qualifying public/unlisted watch links. See [October 7 status](publication-validation-2026-10-07.md). No successful CRE CLI simulation or live Nansen feature should be narrated.
 
 ## Before selecting candidates in the portal
 

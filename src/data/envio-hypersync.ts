@@ -77,6 +77,8 @@ class HyperSyncFailure extends Error {
   constructor(reason: FailureReason, message: string, status?: number) { super(message); this.reason = reason; this.status = status; }
 }
 const FAILURE_COOLDOWN = 8000, DIAGNOSTIC_COOLDOWN = 30_000, MAX_TARGET_READS = 4;
+const CACHE_MILLISECONDS = 30_000, REQUEST_WINDOW = 60_000, MAX_PROVIDER_REQUESTS = 15, PREVIEW_RESERVE = 4;
+const SHARED_TARGET_FAILURES = new Set<FailureReason>(['token-missing', 'token-whitespace', 'token-invalid', 'http-401', 'http-403', 'http-429', 'http-5xx', 'timeout', 'transport', 'stale-head']);
 const HTTP_STATUSES = new Set([400, 401, 403, 404, 413, 429, 500, 502, 503, 504]);
 
 export function createHyperSyncReader(transport: typeof fetch = fetch, token: () => string | undefined = () => process.env.ENVIO_API_TOKEN, now: () => number = Date.now, diagnostic: (item: Diagnostic) => void = item => console.warn(JSON.stringify(item))) {
@@ -85,6 +87,14 @@ export function createHyperSyncReader(transport: typeof fetch = fetch, token: ()
   const targets = new Map<string, Promise<EnvioActivity>>();
   const failures = new Map<Network, { at: number; until: number; failure: HyperSyncFailure }>();
   const reported = new Map<string, number>(); // Two networks times a fixed finite reason set.
+  const requests: number[] = []; // Shared by both networks in this reader instance, never a distributed quota guarantee.
+  function takeProviderSlot(target: boolean) {
+    const time = now();
+    while (requests.length && time >= requests[0] + REQUEST_WINDOW) requests.shift();
+    const ceiling = MAX_PROVIDER_REQUESTS - (target ? PREVIEW_RESERVE : 0);
+    if (requests.length >= ceiling) throw new HyperSyncFailure('capacity', 'HyperSync local request budget reached');
+    requests.push(time);
+  }
   function requireSource(network: Network) {
     if (!CHAIN_INFO[network]) throw new Error('Unsupported network');
     const prior = failures.get(network);
@@ -101,11 +111,12 @@ export function createHyperSyncReader(transport: typeof fetch = fetch, token: ()
       ...(failure.status !== undefined && HTTP_STATUSES.has(failure.status) ? { status: failure.status } : {}) }); }
     catch { /* Operator logging cannot change the reader's fail-closed behavior. */ }
   }
-  async function query(network: Network, path: '/height' | '/query', body: unknown | undefined, deadline: AbortSignal) {
+  async function query(network: Network, path: '/height' | '/query', body: unknown | undefined, deadline: AbortSignal, target = false) {
     const secret = token();
     if (!secret) throw new HyperSyncFailure('token-missing', 'Authorized free HyperSync access is required');
     if (/\s/.test(secret)) throw new HyperSyncFailure('token-whitespace', 'Authorized free HyperSync access is required');
     if (secret.length > 8192) throw new HyperSyncFailure('token-invalid', 'Authorized free HyperSync access is required');
+    takeProviderSlot(target);
     const signal = AbortSignal.any([deadline, AbortSignal.timeout(8000)]);
     let response: Response;
     try {
@@ -129,14 +140,17 @@ export function createHyperSyncReader(transport: typeof fetch = fetch, token: ()
   async function read(network: Network, target?: { hash: string; logIndex: number; blockNumber: number }): Promise<EnvioActivity> {
     const started = now(), deadline = AbortSignal.timeout(20_000);
     // Keep the strict 16-block preview and prove every scanned block.
-    const height = integer((await query(network, '/height', undefined, deadline)).height);
+    const height = integer((await query(network, '/height', undefined, deadline, !!target)).height);
     if (height < 1) throw new HyperSyncFailure('coverage', 'HyperSync has not indexed a block');
-    const headPage = parseHyperSyncPage(await query(network, '/query', { from_block: height - 1, to_block: height,
-      include_all_blocks: true, field_selection: { block: FIELD_SELECTION.block }, max_num_blocks: 1 }, deadline), network, height - 1, height, false);
-    const head = headPage.blocks.get(height - 1);
-    if (!head || headPage.nextBlock !== height) throw new HyperSyncFailure('coverage', 'HyperSync head not covered');
-    const headAge = now() - head.timestamp * 1000;
-    if (headAge > 300_000 || headAge < -30_000) throw new HyperSyncFailure('stale-head', 'HyperSync head is stale');
+    let head: { hash: string; timestamp: number } | undefined;
+    if (target) {
+      const headPage = parseHyperSyncPage(await query(network, '/query', { from_block: height - 1, to_block: height,
+        include_all_blocks: true, field_selection: { block: FIELD_SELECTION.block }, max_num_blocks: 1 }, deadline, true), network, height - 1, height, false);
+      head = headPage.blocks.get(height - 1);
+      if (!head || headPage.nextBlock !== height) throw new HyperSyncFailure('coverage', 'HyperSync head not covered');
+      const headAge = now() - head.timestamp * 1000;
+      if (headAge > 300_000 || headAge < -30_000) throw new HyperSyncFailure('stale-head', 'HyperSync head is stale');
+    }
     const fromBlock = target ? target.blockNumber : Math.max(0, height - WINDOW_BLOCKS);
     const toBlock = target ? fromBlock + 1 : height;
     // A valid but not-yet-indexed target must not poison reads for the network.
@@ -146,11 +160,14 @@ export function createHyperSyncReader(transport: typeof fetch = fetch, token: ()
     for (let pageIndex = 0; cursor < toBlock && pageIndex < MAX_PAGES; pageIndex++) {
       const page = parseHyperSyncPage(await query(network, '/query', { from_block: cursor, to_block: toBlock,
         logs: [{ address: [CHAIN_INFO[network].contract], topics: [TOPICS] }], include_all_blocks: true,
-        field_selection: FIELD_SELECTION, max_num_logs: 512, max_num_blocks: 32 }, deadline), network, cursor, toBlock);
+        field_selection: FIELD_SELECTION, max_num_logs: 512, max_num_blocks: 32 }, deadline, !!target), network, cursor, toBlock);
       if (page.blocks.size !== page.nextBlock - cursor) throw new HyperSyncFailure('coverage', 'HyperSync block coverage incomplete');
       for (const [number, block] of page.blocks) {
         if (block.timestamp * 1000 > now() + 30_000) throw new HyperSyncFailure('stale-head', 'HyperSync block timestamp is in the future');
-        if (number === height - 1 && (block.hash !== head.hash || block.timestamp !== head.timestamp)) throw new HyperSyncFailure('coverage', 'HyperSync head changed during query');
+        if (number === height - 1) {
+          if (head && (block.hash !== head.hash || block.timestamp !== head.timestamp)) throw new HyperSyncFailure('coverage', 'HyperSync head changed during query');
+          head = block; // Complete preview coverage already includes the actual provider head block.
+        }
       }
       count += page.events.length;
       if (count > MAX_LOGS) throw new HyperSyncFailure('coverage', 'HyperSync total event limit exceeded');
@@ -162,8 +179,9 @@ export function createHyperSyncReader(transport: typeof fetch = fetch, token: ()
       cursor = page.nextBlock;
     }
     if (now() - started > 20_000) throw new HyperSyncFailure('timeout', 'HyperSync read deadline exceeded');
-    if (now() - head.timestamp * 1000 > 300_000) throw new HyperSyncFailure('stale-head', 'HyperSync head is stale');
     if (cursor !== toBlock) throw new HyperSyncFailure('coverage', 'HyperSync window incomplete');
+    if (!head) throw new HyperSyncFailure('coverage', 'HyperSync head not covered');
+    if (now() - head.timestamp * 1000 > 300_000) throw new HyperSyncFailure('stale-head', 'HyperSync head is stale');
     const selected = [...events.values()].filter(event => !target || (event.transactionHash === target.hash && event.logIndex === target.logIndex));
     return { status: 'live', source: 'ENVIO', engine: 'HYPERSYNC', sourceUrl: ORIGINS[network], chainId: CHAIN_INFO[network].chainId,
       watermark: cursor - 1, providerHead: height - 1, providerHeadObservedAt: new Date(head.timestamp * 1000).toISOString(), windowStartBlock: fromBlock, receivedAt: new Date(started).toISOString(),
@@ -174,7 +192,7 @@ export function createHyperSyncReader(transport: typeof fetch = fetch, token: ()
     try { return await read(network, target); }
     catch (error) {
       const failure = error instanceof HyperSyncFailure ? error : new HyperSyncFailure('parse', 'Invalid HyperSync response');
-      if (failure.reason !== 'target-ahead') {
+      if (failure.reason !== 'target-ahead' && failure.reason !== 'capacity' && (!target || SHARED_TARGET_FAILURES.has(failure.reason))) {
         const at = now(); failures.set(network, { at, until: at + FAILURE_COOLDOWN, failure });
         cache.delete(network);
       }
@@ -190,7 +208,8 @@ export function createHyperSyncReader(transport: typeof fetch = fetch, token: ()
     if (inFlight) return inFlight;
     const task = guardedRead(network).then(activity => {
       // Another concurrent read may have failed; it still owns the cooldown.
-      if (!failures.has(network)) cache.set(network, { at: now(), expiresAt: Math.min(now() + 10_000, Date.parse(activity.providerHeadObservedAt!) + 300_000), activity });
+      if (!failures.has(network)) cache.set(network, { at: now(), expiresAt: Math.min(now() + CACHE_MILLISECONDS,
+        Date.parse(activity.receivedAt) + 120_000, Date.parse(activity.providerHeadObservedAt!) + 300_000), activity });
       return activity;
     });
     pending.set(network, task);

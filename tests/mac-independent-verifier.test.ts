@@ -74,8 +74,8 @@ test('offline verifier rejects missing, stale and future final observation times
   assert.throws(() => checkActivity({ ...activity(), providerHeadObservedAt: new Date(clock - 300001).toISOString() }, 'mainnet', clock), /timestamps/);
 });
 
-test('offline verifier requires exact historical coverage, advancing head and unchanged selected event', () => {
-  for (const change of [{ windowStartBlock: 104 }, { watermark: 140 }, { providerHead: 139 }, { providerHead: null }]) {
+test('offline verifier requires exact historical coverage, a covered target and unchanged selected event', () => {
+  for (const change of [{ windowStartBlock: 104 }, { watermark: 140 }, { providerHead: 118 }, { providerHead: null }]) {
     assert.throws(() => checkObservation(sign({ ...observation(), envio: { ...observation().envio, ...change } }), 'mainnet', event(), activity(), clock));
   }
   assert.throws(() => checkObservation(observation(), 'mainnet', event(), activity('mainnet', false), clock), /not proven/);
@@ -83,6 +83,11 @@ test('offline verifier requires exact historical coverage, advancing head and un
     assert.throws(() => checkObservation(sign({ ...observation(), observation: { ...observation().observation, ...change } }), 'mainnet', event(), activity(), clock));
   }
   assert.throws(() => checkObservation({ ...observation(), verifiedAt: new Date(clock + 1).toISOString() }, 'mainnet', event(), activity(), clock), /digest mismatch/);
+});
+
+test('offline verifier accepts a fresh historical lookup from a slightly lagging provider replica', () => {
+  const prior = observation();
+  checkObservation(sign({ ...prior, envio: { ...prior.envio, providerHead: 139 } }), 'mainnet', event(), activity(), clock);
 });
 
 test('offline verifier waits for provider-reported window advancement instead of a fixed delay', async () => {

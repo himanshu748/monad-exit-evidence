@@ -25,6 +25,8 @@ npm start
 
 The supervised command keeps all processes together, which also works when separate shell commands have isolated network namespaces. The application reads only atomically renamed files and needs no database credentials. Stop gracefully with `touch .runtime/stop` and wait for the supervisor to exit (within its five-second export interval). Restart with `rm -f .runtime/stop && npm start`. This is a temporary foreground development process, not an installed service; it is not guaranteed to survive the executor/session closing. Repeated starts resume Envio checkpoints; they do not clear existing state. Do not run two supervisors against this database directory.
 
+The supervisor also closes its owned indexer, SQL connection and PostgreSQL instance after a later startup failure. An unexpected indexer exit returns a nonzero status instead of reporting a successful stop. Stop signals interrupt the export wait; bounded cleanup continues if one resource fails to close. A stop marker must be removed explicitly before resuming the selected window. Cleanup never deletes database or checkpoint files, and only the supervisor's own child is signalled.
+
 The included start blocks are the verified October 1, 2026 run's beginning: mainnet 109565000; testnet 67214000. This is recent-window activity, not a claim of complete exchange history. To start a separate fresh window later, choose a new local runtime/database directory and explicitly update start blocks. Never claim the window includes earlier activity.
 
 Monad's public RPC allows at most 100 blocks per `eth_getLogs` request. Configuration caps both initial and maximum range at 100 with zero acceleration. RPC sync does not require an Envio HyperSync token.

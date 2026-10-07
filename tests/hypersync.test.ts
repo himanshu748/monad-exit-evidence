@@ -64,18 +64,18 @@ test('HyperSync completes pagination, pins its origin and preserves cache source
   }), () => 'unit-test-only-token', () => time);
   const [first, second] = await Promise.all([reader.activity('mainnet'), reader.activity('mainnet')]);
   assert.strictEqual(first, second);
-  assert.equal(requests.length, 4);
+  assert.equal(requests.length, 3);
   assert.equal(first.engine, 'HYPERSYNC');
   assert.equal(first.watermark, 119);
   assert.equal(first.providerHead, 119);
   assert.equal(first.windowStartBlock, 104);
   assert.equal(first.events.length, 2);
   assert(requests.every(request => request.url.startsWith('https://monad.hypersync.xyz/')));
-  assert.equal(requests[2].body.logs[0].address[0], CHAIN_INFO.mainnet.contract);
-  time += 9999;
+  assert.equal(requests[1].body.logs[0].address[0], CHAIN_INFO.mainnet.contract);
+  time += 29999;
   assert.strictEqual(await reader.activity('mainnet'), first);
   assert.equal(first.receivedAt, new Date(clock).toISOString());
-  assert.equal(requests.length, 4);
+  assert.equal(requests.length, 3);
 });
 
 test('HyperSync targeted lookup queries the real selected block, never substitutes receipt values', async () => {
@@ -150,7 +150,7 @@ test('HyperSync cache expires at the original provider head freshness boundary',
   assert.equal(first.providerHeadObservedAt, new Date(timestamp * 1000).toISOString());
   time += 1001;
   await assert.rejects(reader.activity('mainnet'), /stale/);
-  assert.equal(requests, 5);
+  assert.equal(requests, 4);
 });
 
 test('offline provider failures cool down both read paths and diagnostics disclose only fixed reasons/statuses', async () => {
@@ -184,7 +184,7 @@ test('offline missing/whitespace token, malformed response and stale head diagno
       if (String(input).endsWith('/height')) return new Response(JSON.stringify({ height: 120 }));
       if (body.from_block === 119) return new Response(JSON.stringify({ archive_height: 120, next_block: 120, data: { blocks: [block(119, clock / 1000 - (mode === 'stale' ? 301 : 0))] } }));
       if (mode === 'timeout') time += 20001;
-      return new Response(JSON.stringify(page()));
+      return new Response(JSON.stringify({ ...page(), data: { blocks: page().data.blocks.map(b => ({ ...b, timestamp: clock / 1000 - (mode === 'stale' ? 301 : 0) })), logs: [log()] } }));
     }) as typeof fetch, () => mode === 'missing' ? undefined : mode === 'whitespace' ? 'private-unit-token\n' : 'private-unit-token', () => time, item => diagnostics.push(item));
     await assert.rejects(reader.activity('mainnet'));
     const expected = { missing: 'token-missing', whitespace: 'token-whitespace', parse: 'parse', stale: 'stale-head', transport: 'transport', timeout: 'timeout' }[mode];
@@ -205,7 +205,7 @@ test('offline bad parameters and ahead-of-provider targets cannot poison subsequ
   assert.equal(calls, 0);
   await assert.rejects(reader.transaction('mainnet', hash, 3, 120), /ahead/);
   assert.equal((await reader.activity('mainnet')).status, 'live');
-  assert.equal(calls, 5);
+  assert.equal(calls, 4);
 });
 test('offline concurrent identical targeted reads share bounded upstream work', async () => {
   let calls = 0;
@@ -216,4 +216,71 @@ test('offline concurrent identical targeted reads share bounded upstream work', 
   }), () => 'unit-test-only-token', () => clock, () => {});
   const result = await Promise.all(Array.from({length:20}, () => reader.transaction('mainnet', hash, 3, 80)));
   assert.equal(calls, 3); assert(result.every(item => item === result[0]));
+});
+
+test('offline both-network previews share a conservative provider budget and keep original cache times', async () => {
+  let time = clock, calls = 0;
+  const reader = createHyperSyncReader(transport((url, body) => {
+    calls++;
+    if (url.endsWith('/height')) return { height: 120 };
+    const network = url.includes('monad-testnet') ? 'testnet' : 'mainnet';
+    const response = page(body.from_block, body.to_block, body.to_block - 1);
+    return { ...response, data: { blocks: response.data.blocks.map(b => ({ ...b, timestamp: time / 1000 })),
+      logs: [{ ...response.data.logs[0], address: CHAIN_INFO[network].contract }] } };
+  }), () => 'unit-test-only-token', () => time, () => {});
+  const initial = await Promise.all([reader.activity('mainnet'), reader.activity('testnet')]);
+  assert.equal(calls, 4);
+  time += 29999;
+  const cached = await Promise.all([reader.activity('mainnet'), reader.activity('testnet')]);
+  assert.strictEqual(cached[0], initial[0]); assert.strictEqual(cached[1], initial[1]);
+  assert.equal(cached[0].receivedAt, new Date(clock).toISOString());
+  assert.equal(calls, 4);
+  time++;
+  const refreshed = await Promise.all([reader.activity('mainnet'), reader.activity('testnet')]);
+  assert.equal(calls, 8);
+  assert.equal(refreshed[0].receivedAt, new Date(time).toISOString());
+});
+
+test('offline target lookup pressure cannot consume the reserved preview budget or extend stale cache', async () => {
+  let time = clock, calls = 0;
+  const reader = createHyperSyncReader(transport((url, body) => {
+    calls++;
+    if (url.endsWith('/height')) return { height: 120 };
+    const network = url.includes('monad-testnet') ? 'testnet' : 'mainnet';
+    if (body.from_block === 119) return { archive_height: 120, next_block: 120, data: { blocks: [block(119, time / 1000)] } };
+    const response = page(body.from_block, body.to_block, body.to_block - 1);
+    return { ...response, data: { blocks: response.data.blocks.map(b => ({ ...b, timestamp: time / 1000 })),
+      logs: [{ ...response.data.logs[0], address: CHAIN_INFO[network].contract }] } };
+  }), () => 'unit-test-only-token', () => time, () => {});
+  await Promise.all([reader.activity('mainnet'), reader.activity('testnet')]);
+  await reader.transaction('mainnet', hash, 3, 80);
+  await reader.transaction('testnet', hash, 3, 80);
+  assert.equal(calls, 10);
+  await assert.rejects(reader.transaction('mainnet', hash, 3, 80), /budget/);
+  assert.equal(calls, 11);
+  time += 30000;
+  const fresh = await Promise.all([reader.activity('mainnet'), reader.activity('testnet')]);
+  assert.equal(calls, 15);
+  assert.equal(fresh[0].receivedAt, new Date(time).toISOString());
+  for (let i = 0; i < 10; i++) await assert.rejects(reader.transaction('mainnet', hash, 3, 80), /budget/);
+  assert.equal(calls, 15);
+  time += 30000;
+  await Promise.all([reader.activity('mainnet'), reader.activity('testnet')]);
+  assert.equal(calls, 19);
+});
+
+test('offline target HTTP400 does not poison a valid activity cache or disclose provider text', async () => {
+  let calls = 0;
+  const reader = createHyperSyncReader((async (input: any, init: any) => {
+    calls++;
+    const body = init?.body ? JSON.parse(init.body) : undefined;
+    if (String(input).endsWith('/height')) return new Response(JSON.stringify({ height: 120 }));
+    if (body.from_block === 80) return new Response('private-offline-error-body', { status: 400 });
+    return new Response(JSON.stringify(body.from_block === 119
+      ? { archive_height: 120, next_block: 120, data: { blocks: [block()] } } : page()));
+  }) as typeof fetch, () => 'unit-test-only-token', () => clock, () => {});
+  const activity = await reader.activity('mainnet');
+  await assert.rejects(reader.transaction('mainnet', hash, 3, 80), error => error instanceof Error && !error.message.includes('private-offline'));
+  assert.strictEqual(await reader.activity('mainnet'), activity);
+  assert.equal(calls, 5);
 });

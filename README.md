@@ -50,9 +50,11 @@ Needs Node 24 (Node 22 also passes the backend tests).
 cp .env.example .env          # set ENVIO_API_TOKEN (free at https://envio.dev/app/api-tokens) and ENVIO_DATA_SOURCE=hypersync
 npm ci && npm --prefix web ci
 npm --prefix web run build
-npm start                     # http://127.0.0.1:4100
-npm test && npm run typecheck # 123 backend tests
+npm start                     # loads .env; http://127.0.0.1:4100
+npm test && npm run typecheck # backend tests
 ```
+
+`npm start` loads the optional local `.env` file before the server starts. Existing shell environment variables take precedence; a checkout without `.env` still starts with its defaults.
 
 The production deployment is Vercel (`vercel.json`), with `ENVIO_DATA_SOURCE=hypersync` and `ENVIO_API_TOKEN` set as server-side environment variables.
 

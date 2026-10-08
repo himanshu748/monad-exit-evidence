@@ -29,7 +29,7 @@ If any source is down or stale, the app says "unavailable". It never falls back 
 
 **Who it is for.** Teams building trading tools, risk dashboards and protocol integrations on Monad who need to trust their event adapters, and anyone who wants to see what actually happened on Perpl rather than what a feed says happened.
 
-**How it is built.** React/Vite front end; a read-only Node 24 function on Vercel; Envio HyperSync for exchange logs on both Monad networks; Monad public RPC for receipts and blocks; viem for strict ABI decoding; Perpl's public API for markets and books. The repo also contains an Envio HyperIndex indexer (config, schema, handlers for 8 Exchange events on two chains) that ran as a local worker during development. 123 backend tests pass.
+**How it is built.** React/Vite front end; a read-only Node 24 function on Vercel; Envio HyperSync for exchange logs on both Monad networks; Monad public RPC for receipts and blocks; viem for strict ABI decoding; Perpl's public API for markets and books. The repo also contains an Envio HyperIndex indexer (config, schema, handlers for 8 Exchange events on two chains) that ran as a local worker during development. Backend regression tests cover parsing, provenance, freshness and failure handling.
 
 **Built during Metropolis.** The repository was created on 1 October 2026 and its full history is public. AI coding tools were used and are disclosed in the README: [NAME THE TOOLS].
 
@@ -61,7 +61,7 @@ Envio is the data backbone of the app's activity and evidence features.
 
 ## Judge access instructions (optional)
 
-No login needed. Open https://monad-exit-evidence.vercel.app, choose a network, open Activity, pick any event and run the evidence check. If the activity panel shows "unavailable", the free HyperSync quota is momentarily exhausted; wait a minute and refresh. The app never shows sample data instead.
+No login needed. Open https://monad-exit-evidence.vercel.app, choose a network, open Activity, pick any event and run the evidence check. If the activity panel shows "unavailable", it cannot currently provide fresh, complete, validated indexed data. Possible causes include rate limits, missing or invalid credentials, provider errors, and stale or incomplete data. Waiting a minute and refreshing may help with a temporary failure, but it is not a guaranteed fix. If the problem persists, the operator should check the server diagnostics and configuration. The app never shows sample data instead.
 
 ## Videos
 

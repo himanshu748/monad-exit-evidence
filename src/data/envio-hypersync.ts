@@ -78,6 +78,9 @@ class HyperSyncFailure extends Error {
 }
 const FAILURE_COOLDOWN = 8000, DIAGNOSTIC_COOLDOWN = 30_000, MAX_TARGET_READS = 4;
 const CACHE_MILLISECONDS = 30_000, REQUEST_WINDOW = 60_000, MAX_PROVIDER_REQUESTS = 15, PREVIEW_RESERVE = 4;
+const MAX_CACHED_BLOCKS = 16, MAX_CACHED_EVENTS = 4000;
+type Cached<T> = { at: number; expiresAt: number; value: T };
+type Head = { height: number; hash: string; timestamp: number };
 const SHARED_TARGET_FAILURES = new Set<FailureReason>(['token-missing', 'token-whitespace', 'token-invalid', 'http-401', 'http-403', 'http-429', 'http-5xx', 'timeout', 'transport', 'stale-head']);
 const HTTP_STATUSES = new Set([400, 401, 403, 404, 413, 429, 500, 502, 503, 504]);
 
@@ -85,9 +88,36 @@ export function createHyperSyncReader(transport: typeof fetch = fetch, token: ()
   const cache = new Map<Network, { at: number; expiresAt: number; activity: EnvioActivity }>();
   const pending = new Map<Network, Promise<EnvioActivity>>();
   const targets = new Map<string, Promise<EnvioActivity>>();
+  const targetCache = new Map<string, Cached<EnvioActivity>>();
+  const heads = new Map<Network, Cached<Head>>();
+  const pendingHeads = new Map<Network, Promise<Cached<Head>>>();
+  const generations = new Map<Network, number>();
   const failures = new Map<Network, { at: number; until: number; failure: HyperSyncFailure }>();
   const reported = new Map<string, number>(); // Two networks times a fixed finite reason set.
   const requests: number[] = []; // Shared by both networks in this reader instance, never a distributed quota guarantee.
+  function fresh<T>(entry: Cached<T> | undefined): entry is Cached<T> {
+    return entry !== undefined && now() >= entry.at && now() < entry.expiresAt;
+  }
+  function invalidate(network: Network) {
+    generations.set(network, (generations.get(network) ?? 0) + 1);
+    cache.delete(network);
+    heads.delete(network);
+    pendingHeads.delete(network);
+    for (const key of targetCache.keys()) if (key.startsWith(`${network}:`)) targetCache.delete(key);
+  }
+  function rememberTarget(key: string, activity: EnvioActivity) {
+    for (const [key, entry] of targetCache) if (!fresh(entry)) targetCache.delete(key);
+    // Keep the original source/query times. Reuse must never make evidence younger.
+    targetCache.set(key, { at: now(), expiresAt: Math.min(now() + CACHE_MILLISECONDS,
+      Date.parse(activity.receivedAt) + CACHE_MILLISECONDS,
+      Date.parse(activity.providerHeadObservedAt!) + 300_000), value: activity });
+    let count = [...targetCache.values()].reduce((sum, entry) => sum + entry.value.events.length, 0);
+    while (targetCache.size > MAX_CACHED_BLOCKS || count > MAX_CACHED_EVENTS) {
+      const oldest = targetCache.keys().next().value!;
+      count -= targetCache.get(oldest)!.value.events.length;
+      targetCache.delete(oldest);
+    }
+  }
   function takeProviderSlot(target: boolean) {
     const time = now();
     while (requests.length && time >= requests[0] + REQUEST_WINDOW) requests.shift();
@@ -137,20 +167,38 @@ export function createHyperSyncReader(transport: typeof fetch = fetch, token: ()
     try { return record(JSON.parse(await boundedText(response, 2_000_000))); }
     catch { throw new HyperSyncFailure(signal.aborted ? 'timeout' : 'parse', 'Invalid HyperSync response'); }
   }
-  async function read(network: Network, target?: { hash: string; logIndex: number; blockNumber: number }): Promise<EnvioActivity> {
-    const started = now(), deadline = AbortSignal.timeout(20_000);
-    // Keep the strict 16-block preview and prove every scanned block.
-    const height = integer((await query(network, '/height', undefined, deadline, !!target)).height);
-    if (height < 1) throw new HyperSyncFailure('coverage', 'HyperSync has not indexed a block');
-    let head: { hash: string; timestamp: number } | undefined;
-    if (target) {
-      const headPage = parseHyperSyncPage(await query(network, '/query', { from_block: height - 1, to_block: height,
+  async function targetHead(network: Network, blockNumber: number, deadline: AbortSignal): Promise<Cached<Head>> {
+    const cached = heads.get(network);
+    // A newly observed block must not wait for an older cached head to expire.
+    if (fresh(cached) && cached.value.height > blockNumber) return cached;
+    const pending = pendingHeads.get(network);
+    if (pending) return pending;
+    const generation = generations.get(network) ?? 0;
+    const task = (async () => {
+      const at = now();
+      const height = integer((await query(network, '/height', undefined, deadline, true)).height);
+      if (height < 1) throw new HyperSyncFailure('coverage', 'HyperSync has not indexed a block');
+      const page = parseHyperSyncPage(await query(network, '/query', { from_block: height - 1, to_block: height,
         include_all_blocks: true, field_selection: { block: FIELD_SELECTION.block }, max_num_blocks: 1 }, deadline, true), network, height - 1, height, false);
-      head = headPage.blocks.get(height - 1);
-      if (!head || headPage.nextBlock !== height) throw new HyperSyncFailure('coverage', 'HyperSync head not covered');
-      const headAge = now() - head.timestamp * 1000;
-      if (headAge > 300_000 || headAge < -30_000) throw new HyperSyncFailure('stale-head', 'HyperSync head is stale');
-    }
+      const block = page.blocks.get(height - 1);
+      if (!block || page.nextBlock !== height) throw new HyperSyncFailure('coverage', 'HyperSync head not covered');
+      const age = now() - block.timestamp * 1000;
+      if (age > 300_000 || age < -30_000) throw new HyperSyncFailure('stale-head', 'HyperSync head is stale');
+      const entry = { at, expiresAt: Math.min(at + CACHE_MILLISECONDS, block.timestamp * 1000 + 300_000), value: { height, ...block } };
+      if (generation === (generations.get(network) ?? 0) && !failures.has(network)) heads.set(network, entry);
+      return entry;
+    })();
+    pendingHeads.set(network, task);
+    try { return await task; } finally { if (pendingHeads.get(network) === task) pendingHeads.delete(network); }
+  }
+  async function read(network: Network, target?: { blockNumber: number }): Promise<EnvioActivity> {
+    const started = now(), deadline = AbortSignal.timeout(20_000);
+    const generation = generations.get(network) ?? 0;
+    // Keep the strict 16-block preview and prove every scanned block.
+    const headProof = target ? await targetHead(network, target.blockNumber, deadline) : undefined;
+    const height = headProof ? headProof.value.height : integer((await query(network, '/height', undefined, deadline)).height);
+    if (height < 1) throw new HyperSyncFailure('coverage', 'HyperSync has not indexed a block');
+    let head: { hash: string; timestamp: number } | undefined = headProof?.value;
     const fromBlock = target ? target.blockNumber : Math.max(0, height - WINDOW_BLOCKS);
     const toBlock = target ? fromBlock + 1 : height;
     // A valid but not-yet-indexed target must not poison reads for the network.
@@ -182,19 +230,21 @@ export function createHyperSyncReader(transport: typeof fetch = fetch, token: ()
     if (cursor !== toBlock) throw new HyperSyncFailure('coverage', 'HyperSync window incomplete');
     if (!head) throw new HyperSyncFailure('coverage', 'HyperSync head not covered');
     if (now() - head.timestamp * 1000 > 300_000) throw new HyperSyncFailure('stale-head', 'HyperSync head is stale');
-    const selected = [...events.values()].filter(event => !target || (event.transactionHash === target.hash && event.logIndex === target.logIndex));
+    if (!target && generation === (generations.get(network) ?? 0) && !failures.has(network)) {
+      heads.set(network, { at: started, expiresAt: Math.min(started + CACHE_MILLISECONDS, head.timestamp * 1000 + 300_000), value: { height, ...head } });
+    }
     return { status: 'live', source: 'ENVIO', engine: 'HYPERSYNC', sourceUrl: ORIGINS[network], chainId: CHAIN_INFO[network].chainId,
       watermark: cursor - 1, providerHead: height - 1, providerHeadObservedAt: new Date(head.timestamp * 1000).toISOString(), windowStartBlock: fromBlock, receivedAt: new Date(started).toISOString(),
-      events: selected.sort((a,b) => b.blockNumber - a.blockNumber || b.logIndex - a.logIndex).slice(0, target ? 1 : 50) };
+      events: [...events.values()].sort((a,b) => b.blockNumber - a.blockNumber || b.logIndex - a.logIndex).slice(0, target ? MAX_LOGS : 50) };
   }
-  async function guardedRead(network: Network, target?: { hash: string; logIndex: number; blockNumber: number }) {
+  async function guardedRead(network: Network, target?: { blockNumber: number }) {
     requireSource(network);
     try { return await read(network, target); }
     catch (error) {
       const failure = error instanceof HyperSyncFailure ? error : new HyperSyncFailure('parse', 'Invalid HyperSync response');
       if (failure.reason !== 'target-ahead' && failure.reason !== 'capacity' && (!target || SHARED_TARGET_FAILURES.has(failure.reason))) {
         const at = now(); failures.set(network, { at, until: at + FAILURE_COOLDOWN, failure });
-        cache.delete(network);
+        invalidate(network);
       }
       report(network, failure);
       throw failure;
@@ -206,9 +256,10 @@ export function createHyperSyncReader(transport: typeof fetch = fetch, token: ()
     if (cached && now() >= cached.at && now() < cached.expiresAt) return cached.activity;
     const inFlight = pending.get(network);
     if (inFlight) return inFlight;
+    const generation = generations.get(network) ?? 0;
     const task = guardedRead(network).then(activity => {
       // Another concurrent read may have failed; it still owns the cooldown.
-      if (!failures.has(network)) cache.set(network, { at: now(), expiresAt: Math.min(now() + CACHE_MILLISECONDS,
+      if (generation === (generations.get(network) ?? 0) && !failures.has(network)) cache.set(network, { at: now(), expiresAt: Math.min(now() + CACHE_MILLISECONDS,
         Date.parse(activity.receivedAt) + 120_000, Date.parse(activity.providerHeadObservedAt!) + 300_000), activity });
       return activity;
     });
@@ -219,11 +270,22 @@ export function createHyperSyncReader(transport: typeof fetch = fetch, token: ()
     // Validate user parameters before shared provider state or upstream access.
     const target = { hash: hex(transactionHash, 64), logIndex: safeInteger(logIndex), blockNumber: safeInteger(blockNumber) };
     requireSource(network);
-    const key = `${network}:${target.hash}:${target.logIndex}:${target.blockNumber}`, existing = targets.get(key);
-    if (existing) return existing;
+    const key = `${network}:${target.blockNumber}`;
+    const select = (activity: EnvioActivity): EnvioActivity => ({ ...activity,
+      events: activity.events.filter(event => event.transactionHash === target.hash && event.logIndex === target.logIndex) });
+    const cached = targetCache.get(key);
+    if (fresh(cached)) return select(cached.value);
+    targetCache.delete(key);
+    const existing = targets.get(key);
+    if (existing) return select(await existing);
     if (targets.size >= MAX_TARGET_READS) throw new HyperSyncFailure('capacity', 'HyperSync lookup capacity reached');
-    const task = guardedRead(network, target); targets.set(key, task);
-    try { return await task; } finally { targets.delete(key); }
+    const generation = generations.get(network) ?? 0;
+    const task = guardedRead(network, target).then(activity => {
+      if (generation === (generations.get(network) ?? 0) && !failures.has(network)) rememberTarget(key, activity);
+      return activity;
+    });
+    targets.set(key, task);
+    try { return select(await task); } finally { targets.delete(key); }
   }
   return { activity, transaction };
 }

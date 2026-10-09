@@ -215,7 +215,7 @@ test('offline concurrent identical targeted reads share bounded upstream work', 
     return body.from_block === 119 ? { archive_height: 120, next_block: 120, data: { blocks: [block()] } } : page(80,81,80);
   }), () => 'unit-test-only-token', () => clock, () => {});
   const result = await Promise.all(Array.from({length:20}, () => reader.transaction('mainnet', hash, 3, 80)));
-  assert.equal(calls, 3); assert(result.every(item => item === result[0]));
+  assert.equal(calls, 3); result.forEach(item => assert.deepEqual(item, result[0]));
 });
 
 test('offline both-network previews share a conservative provider budget and keep original cache times', async () => {
@@ -255,8 +255,11 @@ test('offline target lookup pressure cannot consume the reserved preview budget 
   await Promise.all([reader.activity('mainnet'), reader.activity('testnet')]);
   await reader.transaction('mainnet', hash, 3, 80);
   await reader.transaction('testnet', hash, 3, 80);
-  assert.equal(calls, 10);
-  await assert.rejects(reader.transaction('mainnet', hash, 3, 80), /budget/);
+  assert.equal(calls, 6);
+  for (let number = 81; number < 86; number++) await reader.transaction('mainnet', hash, 3, number);
+  assert.equal(calls, 11);
+  assert.equal((await reader.transaction('mainnet', hash, 3, 80)).events.length, 1);
+  await assert.rejects(reader.transaction('mainnet', hash, 3, 86), /budget/);
   assert.equal(calls, 11);
   time += 30000;
   const fresh = await Promise.all([reader.activity('mainnet'), reader.activity('testnet')]);
@@ -282,5 +285,182 @@ test('offline target HTTP400 does not poison a valid activity cache or disclose 
   const activity = await reader.activity('mainnet');
   await assert.rejects(reader.transaction('mainnet', hash, 3, 80), error => error instanceof Error && !error.message.includes('private-offline'));
   assert.strictEqual(await reader.activity('mainnet'), activity);
+  assert.equal(calls, 3);
+});
+
+test('eight distinct aged blocks reuse the verified preview head, and repeated rows cost no provider reads', async () => {
+  let calls = 0, time = clock;
+  const reader = createHyperSyncReader(transport((url, body) => {
+    calls++;
+    if (url.endsWith('/height')) return { height: 120 };
+    return page(body.from_block, body.to_block, body.to_block - 1);
+  }), () => 'unit-test-only-token', () => time, () => {});
+  await reader.activity('mainnet');
+  time += 12000;
+  const results = [];
+  for (let number = 80; number < 88; number++) results.push(await reader.transaction('mainnet', hash, 3, number));
+  assert.equal(calls, 10); // Two preview reads, then only one query per distinct block.
+  for (const [i, result] of results.entries()) {
+    assert.equal(result.events[0].blockNumber, 80 + i);
+    assert.equal(result.providerHeadObservedAt, new Date(clock).toISOString());
+    assert.deepEqual(await reader.transaction('mainnet', hash, 3, 80 + i), result);
+  }
+  assert.equal(calls, 10);
+});
+
+test('different transactions and logs in one historical block share its complete read without leaking another row', async () => {
+  let calls = 0;
+  const logs = Array.from({ length: 8 }, (_, i) => ({ ...log(80), log_index: i, transaction_hash: '0x' + String(i + 1).repeat(64) }));
+  const reader = createHyperSyncReader(transport((url, body) => {
+    calls++;
+    if (url.endsWith('/height')) return { height: 120 };
+    if (!body.logs) return { archive_height: 120, next_block: 120, data: { blocks: [block()] } };
+    return { ...page(80, 81, 80), data: { blocks: [block(80)], logs } };
+  }), () => 'unit-test-only-token', () => clock, () => {});
+  const results = await Promise.all(logs.map(item => reader.transaction('mainnet', item.transaction_hash, item.log_index, 80)));
+  assert.equal(calls, 3);
+  for (const [i, result] of results.entries()) {
+    assert.equal(result.events.length, 1);
+    assert.equal(result.events[0].transactionHash, logs[i].transaction_hash);
+    assert.equal(result.events[0].logIndex, i);
+  }
+  assert.equal((await reader.transaction('mainnet', hash, 3, 80)).events.length, 0);
+  assert.equal((await reader.transaction('mainnet', logs[0].transaction_hash, 7, 80)).events.length, 0);
+  assert.equal(calls, 3); // Covered omissions reuse genuine complete coverage too.
+});
+
+test('concurrent distinct blocks share head reads, but never share across networks', async () => {
+  let calls = 0;
+  const reader = createHyperSyncReader(transport((url, body) => {
+    calls++;
+    if (url.endsWith('/height')) return { height: 120 };
+    if (!body.logs) return { archive_height: 120, next_block: 120, data: { blocks: [block()] } };
+    const network = url.includes('monad-testnet') ? 'testnet' : 'mainnet';
+    const value = page(body.from_block, body.to_block, body.from_block);
+    return { ...value, data: { ...value.data, logs: value.data.logs.map(item => ({ ...item, address: CHAIN_INFO[network].contract })) } };
+  }), () => 'unit-test-only-token', () => clock, () => {});
+  const [a, b] = await Promise.all([reader.transaction('mainnet', hash, 3, 80), reader.transaction('mainnet', hash, 3, 81)]);
+  assert.equal(calls, 4);
+  assert.equal(a.events[0].blockNumber, 80); assert.equal(b.events[0].blockNumber, 81);
+  const other = await reader.transaction('testnet', hash, 3, 80);
+  assert.equal(calls, 7);
+  assert.equal(other.events[0].chainId, 10143);
+  assert.equal(other.events[0].contract, CHAIN_INFO.testnet.contract);
+});
+
+test('completed block and head caches expire without rewriting source timestamps', async () => {
+  let calls = 0, time = clock;
+  const reader = createHyperSyncReader(transport((url, body) => {
+    calls++;
+    if (url.endsWith('/height')) return { height: 120 };
+    if (!body.logs) return { archive_height: 120, next_block: 120, data: { blocks: [block(119, time / 1000)] } };
+    return page(80, 81, 80);
+  }), () => 'unit-test-only-token', () => time, () => {});
+  const first = await reader.transaction('mainnet', hash, 3, 80);
+  time += 29999;
+  assert.deepEqual(await reader.transaction('mainnet', hash, 3, 80), first);
+  assert.equal(calls, 3);
+  time++;
+  const refreshed = await reader.transaction('mainnet', hash, 3, 80);
+  assert.equal(calls, 6);
+  assert.equal(first.receivedAt, new Date(clock).toISOString());
+  assert.equal(refreshed.receivedAt, new Date(time).toISOString());
+  assert.equal(refreshed.providerHeadObservedAt, new Date(time).toISOString());
+});
+
+test('historical cache cannot outlive provider freshness, even when a newer preview refreshes the head cache', async () => {
+  let time = clock, calls = 0;
+  const reader = createHyperSyncReader(transport((url, body) => {
+    calls++;
+    if (url.endsWith('/height')) return { height: 120 };
+    if (!body.logs) return { archive_height: 120, next_block: 120, data: { blocks: [block(119, clock / 1000 - 299)] } };
+    const value = page(body.from_block, body.to_block, body.to_block - 1);
+    if (body.from_block === 104) value.data.blocks = value.data.blocks.map(b => ({ ...b, timestamp: time / 1000 }));
+    return value;
+  }), () => 'unit-test-only-token', () => time, () => {});
+  const first = await reader.transaction('mainnet', hash, 3, 80);
+  await reader.activity('mainnet');
+  time += 1001;
+  const refreshed = await reader.transaction('mainnet', hash, 3, 80);
+  assert.equal(calls, 6);
+  assert.notEqual(refreshed.providerHeadObservedAt, first.providerHeadObservedAt);
+  assert.equal(refreshed.receivedAt, new Date(time).toISOString());
+});
+
+test('shared upstream failures invalidate cached historical evidence until recovery', async () => {
+  let time = clock, calls = 0, fail = false;
+  const reader = createHyperSyncReader((async (input, init) => {
+    calls++;
+    if (fail) return new Response('', { status: 429 });
+    const body = init?.body ? JSON.parse(String(init.body)) : null;
+    return new Response(JSON.stringify(String(input).endsWith('/height') ? { height: 120 }
+      : !body.logs ? { archive_height: 120, next_block: 120, data: { blocks: [block()] } }
+      : page(body.from_block, body.to_block, body.from_block)));
+  }) as typeof fetch, () => 'unit-test-only-token', () => time, () => {});
+  await reader.transaction('mainnet', hash, 3, 80);
+  fail = true;
+  await assert.rejects(reader.transaction('mainnet', hash, 3, 81));
+  const failedCalls = calls;
+  await assert.rejects(reader.transaction('mainnet', hash, 3, 80));
+  assert.equal(calls, failedCalls);
+  time += 8000; fail = false;
+  await reader.transaction('mainnet', hash, 3, 80);
+  assert.equal(calls, failedCalls + 3);
+});
+
+test('a newly observed block refreshes an older cached head instead of returning target-ahead', async () => {
+  let height = 120, calls = 0;
+  const reader = createHyperSyncReader(transport((url, body) => {
+    calls++;
+    if (url.endsWith('/height')) return { height };
+    const value = page(body.from_block, body.to_block, body.to_block - 1);
+    value.archive_height = height;
+    if (!body.logs) value.data.logs = [];
+    return value;
+  }), () => 'unit-test-only-token', () => clock, () => {});
+  await reader.activity('mainnet');
+  height = 125;
+  const result = await reader.transaction('mainnet', hash, 3, 123);
   assert.equal(calls, 5);
+  assert.equal(result.events[0].blockNumber, 123);
+  assert.equal(result.providerHead, 124);
+});
+
+test('historical cache bounds retained events and refetches evicted blocks', async () => {
+  let calls = 0;
+  const reader = createHyperSyncReader(transport((url, body) => {
+    calls++;
+    if (url.endsWith('/height')) return { height: 120 };
+    if (!body.logs) return { archive_height: 120, next_block: 120, data: { blocks: [block()] } };
+    const number = body.from_block;
+    return { ...page(number, number + 1, number), data: { blocks: [block(number)],
+      logs: Array.from({ length: 2000 }, (_, i) => ({ ...log(number), log_index: i })) } };
+  }), () => 'unit-test-only-token', () => clock, () => {});
+  for (const number of [80, 81, 82]) await reader.transaction('mainnet', hash, 3, number);
+  assert.equal(calls, 5);
+  await reader.transaction('mainnet', hash, 3, 81);
+  assert.equal(calls, 5);
+  await reader.transaction('mainnet', hash, 3, 80);
+  assert.equal(calls, 6);
+});
+
+test('a read completing after a shared failure cannot repopulate invalidated historical caches', async () => {
+  let calls = 0, time = clock, finish: (() => void) | undefined;
+  const held = new Promise<void>(resolve => { finish = resolve; });
+  const reader = createHyperSyncReader((async (input, init) => {
+    calls++;
+    const body = init?.body ? JSON.parse(String(init.body)) : null;
+    if (String(input).endsWith('/height')) return Response.json({ height: 120 });
+    if (!body.logs) return Response.json({ archive_height: 120, next_block: 120, data: { blocks: [block()] } });
+    if (body.from_block === 81) return new Response('', { status: 429 });
+    await held;
+    return Response.json(page(80, 81, 80));
+  }) as typeof fetch, () => 'unit-test-only-token', () => time, () => {});
+  const first = reader.transaction('mainnet', hash, 3, 80);
+  await assert.rejects(reader.transaction('mainnet', hash, 3, 81));
+  finish!(); await first;
+  time += 8000;
+  const before = calls;
+  await reader.transaction('mainnet', hash, 3, 80);
+  assert.equal(calls, before + 3);
 });

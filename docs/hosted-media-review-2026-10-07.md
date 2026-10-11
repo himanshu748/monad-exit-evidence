@@ -1,5 +1,7 @@
 # Fresh hosted media review — October 7, 2026
 
+> Historical October 7 record. The private-video and incomplete-entry statements below describe that date. On October 9, both videos were published as unlisted and the existing entry was verified Ready for judging, 5 / 5 complete. See the [submission receipt](submission-receipt-2026-10-09.md) and [later cache-fix validation](lookup-cache-validation-2026-10-09.md).
+
 Fresh footage records the public hosted HyperSync app on both Monad networks at 07:40–07:44 UTC. Both recordings show real receipt comparisons, unchanged exports and network reset. No browser errors or mutation requests were recorded. These are point-in-time observations after the initial token boost elapsed; no quota-cost or sustained-uptime guarantee follows.
 
 Final technical video: 107.24 seconds. Final pitch: 67.96 seconds. Deepgram Aura-2 Thalia provides synthetic narration, disclosed in prepared upload descriptions. Two narration requests used 2,076 characters; estimated new usage $0.06228, cumulative $0.16542 within the approved $0.25 ceiling. Actual account billing was not available. No further narration request was made.

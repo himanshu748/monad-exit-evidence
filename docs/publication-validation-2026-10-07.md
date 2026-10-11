@@ -1,5 +1,7 @@
 # Local verification and hosted activation status — October 7, 2026
 
+> Historical October 7 record. The private-video and incomplete-entry statements below describe that date. On October 9, both videos were published as unlisted and the existing entry was verified Ready for judging, 5 / 5 complete. See the [submission receipt](submission-receipt-2026-10-09.md) and [later cache-fix validation](lookup-cache-validation-2026-10-09.md).
+
 This dated record separates local HyperIndex checks, the earlier unavailable production state, and the subsequent hosted HyperSync proof. The October 5 application checkpoint was [`15eedc6b9ba93e7e378046ff3d380a170ab099ab`](https://github.com/himanshu748/monad-exit-evidence/commit/15eedc6b9ba93e7e378046ff3d380a170ab099ab); its documentation base was [`54640ae4f7fdc31286dd3bdb4a76115b603836ff`](https://github.com/himanshu748/monad-exit-evidence/commit/54640ae4f7fdc31286dd3bdb4a76115b603836ff). Reviewed October 7 source [`e1fc35108e3ec344ed7da570d69f5b538c43a695`](https://github.com/himanshu748/monad-exit-evidence/commit/e1fc35108e3ec344ed7da570d69f5b538c43a695) adds worker lifecycle fixes, HyperSync request/cache guards and a historical-lookup verifier correction. The [October 5 publication/media record](publication-validation-2026-10-05.md) remains historical evidence; no final submission is claimed.
 
 ## Production observation

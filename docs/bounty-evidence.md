@@ -1,8 +1,8 @@
-# Bounty candidates and proof packet
+# Submitted bounty and proof packet
 
-Envio is the demonstrated target. The authenticated October 4 [catalog](https://hackathon.monad.xyz/api/v1/catalog) resolved the detailed criteria: the current product does not satisfy either Perpl bounty. [Current rules and fit](hackathon-rules-2026-10-04.md) records the exact deliverable gaps. CRE is omitted; Nansen has no authorized live integration.
+Envio — Best Use of Envio is the sole submitted bounty, under Trust, Identity & AI Infrastructure. The existing entry was verified Ready for judging on October 9; see the [submission receipt](submission-receipt-2026-10-09.md). The authenticated October 4 [catalog](https://hackathon.monad.xyz/api/v1/catalog) resolved the detailed criteria: the current product does not satisfy either Perpl bounty. [Current rules and fit](hackathon-rules-2026-10-04.md) records the exact deliverable gaps. CRE is omitted; Nansen has no authorized live integration.
 
-## Draft sponsor descriptions
+## Integration descriptions and excluded candidates
 
 ### Best Use of Envio
 
@@ -14,7 +14,7 @@ Useful result: public request, fill and position-decrease observations have insp
 
 Proof references: [HyperSync client](../src/data/envio-hypersync.ts), [source adapter](../src/data/envio.ts), [application receipt comparison](../src/data/observations.ts), [public historical verifier](../scripts/verify-mac-independent.mjs), and [dated hosted proof](publication-validation-2026-10-07.md). Retained HyperIndex references: [config](../integrations/envio/config.yaml), [schema](../integrations/envio/schema.graphql), [handlers](../integrations/envio/src/EventHandlers.ts), [supervisor](../integrations/envio/scripts/run-local.mjs), [local direct RPC decoder](../integrations/envio/scripts/verify-evidence.mjs), and [event tests](../tests/envio.test.ts).
 
-Remaining: maintain availability within free-provider quotas, record a fresh narrated demonstration of the final hosted build, and supply the required Envio explanation in the existing bounty form. Historical examples establish prior ingestion; they are not a live data fallback.
+The narrated hosted demonstration and Envio explanation were saved in the existing entry on October 9. The subsequent [cache improvement](lookup-cache-validation-2026-10-09.md) reduces repeated provider reads; availability remains subject to provider quotas. Historical examples establish prior ingestion; they are not a live data fallback.
 
 ### Best use of Perpl's API — requirements not satisfied
 
@@ -59,15 +59,14 @@ This separate receipt cross-check verifies indexed entities, including historica
 4. Independently fetch/decode its actual receipt and canonical block, comparing complete indexed values. Export the unchanged observation and inspect real ABI fields.
 5. Switch networks; inputs/evidence clear. Repeat with a real testnet event and check mobile readability.
 
-The [October 4 integration recording](real-integration-validation-2026-10-04.md) is historical HyperIndex evidence, not proof of the final deployed build or hosted HyperSync. October 1–3 rehearsal videos are also historical. The prepared technical recording is 98.44 seconds and pitch 66.15 seconds; their duration alone does not complete media requirements. After hosted verification, record the actual final deployed build and provide qualifying public/unlisted watch links. See [October 7 status](publication-validation-2026-10-07.md). No successful CRE CLI simulation or live Nansen feature should be narrated.
+The submitted [technical demo](https://youtu.be/Z6wp9TRV9Dw) and [pitch](https://youtu.be/wiKvrTWdOUE) are unlisted recordings of the October 7 hosted HyperSync build, with disclosed synthetic Deepgram narration and trims. They do not show the October 9 cache improvement. The [October 4 recording](real-integration-validation-2026-10-04.md) is historical HyperIndex evidence; October 1–3 rehearsal videos are also historical. No successful CRE CLI simulation or live Nansen feature should be narrated.
 
-## Before selecting candidates in the portal
+## Recorded portal status — October 9
 
-- [ ] Confirm exactly one primary track and its current eligibility criteria.
-- [x] Read the current signed-in sponsor descriptions: neither Perpl deliverable is satisfied.
-- [x] Envio explicitly allows stacking; the Perpl deliverable gaps still exclude those targets.
-- [ ] Keep current Perpl/Envio proof and a sustained accessible product available to judges.
-- [x] User explicitly approved the named GitHub/Vercel/temporary bridge destinations after correcting an accidental keep-local response.
-- [ ] Supply accurate team/contact/ownership information and personally accept the agreements.
+- Primary track: Trust, Identity & AI Infrastructure; sole bounty: Best Use of Envio.
+- Envio explanation, live/source links, technical demo, pitch, logo, description, GTM and access instructions saved.
+- Existing entry verified Ready for judging after reload; dashboard 5 / 5 complete.
+- Neither Perpl bounty is selected because the product does not satisfy the reviewed deliverables.
+- No separate final-submit button or agreement prompt appeared. The observed status does not establish organizer eligibility, additional legal acceptance or prize entitlement.
 
-All descriptions above are local draft copy. This packet does not create or alter a portal entry.
+These descriptions explain the implementation. The [dated receipt](submission-receipt-2026-10-09.md) records the portal action; the evidence command's `submissionReady: false` is not a portal-status query.

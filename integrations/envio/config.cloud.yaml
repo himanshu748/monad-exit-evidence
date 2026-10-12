@@ -1,0 +1,38 @@
+# yaml-language-server: $schema=./node_modules/envio/evm.schema.json
+#
+# Envio Cloud (hosted HyperIndex) variant of config.yaml.
+# Same contracts, events, schema and handlers as the local config, but with no
+# `rpc` blocks, so Envio Cloud syncs both Monad networks through HyperSync
+# instead of 100-block public-RPC eth_getLogs pages.
+#
+# Start blocks are recent on purpose: Perpl emits several events per block, and
+# the free Development plan has a 100,000-event soft limit. Bump both values to
+# fresh heads right before you deploy (see docs/envio-cloud-deployment.md).
+# This window is recent activity only, never complete exchange history.
+name: mandate-exchange-activity
+description: Read-only Perpl exchange events on Monad, indexed by Envio HyperIndex on Envio Cloud via HyperSync
+address_format: lowercase
+contracts:
+  - name: Exchange
+    abi_file_path: ./abis/Exchange.json
+    handler: ./src/EventHandlers.ts
+    events:
+      - event: OrderRequest
+      - event: OrderRequestV2
+      - event: MakerOrderFilled
+      - event: MakerOrderFilledV2
+      - event: TakerOrderFilled
+      - event: TakerOrderFilledV2
+      - event: PositionClosed
+      - event: PositionDecreased
+chains:
+  - id: 143
+    start_block: 111397000
+    contracts:
+      - name: Exchange
+        address: '0x34b6552d57a35a1d042ccae1951bd1c370112a6f'
+  - id: 10143
+    start_block: 69043000
+    contracts:
+      - name: Exchange
+        address: '0x1964c32f0be608e7d29302aff5e61268e72080cc'

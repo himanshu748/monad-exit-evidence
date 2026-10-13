@@ -62,7 +62,7 @@ The production deployment is Vercel (`vercel.json`), with `ENVIO_DATA_SOURCE=hyp
 
 - **Build window:** this repository was created on 1 October 2026, inside the Metropolis build window (1 September to 13 October 2026), and its full commit history is public. _Author: confirm here whether any code was written before 1 September 2026; if so, list it as pre-existing._
 - **Third-party code and data:** Perpl Exchange ABI from the [PerplFoundation dex-sdk](https://github.com/PerplFoundation/dex-sdk) and [API docs](https://github.com/PerplFoundation/api-docs); Envio HyperIndex/HyperSync; viem; React/Vite; embedded-postgres for the local worker. Versions are pinned in the lockfiles.
-- **AI coding tools:** AI coding assistants were used to write and test much of this code under the author's direction, and Claude Sonnet was used for written code and evidence reviews (see the dated records in `docs/`). _Author: name every AI tool you used here._
+- **AI coding tools:** OpenAI Codex was used to write and test much of this code under the author's direction, and Claude Sonnet was used for written code and evidence reviews (see the dated records in `docs/`).
 - **Narration:** the demo videos use synthetic Deepgram voice narration.
 - **License:** MIT (see `LICENSE`).
 
